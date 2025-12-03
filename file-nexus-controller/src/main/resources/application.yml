@@ -24,6 +24,11 @@ spring:
       port: 27017
       database: test
 
+temporal-config:
+  host: localhost
+  port: 7233
+  namespace: file-nexus
+
 file-config:
   file-to-schema-configs:
     - file-type: ${fileType1:}
@@ -56,14 +61,14 @@ file-contents-consumer-config:
 
 file-handler-config:
   file-prefix-to-types:
-    - prefix: ${fileType1.prefix}
-      fileType: ${fileType1}
+    - prefix: ${fileType1.prefix:}
+      fileType: ${fileType1:}
   metadata-parsing-configs:
-    - file-type: ${fileType1}
+    - file-type: ${fileType1:}
       metadata-parsing-config:
-        date-parsing-source: ${fileType1.metadata.dateParsingSource}
-        date-format: ${fileType1.metadata.dateFormat}
-        file-name-suffixes: ${fileType1.metadata.supportedNameSuffixes}
+        date-parsing-source: ${fileType1.metadata.dateParsingSource:}
+        date-format: ${fileType1.metadata.dateFormat:DDMMYYYY}
+        file-name-suffixes: ${fileType1.metadata.supportedNameSuffixes:}
 
 store-config:
   storeConfigEntry:

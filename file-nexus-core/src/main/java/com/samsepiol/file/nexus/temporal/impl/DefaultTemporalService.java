@@ -1,6 +1,8 @@
 package com.samsepiol.file.nexus.temporal.impl;
 
 import com.samsepiol.file.nexus.temporal.TemporalService;
+import com.samsepiol.library.temporal.config.TemporalConnectionConfig;
+import com.samsepiol.library.temporal.constants.Queues;
 import io.temporal.api.common.v1.WorkflowExecution;
 import io.temporal.api.enums.v1.WorkflowExecutionStatus;
 import io.temporal.api.workflowservice.v1.DescribeWorkflowExecutionRequest;
@@ -17,8 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class DefaultTemporalService implements TemporalService {
     private final WorkflowClient workflowClient;
-    // TODO
-//    private final TemporalConfig temporalConfig;
+    private final TemporalConnectionConfig temporalConfig;
     private final WorkflowServiceStubs workflowServiceStubs;
 
     @Override
@@ -26,8 +27,7 @@ public class DefaultTemporalService implements TemporalService {
         WorkflowServiceGrpc.WorkflowServiceBlockingStub stub = workflowServiceStubs.blockingStub();
         DescribeWorkflowExecutionRequest request =
                 DescribeWorkflowExecutionRequest.newBuilder()
-                        // TODO
-//                        .setNamespace(temporalConfig.getNamespace())
+                        .setNamespace(temporalConfig.getNamespace())
                         .setExecution(WorkflowExecution.newBuilder().setWorkflowId(workflowId))
                         .build();
         DescribeWorkflowExecutionResponse response = stub.describeWorkflowExecution(request);
@@ -38,8 +38,7 @@ public class DefaultTemporalService implements TemporalService {
     public <T> T newWorkflow(@NonNull String workFlowId, @NonNull Class<T> workflowClass) {
         var options = WorkflowOptions.newBuilder()
                 .setWorkflowId(workFlowId)
-                // TODO
-//                .setTaskQueue(TemporalConstants.WORKFLOW_QUEUE)
+                .setTaskQueue(Queues.WORKFLOWS)
                 .build();
 
         return newWorkflow(options, workflowClass);
