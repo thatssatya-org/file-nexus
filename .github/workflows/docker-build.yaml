@@ -19,6 +19,7 @@ jobs:
           docker image prune -f
   push-image:
     runs-on: self-hosted
+    needs: build-image
     steps:
       - name: Push to Docker Hub
         run: |
