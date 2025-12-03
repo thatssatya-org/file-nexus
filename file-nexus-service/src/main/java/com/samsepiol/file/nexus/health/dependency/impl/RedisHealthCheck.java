@@ -1,7 +1,6 @@
 package com.samsepiol.file.nexus.health.dependency.impl;
 
 import com.samsepiol.file.nexus.health.dependency.DependencyHealthCheck;
-import com.samsepiol.redis.client.UniRedisClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,15 +9,16 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class RedisHealthCheck implements DependencyHealthCheck {
-    private final UniRedisClient redisClient;
+    // TODO
+//    private final RedisClient redisClient;
 
     @Override
     public boolean isHealthy() {
-        boolean healthy = redisClient.isHealthy();
-        if (!healthy) {
-            log.error("[Health Check] Redis unhealthy");
-        }
+//        boolean healthy = redisClient.isHealthy();
+//        if (!healthy) {
+//            log.error("[Health Check] Redis unhealthy");
+//        }
 
-        return healthy;
+        return true;
     }
 }

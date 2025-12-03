@@ -5,7 +5,8 @@ import com.samsepiol.file.nexus.models.transfer.response.FileTransferResponse;
 import com.samsepiol.file.nexus.models.transfer.response.StoreConnectivityResponse;
 import com.samsepiol.file.nexus.transfer.IFileTransferService;
 import com.samsepiol.file.nexus.transfer.mapper.FileTransferAdapter;
-import com.samsepiol.logger.annotation.AccessLog;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-
 
 @RestController
 @RequestMapping("/v1/file-transfer")
 @RequiredArgsConstructor
-@AccessLog
-
 public class FileTransferController {
 
     private final IFileTransferService fileTransferService;

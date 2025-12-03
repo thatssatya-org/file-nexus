@@ -7,9 +7,6 @@ import com.samsepiol.file.nexus.storage.processor.FileProcessor;
 import com.samsepiol.file.nexus.storage.processor.FileProcessor.ProcessingResult;
 import com.samsepiol.file.nexus.storage.processor.impl.CsvToJsonProcessor;
 import com.samsepiol.file.nexus.storage.service.StorageHookMonitoringService;
-
-import com.samsepiol.kafka.client.IProducerClient;
-import com.samsepiol.temporal.annotations.TemporalActivity;
 import io.temporal.activity.Activity;
 import io.temporal.activity.ActivityExecutionContext;
 import lombok.RequiredArgsConstructor;
@@ -27,12 +24,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@TemporalActivity
+
 public class KafkaFileProcessingActivityImpl implements IKafkaFileProcessingActivity {
 
     private final Map<String, FileProcessor> fileProcessors = new ConcurrentHashMap<>();
     private final StorageHookMonitoringService storageHookMonitoringService;
-    private final IProducerClient producerClient;
+//    private final IProducerClient producerClient;
     
     
 
@@ -115,9 +112,10 @@ public class KafkaFileProcessingActivityImpl implements IKafkaFileProcessingActi
                     for (String jsonRecord : result.jsonData()) {
                         try {
                             log.info("Sending JSON record to Kafka topic {}: {}", topicName, jsonRecord);
-                            producerClient.sendMessage("surrogate", topicName,
-                                    getKafkaKey(jsonRecord,key, fileName),
-                                    jsonRecord);
+                            // TODO
+//                            producerClient.sendMessage("surrogate", topicName,
+//                                    getKafkaKey(jsonRecord,key, fileName),
+//                                    jsonRecord);
                             totalDataRecordsSent++;
                         } catch (Exception kafkaException) {
                             log.error("Failed to send record to Kafka for file {}: {}", fileName, kafkaException.getMessage(), kafkaException);
@@ -202,7 +200,8 @@ public class KafkaFileProcessingActivityImpl implements IKafkaFileProcessingActi
     private FileProcessor getFileProcessor(String processorType) {
         return fileProcessors.computeIfAbsent(processorType, key -> {
             if ("CSV_TO_JSON".equals(key)) {
-                return new CsvToJsonProcessor(eventHelper, metricHelper);
+                // TODO
+                return new CsvToJsonProcessor();
             }
             throw new IllegalArgumentException("Unknown processor type: " + processorType);
         });
@@ -222,11 +221,11 @@ public class KafkaFileProcessingActivityImpl implements IKafkaFileProcessingActi
             );
 
             if (recordsSent > 0) {
-                metricHelper.incrementCounter(KAFKA_RECORDS_SENT_COUNT_METRIC, tags, recordsSent);
+//                metricHelper.incrementCounter(KAFKA_RECORDS_SENT_COUNT_METRIC, tags, recordsSent);
             }
 
             if (recordsFailed > 0) {
-                metricHelper.incrementCounter(KAFKA_RECORDS_FAILED_COUNT_METRIC, tags, recordsFailed);
+//                metricHelper.incrementCounter(KAFKA_RECORDS_FAILED_COUNT_METRIC, tags, recordsFailed);
             }
             
         } catch (Exception e) {

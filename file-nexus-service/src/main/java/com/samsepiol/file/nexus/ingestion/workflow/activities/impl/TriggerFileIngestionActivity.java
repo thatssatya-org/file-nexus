@@ -3,7 +3,7 @@ package com.samsepiol.file.nexus.ingestion.workflow.activities.impl;
 import com.samsepiol.file.nexus.ingestion.workflow.activities.ITriggerFileIngestionActivity;
 import com.samsepiol.file.nexus.storage.models.PollResult;
 import com.samsepiol.file.nexus.storage.service.StorageHookMonitoringService;
-import com.samsepiol.temporal.annotations.TemporalActivity;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@TemporalActivity
+
 public class TriggerFileIngestionActivity implements ITriggerFileIngestionActivity {
 
     private final StorageHookMonitoringService storageHookMonitoringService;

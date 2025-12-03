@@ -11,7 +11,7 @@ import com.samsepiol.file.nexus.storage.hook.StorageHook;
 import com.samsepiol.file.nexus.storage.models.FileInfo;
 import com.samsepiol.file.nexus.storage.service.StorageHookMonitoringService;
 
-import com.samsepiol.temporal.annotations.TemporalActivity;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ import java.util.Optional;
 
 @Slf4j
 @Component
-@TemporalActivity
+
 @RequiredArgsConstructor
 public class SendToDestinationActivity implements ISendToDestinationActivity {
 
@@ -132,8 +132,8 @@ public class SendToDestinationActivity implements ISendToDestinationActivity {
     }
 
     private void emmitMetric(String metricName, String source, AbstractDestinationConfig destinationConfig) {
-        metricHelper.incrementCounter(METRIC_PREFIX + metricName,
-                Map.of("source", source, "destination", destinationConfig.getType().name()));
+//        metricHelper.incrementCounter(METRIC_PREFIX + metricName,
+//                Map.of("source", source, "destination", destinationConfig.getType().name()));
     }
 
     /**

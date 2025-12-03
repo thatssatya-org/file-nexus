@@ -1,6 +1,5 @@
 package com.samsepiol.file.nexus.cache;
 
-import com.samsepiol.redis.client.UniRedisClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,13 +12,15 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class CacheClient {
 
-    private final UniRedisClient redisClient;
+    // TODO remove
+//    private final RedisClient redisClient;
 
     public <T> T get(String key, Class<T> cls) {
         T response = null;
         try {
             log.info("Getting key in cache : {}", key);
-            response = redisClient.get(key, cls);
+//            response = redisClient.get(key, cls);
+            return null;
         } catch (Exception ex) {
             log.error("Error fetching key:{} from redis with error = ", key, ex);
         }
@@ -35,7 +36,7 @@ public class CacheClient {
     public void setWithTtl(String key, Object value, int ttl, TimeUnit timeUnit) {
         try {
             log.info("Setting key in cache : {}", key);
-            redisClient.setWithTtl(key, value, ttl, timeUnit);
+//            redisClient.setWithTtl(key, value, ttl, timeUnit);
         } catch (Exception ex) {
             log.error("Failed to set key:{}, value:{} with error = ", key, value, ex);
         }

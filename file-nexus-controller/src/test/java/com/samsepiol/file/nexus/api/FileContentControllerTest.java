@@ -5,7 +5,8 @@ import com.samsepiol.file.nexus.enums.MetadataStatus;
 import com.samsepiol.file.nexus.models.content.request.FileContentsQuery;
 import com.samsepiol.file.nexus.repo.content.entity.FileContent;
 import com.samsepiol.file.nexus.repo.content.entity.MetadataEntity;
-import com.samsepiol.helper.utils.CommonSerializationUtil;
+import com.samsepiol.library.core.exception.SerializationException;
+import com.samsepiol.library.core.util.SerializationUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,7 +34,7 @@ class FileContentControllerTest extends BaseControllerTest {
 
     @Test
     void testGetFileContents() throws Exception {
-        var requestPayload = CommonSerializationUtil.writeString(FileContentsQuery.builder()
+        var requestPayload = SerializationUtil.convertToString(FileContentsQuery.builder()
                 .date(TEST_FILE_DATE)
                 .filters(Map.of("TEST_FILE_COLUMN_1", "VALUE_1"))
                 .build());
@@ -55,7 +56,7 @@ class FileContentControllerTest extends BaseControllerTest {
                 .build());
     }
 
-    private static Map<String, Object> fileContents() {
+    private static Map<String, Object> fileContents() throws SerializationException {
         return Map.of(TEST_FILE_ID + "1", FileContent.builder()
                 .id(TEST_FILE_ID + "1")
                 .fileId(TEST_FILE_ID)
@@ -63,7 +64,7 @@ class FileContentControllerTest extends BaseControllerTest {
                 .updatedAt(2345678L)
                 .rowNumber("1")
                 .index1("VALUE_1")
-                .content(CommonSerializationUtil.writeString(Map.of("VALUE_1", "hehe")))
+                .content(SerializationUtil.convertToString(Map.of("VALUE_1", "hehe")))
                 .build());
     }
 
@@ -73,7 +74,7 @@ class FileContentControllerTest extends BaseControllerTest {
     }
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws SerializationException {
         var dbData = Map.of(
                 "file_metadata", metaDataWithCompletedStatus(),
                 "file_contents", fileContents());

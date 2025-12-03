@@ -9,8 +9,7 @@ import com.samsepiol.file.nexus.transfer.workflow.activites.request.ArchiveFileA
 import com.samsepiol.file.nexus.transfer.workflow.activites.request.UploadFileActivityRequest;
 import com.samsepiol.file.nexus.transfer.workflow.dto.FileTransferEventPayload;
 import com.samsepiol.file.nexus.transfer.workflow.dto.FileTransferWorkflowRequest;
-import com.samsepiol.helper.utils.CommonSerializationUtil;
-import com.samsepiol.temporal.annotations.TemporalWorkflow;
+import com.samsepiol.library.core.util.SerializationUtil;
 import io.temporal.workflow.Workflow;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,6 @@ import static com.samsepiol.file.nexus.transfer.constants.FileTransferWorkflowCo
 
 @Slf4j
 @RequiredArgsConstructor
-@TemporalWorkflow
 public class FileTransferWorkflow implements IFileTransferWorkflow {
     private final IFetchFileNamesActivity fetchFileNamesActivity = IFetchFileNamesActivity.create();
     private final IUploadFileActivity uploadFileActivity = IUploadFileActivity.create();
@@ -34,7 +32,7 @@ public class FileTransferWorkflow implements IFileTransferWorkflow {
     public void transferFile(FileTransferWorkflowRequest request) {
         Long startTime = Workflow.sideEffect(Long.class, DateTimeUtils::currentTimeMillis);
         FileTransferEventPayload eventPayload = FileTransferEventPayload.builder().initiatedAt(startTime).source(request.getSourceStore()).target(request.getTargetStore()).build();
-        sendEventActivity.sendEvent(FILE_TRANSFER_WORKFLOW_INITIATED, CommonSerializationUtil.convertObjectToMap(eventPayload));
+        sendEventActivity.sendEvent(FILE_TRANSFER_WORKFLOW_INITIATED, SerializationUtil.convertToMap(eventPayload));
         List<String> remoteFilePaths = fetchFileNamesActivity.getFileNames(request.getSourceStore(), request.getTargetStore());
 
         for (String remoteFilePath : remoteFilePaths) {
@@ -43,7 +41,7 @@ public class FileTransferWorkflow implements IFileTransferWorkflow {
         }
         Long endTime = Workflow.sideEffect(Long.class, DateTimeUtils::currentTimeMillis);
         FileTransferEventPayload completionEvent = FileTransferEventPayload.builder().completedAt(endTime).source(request.getSourceStore()).target(request.getTargetStore()).build();
-        sendEventActivity.sendEvent(FILE_TRANSFER_WORKFLOW_COMPLETED, CommonSerializationUtil.convertObjectToMap(completionEvent));
+        sendEventActivity.sendEvent(FILE_TRANSFER_WORKFLOW_COMPLETED, SerializationUtil.convertToMap(completionEvent));
     }
 
     private UploadFileActivityRequest createUploadActivityRequest(FileTransferWorkflowRequest request, String remoteFilePath){

@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.samsepiol.file.nexus.enums.FileStateStatus;
 import com.samsepiol.library.mongo.models.Entity;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Value;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
@@ -17,7 +17,7 @@ import lombok.extern.jackson.Jacksonized;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Jacksonized
 @SuperBuilder
-@Value
+@Data
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 public class FileStateEntity extends Entity {

@@ -7,7 +7,7 @@ import com.samsepiol.file.nexus.models.content.request.FileContentsQuery;
 import com.samsepiol.file.nexus.models.content.response.FileContentsResponse;
 import com.samsepiol.file.nexus.models.content.response.dto.FileContentResponse;
 import com.samsepiol.file.nexus.models.content.response.dto.FileMetadataResponse;
-import com.samsepiol.helper.utils.CommonSerializationUtil;
+import com.samsepiol.library.core.util.SerializationUtil;
 import lombok.NonNull;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -46,7 +46,7 @@ public interface FileContentControllerMapper {
                 .rowReferenceId(fileContent.getId())
                 .fileId(fileContent.getFileId())
                 .rowNumber(fileContent.getRowNumber())
-                .content(CommonSerializationUtil.readMapFromString(fileContent.getContent()))
+                .content(SerializationUtil.convertToMap(fileContent.getContent()))
                 .build();
     }
 

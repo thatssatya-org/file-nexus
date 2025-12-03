@@ -9,7 +9,7 @@ import com.samsepiol.file.nexus.transfer.storage.client.IStorageClient;
 import com.samsepiol.file.nexus.transfer.workflow.activites.IUploadFileActivity;
 import com.samsepiol.file.nexus.transfer.workflow.activites.request.UploadFileActivityRequest;
 import com.samsepiol.file.nexus.transfer.workflow.dto.FileContext;
-import com.samsepiol.temporal.annotations.TemporalActivity;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.input.BoundedInputStream;
@@ -27,7 +27,7 @@ import static com.samsepiol.file.nexus.transfer.workflow.helper.FileTransferHelp
 
 @Slf4j
 @RequiredArgsConstructor
-@TemporalActivity
+
 public class UploadFileActivity implements IUploadFileActivity {
 
     private final StoreConfigRegistry storeConfigRegistry;

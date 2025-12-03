@@ -2,6 +2,7 @@ package com.samsepiol.file.nexus.ingestion.workflow.activities;
 
 import com.samsepiol.file.nexus.ingestion.workflow.dto.FileIngestionWorkflowRequest;
 import com.samsepiol.file.nexus.storage.models.FileInfo;
+import com.samsepiol.library.temporal.activity.TemporalActivity;
 import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
 import io.temporal.activity.ActivityOptions;
@@ -13,7 +14,7 @@ import java.time.Duration;
  * Activity interface for sending files to destinations.
  */
 @ActivityInterface
-public interface ISendToDestinationActivity {
+public interface ISendToDestinationActivity extends TemporalActivity {
 
     /**
      * Send a file to a destination using the complete source configuration.

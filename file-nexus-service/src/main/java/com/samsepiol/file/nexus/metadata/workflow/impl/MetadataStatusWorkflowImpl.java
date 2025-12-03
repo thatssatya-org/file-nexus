@@ -9,13 +9,11 @@ import com.samsepiol.file.nexus.metadata.workflow.activity.request.MatchOffsetsA
 import com.samsepiol.file.nexus.metadata.workflow.activity.request.MetadataStatusWorkflowRequest;
 import com.samsepiol.file.nexus.metadata.workflow.activity.request.UpdateMetadataStatusActivityRequest;
 import com.samsepiol.file.nexus.metadata.workflow.activity.response.FetchEndOffsetsActivityResponse;
-import com.samsepiol.temporal.annotations.TemporalWorkflow;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RequiredArgsConstructor
-@TemporalWorkflow
 public class MetadataStatusWorkflowImpl implements MetadataStatusWorkflow {
 
     private final FetchEndOffsetListActivity fetchEndOffsetActivity = FetchEndOffsetListActivity.create();

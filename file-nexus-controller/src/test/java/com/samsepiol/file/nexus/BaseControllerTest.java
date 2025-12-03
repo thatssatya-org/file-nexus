@@ -2,13 +2,7 @@ package com.samsepiol.file.nexus;
 
 import com.samsepiol.file.nexus.config.BaseControllerTestConfig;
 import com.samsepiol.file.nexus.storage.service.ScheduleManagementService;
-import com.samsepiol.filestoragesystem.client.IFileStorageClient;
-
-import com.samsepiol.kafka.client.IConsumerClient;
-import com.samsepiol.kafka.client.IProducerClient;
-import com.samsepiol.mongo.helper.IMongoDbHelper;
-import com.samsepiol.redis.client.UniRedisClient;
-import com.samsepiol.temporal.impl.TemporalConnection;
+import com.samsepiol.library.mongo.Repository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -37,25 +31,26 @@ public abstract class BaseControllerTest {
     private MockMvc mockMvc;
 
     @Autowired
-    protected IMongoDbHelper mongoDb;
+    protected Repository mongoDb;
 
-    @MockBean
-    protected TemporalConnection temporalConnection;
-
-    @MockBean
-    protected UniRedisClient redisClient;
-
-    @MockBean
-    protected MetricHelper metricHelper;
-
-    @MockBean
-    protected IConsumerClient consumerClient;
-
-    @MockBean
-    protected IProducerClient producerClient;
-
-    @MockBean
-    protected IFileStorageClient fileStorageClient;
+    // TODO
+//    @MockBean
+//    protected TemporalConnection temporalConnection;
+//
+//    @MockBean
+//    protected UniRedisClient redisClient;
+//
+//    @MockBean
+//    protected MetricHelper metricHelper;
+//
+//    @MockBean
+//    protected IConsumerClient consumerClient;
+//
+//    @MockBean
+//    protected IProducerClient producerClient;
+//
+//    @MockBean
+//    protected IFileStorageClient fileStorageClient;
 
     @MockBean
     protected ScheduleManagementService scheduleManagementService;
@@ -80,7 +75,7 @@ public abstract class BaseControllerTest {
 
     protected synchronized void loadDB(Map<String, Map<String, Object>> map) {
         if (!dbLoaded) {
-            map.forEach((collectionName, bulkSaveData) -> mongoDb.bulkSave(collectionName, bulkSaveData));
+//            map.forEach((collectionName, bulkSaveData) -> mongoDb.bulkSave(collectionName, bulkSaveData));
             dbLoaded = Boolean.TRUE;
         }
     }

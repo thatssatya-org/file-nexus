@@ -4,7 +4,8 @@ import com.samsepiol.file.nexus.content.FileContentService;
 import com.samsepiol.file.nexus.models.content.request.FileContentsQuery;
 import com.samsepiol.file.nexus.models.content.response.FileContentsResponse;
 import com.samsepiol.file.nexus.utils.DateTimeUtils;
-import com.samsepiol.logger.annotation.AccessLog;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,15 +14,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-
 import static com.samsepiol.file.nexus.mapper.FileContentControllerMapper.MAPPER;
 
 @RestController
 @RequestMapping("/v1/files/{fileType}")
 @RequiredArgsConstructor
-@AccessLog
 public class FileContentController {
 
     private final FileContentService fileContentService;

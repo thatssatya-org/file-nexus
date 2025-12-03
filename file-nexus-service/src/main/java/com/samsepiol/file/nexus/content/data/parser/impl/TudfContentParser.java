@@ -10,7 +10,8 @@ import com.samsepiol.file.nexus.content.data.parser.models.request.FileContentPa
 import com.samsepiol.file.nexus.content.exception.FileContentParsingException;
 import com.samsepiol.file.nexus.content.exception.UnsupportedFileException;
 import com.samsepiol.file.nexus.utils.ClassUtils;
-import com.samsepiol.helper.utils.CommonSerializationUtil;
+import com.samsepiol.library.core.exception.SerializationException;
+import com.samsepiol.library.core.util.SerializationUtil;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,13 @@ public class TudfContentParser implements FileContentParser {
 
         var fileParserConfig = getTudfFileParserConfig(request);
         String content = request.getContent();
-        TudfFileContent tudfFileContent = CommonSerializationUtil.readObject(content, TudfFileContent.class);
+        TudfFileContent tudfFileContent = null;
+        try {
+            tudfFileContent = SerializationUtil.convertToEntity(content, TudfFileContent.class);
+        } catch (SerializationException e) {
+            // TODO
+            throw new RuntimeException(e);
+        }
 
         String message = tudfFileContent.getPayload().getMessage();
         if (StringUtils.isBlank(message)) {

@@ -6,14 +6,13 @@ import com.samsepiol.file.nexus.models.transfer.enums.StorageType;
 import com.samsepiol.file.nexus.transfer.config.FileTransferRequestConfig;
 import com.samsepiol.file.nexus.transfer.workflow.activites.IArchiveFileActivity;
 import com.samsepiol.file.nexus.transfer.workflow.activites.request.ArchiveFileActivityRequest;
-import com.samsepiol.temporal.annotations.TemporalActivity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.samsepiol.file.nexus.transfer.workflow.helper.FileTransferHelper.findFileTransferConfig;
 import static com.samsepiol.file.nexus.transfer.workflow.helper.FileTransferHelper.getNewFilePath;
 
-@TemporalActivity
+
 @Slf4j
 @RequiredArgsConstructor
 public class ArchiveFileActivity implements IArchiveFileActivity {

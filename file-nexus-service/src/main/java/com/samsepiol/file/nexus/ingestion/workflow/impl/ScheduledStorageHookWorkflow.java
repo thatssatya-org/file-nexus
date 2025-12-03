@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-@TemporalWorkflow
 public class ScheduledStorageHookWorkflow implements IScheduledStorageHookWorkflow {
 
     private final IScheduledSourcePollingActivity pollingActivity = Workflow.newActivityStub(

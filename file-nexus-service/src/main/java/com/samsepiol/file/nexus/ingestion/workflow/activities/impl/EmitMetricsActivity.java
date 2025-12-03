@@ -2,7 +2,7 @@ package com.samsepiol.file.nexus.ingestion.workflow.activities.impl;
 
 
 import com.samsepiol.file.nexus.ingestion.workflow.activities.IEmitMetricsActivity;
-import com.samsepiol.temporal.annotations.TemporalActivity;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-@TemporalActivity
+
 public class EmitMetricsActivity implements IEmitMetricsActivity {
     public static final String FILE_NEXUS_NO_WORKFLOWS_STARTED = "FILE_NEXUS_NO_WORKFLOWS_STARTED";
     

@@ -1,7 +1,7 @@
 package com.samsepiol.file.nexus.ingestion.workflow.activities;
 
 import com.samsepiol.file.nexus.storage.models.PollResult;
-import com.samsepiol.temporal.annotations.TemporalWorkflow;
+import com.samsepiol.library.temporal.activity.TemporalActivity;
 import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
 import io.temporal.activity.ActivityOptions;
@@ -10,7 +10,7 @@ import io.temporal.activity.ActivityOptions;
  * Activity interface for polling scheduled sources.
  */
 @ActivityInterface
-public interface IScheduledSourcePollingActivity {
+public interface IScheduledSourcePollingActivity extends TemporalActivity {
 
     /**
      * Poll a scheduled source for new files.

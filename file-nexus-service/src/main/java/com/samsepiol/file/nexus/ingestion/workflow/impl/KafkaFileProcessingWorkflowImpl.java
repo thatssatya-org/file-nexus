@@ -5,7 +5,6 @@ import com.samsepiol.file.nexus.ingestion.workflow.activities.IKafkaFileProcessi
 import com.samsepiol.file.nexus.models.request.KafkaFileProcessingWorkflowRequest;
 import io.temporal.workflow.Workflow;
 
-@TemporalWorkflow
 public class KafkaFileProcessingWorkflowImpl implements IKafkaFileProcessingWorkflow {
 
     private final IKafkaFileProcessingActivity activity = Workflow.newActivityStub(IKafkaFileProcessingActivity.class,

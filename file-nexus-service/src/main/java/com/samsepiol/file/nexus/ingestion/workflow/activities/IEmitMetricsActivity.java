@@ -1,5 +1,6 @@
 package com.samsepiol.file.nexus.ingestion.workflow.activities;
 
+import com.samsepiol.library.temporal.activity.TemporalActivity;
 import io.temporal.activity.ActivityInterface;
 import io.temporal.activity.ActivityMethod;
 import io.temporal.activity.ActivityOptions;
@@ -11,7 +12,7 @@ import java.time.Duration;
  * Activity interface for emitting metrics.
  */
 @ActivityInterface
-public interface IEmitMetricsActivity {
+public interface IEmitMetricsActivity extends TemporalActivity {
 
     /**
      * Emit a metric when no files are found for a scheduled source.

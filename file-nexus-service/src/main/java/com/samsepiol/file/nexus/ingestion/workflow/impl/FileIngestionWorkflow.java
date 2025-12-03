@@ -19,7 +19,6 @@ import static com.samsepiol.file.nexus.ingestion.workflow.activities.ISendToDest
  * It supports a fan-out pattern for sending files to multiple destinations concurrently.
  */
 @Slf4j
-@TemporalWorkflow
 public class FileIngestionWorkflow implements IFileIngestionWorkflow {
 
     private final ISendToDestinationActivity sendToDestinationActivity = 

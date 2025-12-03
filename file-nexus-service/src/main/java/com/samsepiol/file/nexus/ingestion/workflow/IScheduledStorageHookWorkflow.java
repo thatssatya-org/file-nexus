@@ -1,5 +1,6 @@
 package com.samsepiol.file.nexus.ingestion.workflow;
 
+import com.samsepiol.library.temporal.workflow.TemporalWorkflow;
 import io.temporal.workflow.WorkflowInterface;
 import io.temporal.workflow.WorkflowMethod;
 
@@ -8,7 +9,7 @@ import io.temporal.workflow.WorkflowMethod;
  * This workflow is triggered by Temporal schedules for scheduled sources.
  */
 @WorkflowInterface
-public interface IScheduledStorageHookWorkflow {
+public interface IScheduledStorageHookWorkflow extends TemporalWorkflow {
 
     /**
      * Process files from a scheduled source storage and send them to configured destinations.

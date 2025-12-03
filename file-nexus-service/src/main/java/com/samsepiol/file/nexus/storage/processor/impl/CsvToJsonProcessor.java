@@ -321,12 +321,12 @@ public class CsvToJsonProcessor implements FileProcessor {
             
             // Emit rows processed count metric
             if (rowsProcessed > 0) {
-                metricHelper.incrementCounter(CSV_ROWS_PROCESSED_COUNT_METRIC, tags, rowsProcessed);
+//                metricHelper.incrementCounter(CSV_ROWS_PROCESSED_COUNT_METRIC, tags, rowsProcessed);
             }
             
             // Emit rows failed count metric
             if (rowsFailed > 0) {
-                metricHelper.incrementCounter(CSV_ROWS_FAILED_COUNT_METRIC, tags, rowsFailed);
+//                metricHelper.incrementCounter(CSV_ROWS_FAILED_COUNT_METRIC, tags, rowsFailed);
             }
             
         } catch (Exception e) {
