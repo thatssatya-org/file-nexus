@@ -29,16 +29,17 @@ temporal-config:
   port: 7233
   namespace: file-nexus
 
+#TODO move to single string and parse in application
 file-config:
   file-to-schema-configs:
-    - file-type: ${fileType1:}
+    - file-type: ${fileType1:SAMPLE_FILE}
       schema-config:
         parser-type: ${fileType1.parserType:JSON}
         column-configs:
-          - column-name: ${fileType1.columnName1:}
+          - column-name: ${fileType1.columnName1:SAMPLE_COLUMN}
             column-config:
               mandatory: ${fileType1.columnName1.mandatory:false}
-              index: ${fileType1.columnName1.index:}
+              index: ${fileType1.columnName1.index:FIRST}
           - column-name: ${fileType1.columnName2:}
             column-config:
               mandatory: ${fileType1.columnName2.mandatory:false}
