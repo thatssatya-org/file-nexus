@@ -1,0 +1,2560 @@
+{
+  "type": "customerDetailRecord",
+  "fieldMapping": [
+    {
+      "start": 1,
+      "end": 20,
+      "fieldName": "RelationshipNumber"
+    },
+    {
+      "start": 20,
+      "end": 26,
+      "fieldName": "OrganizationLogoNumber"
+    },
+    {
+      "start": 26,
+      "end": 45,
+      "fieldName": "AccountNumber"
+    },
+    {
+      "start": 45,
+      "end": 49,
+      "fieldName": "ZipSortCode"
+    },
+    {
+      "start": 49,
+      "end": 50,
+      "fieldName": "DuplicateStatementIndicator"
+    },
+    {
+      "start": 50,
+      "end": 51,
+      "fieldName": "RecordTypeIndicator"
+    },
+    {
+      "start": 51,
+      "end": 52,
+      "fieldName": "Category"
+    },
+    {
+      "start": 52,
+      "end": 53,
+      "fieldName": "CategorySign"
+    },
+    {
+      "start": 53,
+      "end": 54,
+      "fieldName": "Priority"
+    },
+    {
+      "start": 54,
+      "end": 55,
+      "fieldName": "PrioritySign"
+    },
+    {
+      "start": 55,
+      "end": 58,
+      "fieldName": "Form"
+    },
+    {
+      "start": 58,
+      "end": 59,
+      "fieldName": "FormSign"
+    },
+    {
+      "start": 59,
+      "end": 70,
+      "fieldName": "RecordSequence"
+    },
+    {
+      "start": 70,
+      "end": 71,
+      "fieldName": "RecordSequenceSign"
+    },
+    {
+      "start": 71,
+      "end": 90,
+      "fieldName": "AccountNumber"
+    },
+    {
+      "start": 90,
+      "end": 94,
+      "fieldName": "ZipSortCode"
+    },
+    {
+      "start": 94,
+      "end": 98,
+      "fieldName": "ZipCarrier"
+    },
+    {
+      "start": 98,
+      "end": 107,
+      "fieldName": "BarCodes"
+    },
+    {
+      "start": 107,
+      "end": 109,
+      "fieldName": "DeliveryPoint"
+    },
+    {
+      "start": 109,
+      "end": 149,
+      "fieldName": "NameAddressLine1"
+    },
+    {
+      "start": 149,
+      "end": 189,
+      "fieldName": "NameAddressLine2"
+    },
+    {
+      "start": 189,
+      "end": 229,
+      "fieldName": "NameAddressLine3"
+    },
+    {
+      "start": 229,
+      "end": 269,
+      "fieldName": "NameAddressLine4"
+    },
+    {
+      "start": 269,
+      "end": 309,
+      "fieldName": "NameAddressLine5"
+    },
+    {
+      "start": 309,
+      "end": 339,
+      "fieldName": "City"
+    },
+    {
+      "start": 339,
+      "end": 342,
+      "fieldName": "State"
+    },
+    {
+      "start": 342,
+      "end": 352,
+      "fieldName": "PostalCode"
+    },
+    {
+      "start": 352,
+      "end": 360,
+      "fieldName": "StatementDate"
+    },
+    {
+      "start": 360,
+      "end": 368,
+      "fieldName": "PaymentDate"
+    },
+    {
+      "start": 368,
+      "end": 389,
+      "fieldName": "CurrentBalance"
+    },
+    {
+      "start": 389,
+      "end": 410,
+      "fieldName": "TotalDefBillCurrentBalance"
+    },
+    {
+      "start": 410,
+      "end": 431,
+      "fieldName": "MinimumPaymentDue"
+    },
+    {
+      "start": 431,
+      "end": 452,
+      "fieldName": "PastDueAmount"
+    },
+    {
+      "start": 452,
+      "end": 473,
+      "fieldName": "InterestDueAmount"
+    },
+    {
+      "start": 473,
+      "end": 494,
+      "fieldName": "TotalDueAmount"
+    },
+    {
+      "start": 494,
+      "end": 515,
+      "fieldName": "YearToDateInterestPaid"
+    },
+    {
+      "start": 515,
+      "end": 518,
+      "fieldName": "LanguageIndicator"
+    },
+    {
+      "start": 518,
+      "end": 519,
+      "fieldName": "1099CForeignIndicator"
+    },
+    {
+      "start": 519,
+      "end": 559,
+      "fieldName": "MakerRelativeName"
+    },
+    {
+      "start": 559,
+      "end": 560,
+      "fieldName": "MakerSsanFlag"
+    },
+    {
+      "start": 560,
+      "end": 585,
+      "fieldName": "MakerSsan"
+    },
+    {
+      "start": 585,
+      "end": 605,
+      "fieldName": "MakerHomePhoneNumber"
+    },
+    {
+      "start": 605,
+      "end": 645,
+      "fieldName": "MakerEmployer"
+    },
+    {
+      "start": 645,
+      "end": 646,
+      "fieldName": "MakerPhoneFlag"
+    },
+    {
+      "start": 646,
+      "end": 666,
+      "fieldName": "MakerWorkPhoneNumber"
+    },
+    {
+      "start": 666,
+      "end": 672,
+      "fieldName": "MakerWorkPhoneExtensionNumber"
+    },
+    {
+      "start": 672,
+      "end": 676,
+      "fieldName": "MakerPosition"
+    },
+    {
+      "start": 676,
+      "end": 679,
+      "fieldName": "MakerDlState"
+    },
+    {
+      "start": 679,
+      "end": 699,
+      "fieldName": "MakerDlNumber"
+    },
+    {
+      "start": 699,
+      "end": 739,
+      "fieldName": "CoMakerName"
+    },
+    {
+      "start": 739,
+      "end": 740,
+      "fieldName": "CoMakerSsanFlag"
+    },
+    {
+      "start": 740,
+      "end": 765,
+      "fieldName": "CoMakerSsan"
+    },
+    {
+      "start": 765,
+      "end": 785,
+      "fieldName": "CoMakerHomePhoneNumber"
+    },
+    {
+      "start": 785,
+      "end": 825,
+      "fieldName": "CoMakerEmployer"
+    },
+    {
+      "start": 825,
+      "end": 826,
+      "fieldName": "CoMakerPhoneFlag"
+    },
+    {
+      "start": 826,
+      "end": 846,
+      "fieldName": "CoMakerWorkPhoneNumber"
+    },
+    {
+      "start": 846,
+      "end": 852,
+      "fieldName": "CoMakerWorkPhoneExtensionNumber"
+    },
+    {
+      "start": 852,
+      "end": 871,
+      "fieldName": "SecurityDepositAccount"
+    },
+    {
+      "start": 871,
+      "end": 892,
+      "fieldName": "SecurityDepositBalance"
+    },
+    {
+      "start": 892,
+      "end": 900,
+      "fieldName": "SecurityDepositRate"
+    },
+    {
+      "start": 900,
+      "end": 921,
+      "fieldName": "SecurityDepositInterestAmt"
+    },
+    {
+      "start": 921,
+      "end": 940,
+      "fieldName": "RelationshipNumber"
+    },
+    {
+      "start": 940,
+      "end": 941,
+      "fieldName": "CardScheme"
+    },
+    {
+      "start": 941,
+      "end": 962,
+      "fieldName": "CashAmountInDispute"
+    },
+    {
+      "start": 962,
+      "end": 983,
+      "fieldName": "AvailableCashCreditLimit"
+    },
+    {
+      "start": 983,
+      "end": 984,
+      "fieldName": "BillingLevelOfThisAccount"
+    },
+    {
+      "start": 984,
+      "end": 985,
+      "fieldName": "PrimaryAccountFlag"
+    },
+    {
+      "start": 985,
+      "end": 987,
+      "fieldName": "BillingCycle"
+    },
+    {
+      "start": 987,
+      "end": 1008,
+      "fieldName": "CreditLimit"
+    },
+    {
+      "start": 1008,
+      "end": 1029,
+      "fieldName": "OpenToBuy"
+    },
+    {
+      "start": 1029,
+      "end": 1050,
+      "fieldName": "TotalBeginningBalance"
+    },
+    {
+      "start": 1050,
+      "end": 1071,
+      "fieldName": "TotalDebitAmount"
+    },
+    {
+      "start": 1071,
+      "end": 1092,
+      "fieldName": "TotalCreditAmount"
+    },
+    {
+      "start": 1092,
+      "end": 1100,
+      "fieldName": "LastStatementDate"
+    },
+    {
+      "start": 1100,
+      "end": 1101,
+      "fieldName": "CustomerMailingPreferenceIndicator"
+    },
+    {
+      "start": 1101,
+      "end": 1103,
+      "fieldName": "Filler"
+    },
+    {
+      "start": 1103,
+      "end": 1106,
+      "fieldName": "ResidenceId"
+    },
+    {
+      "start": 1106,
+      "end": 1107,
+      "fieldName": "InternalStatus"
+    },
+    {
+      "start": 1107,
+      "end": 1108,
+      "fieldName": "BlockCode1"
+    },
+    {
+      "start": 1108,
+      "end": 1109,
+      "fieldName": "BlockCode2"
+    },
+    {
+      "start": 1109,
+      "end": 1112,
+      "fieldName": "StoreOrg"
+    },
+    {
+      "start": 1112,
+      "end": 1113,
+      "fieldName": "StoreOrgSign"
+    },
+    {
+      "start": 1113,
+      "end": 1122,
+      "fieldName": "StoreNumber"
+    },
+    {
+      "start": 1122,
+      "end": 1123,
+      "fieldName": "StoreNumberSign"
+    },
+    {
+      "start": 1123,
+      "end": 1125,
+      "fieldName": "EmployeeCode"
+    },
+    {
+      "start": 1125,
+      "end": 1133,
+      "fieldName": "GraceDaysExpiryDate"
+    },
+    {
+      "start": 1133,
+      "end": 1135,
+      "fieldName": "AccountCreditClass"
+    },
+    {
+      "start": 1135,
+      "end": 1138,
+      "fieldName": "AggregateCycleDays"
+    },
+    {
+      "start": 1138,
+      "end": 1139,
+      "fieldName": "AggregateCycleDaysSign"
+    },
+    {
+      "start": 1139,
+      "end": 1160,
+      "fieldName": "YearToDateLateCharge"
+    },
+    {
+      "start": 1160,
+      "end": 1181,
+      "fieldName": "YearToDateOverLimitCharge"
+    },
+    {
+      "start": 1181,
+      "end": 1202,
+      "fieldName": "PriorYearToDateInterestCharge"
+    },
+    {
+      "start": 1202,
+      "end": 1205,
+      "fieldName": "TotalNumberOfDebits"
+    },
+    {
+      "start": 1205,
+      "end": 1206,
+      "fieldName": "TotalNumberOfDebitsSign"
+    },
+    {
+      "start": 1206,
+      "end": 1209,
+      "fieldName": "TotalNumberOfCredits"
+    },
+    {
+      "start": 1209,
+      "end": 1210,
+      "fieldName": "TotalNumberOfCreditsSign"
+    },
+    {
+      "start": 1210,
+      "end": 1211,
+      "fieldName": "RecencyDelinquencyLevel"
+    },
+    {
+      "start": 1211,
+      "end": 1212,
+      "fieldName": "ContractualDelinquencyLevel"
+    },
+    {
+      "start": 1212,
+      "end": 1233,
+      "fieldName": "FixedPaymentAmount"
+    },
+    {
+      "start": 1233,
+      "end": 1254,
+      "fieldName": "ScheduledPaymentAmount"
+    },
+    {
+      "start": 1254,
+      "end": 1275,
+      "fieldName": "InterestFreeAmount"
+    },
+    {
+      "start": 1275,
+      "end": 1276,
+      "fieldName": "StatementInsertInd"
+    },
+    {
+      "start": 1276,
+      "end": 1279,
+      "fieldName": "NumberOfDisputedItems"
+    },
+    {
+      "start": 1279,
+      "end": 1280,
+      "fieldName": "NumberOfDisputedItemsSign"
+    },
+    {
+      "start": 1280,
+      "end": 1301,
+      "fieldName": "TotalAmountInDispute"
+    },
+    {
+      "start": 1301,
+      "end": 1304,
+      "fieldName": "InterestState"
+    },
+    {
+      "start": 1304,
+      "end": 1312,
+      "fieldName": "DateOpen"
+    },
+    {
+      "start": 1312,
+      "end": 1320,
+      "fieldName": "LastActivityDate"
+    },
+    {
+      "start": 1320,
+      "end": 1321,
+      "fieldName": "DisputeFlag"
+    },
+    {
+      "start": 1321,
+      "end": 1324,
+      "fieldName": "DelinquencyCounters1"
+    },
+    {
+      "start": 1324,
+      "end": 1325,
+      "fieldName": "DelinquencyCountersSign1"
+    },
+    {
+      "start": 1325,
+      "end": 1328,
+      "fieldName": "DelinquencyCounters2"
+    },
+    {
+      "start": 1328,
+      "end": 1329,
+      "fieldName": "DelinquencyCountersSign2"
+    },
+    {
+      "start": 1329,
+      "end": 1332,
+      "fieldName": "DelinquencyCounters3"
+    },
+    {
+      "start": 1332,
+      "end": 1333,
+      "fieldName": "DelinquencyCountersSign3"
+    },
+    {
+      "start": 1333,
+      "end": 1336,
+      "fieldName": "DelinquencyCounters4"
+    },
+    {
+      "start": 1336,
+      "end": 1337,
+      "fieldName": "DelinquencyCountersSign4"
+    },
+    {
+      "start": 1337,
+      "end": 1340,
+      "fieldName": "DelinquencyCounters5"
+    },
+    {
+      "start": 1340,
+      "end": 1341,
+      "fieldName": "DelinquencyCountersSign5"
+    },
+    {
+      "start": 1341,
+      "end": 1344,
+      "fieldName": "DelinquencyCounters6"
+    },
+    {
+      "start": 1344,
+      "end": 1345,
+      "fieldName": "DelinquencyCountersSign6"
+    },
+    {
+      "start": 1345,
+      "end": 1348,
+      "fieldName": "DelinquencyCounters7"
+    },
+    {
+      "start": 1348,
+      "end": 1349,
+      "fieldName": "DelinquencyCountersSign7"
+    },
+    {
+      "start": 1349,
+      "end": 1352,
+      "fieldName": "DelinquencyCounters8"
+    },
+    {
+      "start": 1352,
+      "end": 1353,
+      "fieldName": "DelinquencyCountersSign8"
+    },
+    {
+      "start": 1353,
+      "end": 1362,
+      "fieldName": "FrequentShopperPointsEarnedCycleToDate"
+    },
+    {
+      "start": 1362,
+      "end": 1363,
+      "fieldName": "FrequentShopperPointsEarnedCycleToDateSign"
+    },
+    {
+      "start": 1363,
+      "end": 1372,
+      "fieldName": "FrequentShopperPointsDisbursedCycleToDate"
+    },
+    {
+      "start": 1372,
+      "end": 1373,
+      "fieldName": "FrequentShopperPointsDisbursedCycleToDateSign"
+    },
+    {
+      "start": 1373,
+      "end": 1382,
+      "fieldName": "FrequentShopperPointsAdjustedCycleToDate"
+    },
+    {
+      "start": 1382,
+      "end": 1383,
+      "fieldName": "FrequentShopperPointsAdjustedCycleToDateSign"
+    },
+    {
+      "start": 1383,
+      "end": 1392,
+      "fieldName": "FrequentShopperPointsEarnedYearToDate"
+    },
+    {
+      "start": 1392,
+      "end": 1393,
+      "fieldName": "FrequentShopperPointsEarnedYearToDateSign"
+    },
+    {
+      "start": 1393,
+      "end": 1394,
+      "fieldName": "FrequentShopperPointsDisbursementFlag"
+    },
+    {
+      "start": 1394,
+      "end": 1403,
+      "fieldName": "FrequentShopperPointsTotalBalance"
+    },
+    {
+      "start": 1403,
+      "end": 1404,
+      "fieldName": "FrequentShopperPointsTotalBalanceSign"
+    },
+    {
+      "start": 1404,
+      "end": 1413,
+      "fieldName": "FrequentShopperProgramBalance1"
+    },
+    {
+      "start": 1413,
+      "end": 1414,
+      "fieldName": "FrequentShopperProgramBalanceSign1"
+    },
+    {
+      "start": 1414,
+      "end": 1423,
+      "fieldName": "FrequentShopperProgramBalance2"
+    },
+    {
+      "start": 1423,
+      "end": 1424,
+      "fieldName": "FrequentShopperProgramBalanceSign2"
+    },
+    {
+      "start": 1424,
+      "end": 1433,
+      "fieldName": "FrequentShopperProgramBalance3"
+    },
+    {
+      "start": 1433,
+      "end": 1434,
+      "fieldName": "FrequentShopperProgramBalanceSign3"
+    },
+    {
+      "start": 1434,
+      "end": 1443,
+      "fieldName": "FrequentShopperProgramBalance4"
+    },
+    {
+      "start": 1443,
+      "end": 1444,
+      "fieldName": "FrequentShopperProgramBalanceSign4"
+    },
+    {
+      "start": 1444,
+      "end": 1453,
+      "fieldName": "FrequentShopperProgramBalance5"
+    },
+    {
+      "start": 1453,
+      "end": 1454,
+      "fieldName": "FrequentShopperProgramBalanceSign5"
+    },
+    {
+      "start": 1454,
+      "end": 1458,
+      "fieldName": "PromotionalCode1"
+    },
+    {
+      "start": 1458,
+      "end": 1462,
+      "fieldName": "PromotionalCode2"
+    },
+    {
+      "start": 1462,
+      "end": 1466,
+      "fieldName": "PromotionalCode3"
+    },
+    {
+      "start": 1466,
+      "end": 1470,
+      "fieldName": "PromotionalCode4"
+    },
+    {
+      "start": 1470,
+      "end": 1478,
+      "fieldName": "AnnualPercentageRateAprForTheAccount"
+    },
+    {
+      "start": 1478,
+      "end": 1487,
+      "fieldName": "AnnualFeesForTheAccount"
+    },
+    {
+      "start": 1487,
+      "end": 1488,
+      "fieldName": "AnnualFeesForTheAccountSign"
+    },
+    {
+      "start": 1488,
+      "end": 1509,
+      "fieldName": "AprForServiceChargeTotal"
+    },
+    {
+      "start": 1509,
+      "end": 1530,
+      "fieldName": "AprForTheBalanceSubjectToCharges"
+    },
+    {
+      "start": 1530,
+      "end": 1551,
+      "fieldName": "AggregateBalance"
+    },
+    {
+      "start": 1551,
+      "end": 1572,
+      "fieldName": "LastYearToDateInterestPaid"
+    },
+    {
+      "start": 1572,
+      "end": 1575,
+      "fieldName": "NumberOfCycleToDatePurchases"
+    },
+    {
+      "start": 1575,
+      "end": 1576,
+      "fieldName": "NumberOfCycleToDatePurchasesSign"
+    },
+    {
+      "start": 1576,
+      "end": 1597,
+      "fieldName": "AmountOfCycleToDatePurchases"
+    },
+    {
+      "start": 1597,
+      "end": 1600,
+      "fieldName": "NumberOfCycleToDateCash"
+    },
+    {
+      "start": 1600,
+      "end": 1601,
+      "fieldName": "NumberOfCycleToDateCashSign"
+    },
+    {
+      "start": 1601,
+      "end": 1622,
+      "fieldName": "AmountOfCycleToDateCash"
+    },
+    {
+      "start": 1622,
+      "end": 1643,
+      "fieldName": "CashCreditLimit"
+    },
+    {
+      "start": 1643,
+      "end": 1664,
+      "fieldName": "PrepaymentAmount"
+    },
+    {
+      "start": 1664,
+      "end": 1685,
+      "fieldName": "YearToDateBilledInterest"
+    },
+    {
+      "start": 1685,
+      "end": 1706,
+      "fieldName": "LifeToDateBilledInterest"
+    },
+    {
+      "start": 1706,
+      "end": 1727,
+      "fieldName": "YearToDateBilledInsurance"
+    },
+    {
+      "start": 1727,
+      "end": 1748,
+      "fieldName": "LifeToDateBilledInsurance"
+    },
+    {
+      "start": 1748,
+      "end": 1769,
+      "fieldName": "CycleToDateBilledUserFee1"
+    },
+    {
+      "start": 1769,
+      "end": 1790,
+      "fieldName": "YearToDateBilledUserFee1"
+    },
+    {
+      "start": 1790,
+      "end": 1811,
+      "fieldName": "LifeToDateBilledUserFee1"
+    },
+    {
+      "start": 1811,
+      "end": 1832,
+      "fieldName": "CycleToDateBilledUserFee2"
+    },
+    {
+      "start": 1832,
+      "end": 1853,
+      "fieldName": "YearToDateBilledUserFee2"
+    },
+    {
+      "start": 1853,
+      "end": 1874,
+      "fieldName": "LifeToDateBilledUserFee2"
+    },
+    {
+      "start": 1874,
+      "end": 1895,
+      "fieldName": "YearToDateBilledUserFee3"
+    },
+    {
+      "start": 1895,
+      "end": 1916,
+      "fieldName": "YearToDateBilledUserFee3"
+    },
+    {
+      "start": 1916,
+      "end": 1937,
+      "fieldName": "LifeToDateBilledUserFee3"
+    },
+    {
+      "start": 1937,
+      "end": 1958,
+      "fieldName": "CycleToDateBilledUserFee4"
+    },
+    {
+      "start": 1958,
+      "end": 1979,
+      "fieldName": "YearToDateBilledUserFee4"
+    },
+    {
+      "start": 1979,
+      "end": 2000,
+      "fieldName": "LifeToDateBilledUserFee4"
+    },
+    {
+      "start": 2000,
+      "end": 2021,
+      "fieldName": "CycleToDateBilledUserFee5"
+    },
+    {
+      "start": 2021,
+      "end": 2042,
+      "fieldName": "YearToDateBilledUserFee5"
+    },
+    {
+      "start": 2042,
+      "end": 2063,
+      "fieldName": "LifeToDateBilledUserFee5"
+    },
+    {
+      "start": 2063,
+      "end": 2084,
+      "fieldName": "CycleToDateBilledUserFee6"
+    },
+    {
+      "start": 2084,
+      "end": 2105,
+      "fieldName": "YearToDateBilledUserFee6"
+    },
+    {
+      "start": 2105,
+      "end": 2126,
+      "fieldName": "LifeToDateBilledUserFee6"
+    },
+    {
+      "start": 2126,
+      "end": 2147,
+      "fieldName": "YearToDateInterestPaid"
+    },
+    {
+      "start": 2147,
+      "end": 2168,
+      "fieldName": "LifeToDateInterestPaid"
+    },
+    {
+      "start": 2168,
+      "end": 2189,
+      "fieldName": "YearToDateInsurancePaid"
+    },
+    {
+      "start": 2189,
+      "end": 2210,
+      "fieldName": "LifeToDateInsurancePaid"
+    },
+    {
+      "start": 2210,
+      "end": 2231,
+      "fieldName": "YearToDateUserFeePaid1"
+    },
+    {
+      "start": 2231,
+      "end": 2252,
+      "fieldName": "LifeToDateUserFeePaid1"
+    },
+    {
+      "start": 2252,
+      "end": 2273,
+      "fieldName": "YearToDateUserFeePaid2"
+    },
+    {
+      "start": 2273,
+      "end": 2294,
+      "fieldName": "LifeToDateUserFeePaid2"
+    },
+    {
+      "start": 2294,
+      "end": 2315,
+      "fieldName": "YearToDateUserFeePaid3"
+    },
+    {
+      "start": 2315,
+      "end": 2336,
+      "fieldName": "LifeToDateUserFeePaid3"
+    },
+    {
+      "start": 2336,
+      "end": 2357,
+      "fieldName": "YearToDateUserFeePaid4"
+    },
+    {
+      "start": 2357,
+      "end": 2378,
+      "fieldName": "LifeToDateUserFeePaid4"
+    },
+    {
+      "start": 2378,
+      "end": 2399,
+      "fieldName": "YearToDateUserFeePaid5"
+    },
+    {
+      "start": 2399,
+      "end": 2420,
+      "fieldName": "LifeToDateUserFeePaid5"
+    },
+    {
+      "start": 2420,
+      "end": 2441,
+      "fieldName": "YearToDateUserFeePaid6"
+    },
+    {
+      "start": 2441,
+      "end": 2462,
+      "fieldName": "LifeToDateUserFeePaid6"
+    },
+    {
+      "start": 2462,
+      "end": 2483,
+      "fieldName": "LoanAvailableForTheAccount"
+    },
+    {
+      "start": 2483,
+      "end": 2504,
+      "fieldName": "AmountOfFirstPurchase"
+    },
+    {
+      "start": 2504,
+      "end": 2525,
+      "fieldName": "AmountImmediateDue"
+    },
+    {
+      "start": 2525,
+      "end": 2533,
+      "fieldName": "Filler"
+    },
+    {
+      "start": 2533,
+      "end": 2541,
+      "fieldName": "DateNextStatement"
+    },
+    {
+      "start": 2541,
+      "end": 2561,
+      "fieldName": "ApplicationUserCode1"
+    },
+    {
+      "start": 2561,
+      "end": 2581,
+      "fieldName": "ApplicationUserCode2"
+    },
+    {
+      "start": 2581,
+      "end": 2601,
+      "fieldName": "ApplicationUserCode3"
+    },
+    {
+      "start": 2601,
+      "end": 2622,
+      "fieldName": "AverageDailyBalance1"
+    },
+    {
+      "start": 2622,
+      "end": 2643,
+      "fieldName": "AverageDailyBalance2"
+    },
+    {
+      "start": 2643,
+      "end": 2664,
+      "fieldName": "AverageDailyBalance3"
+    },
+    {
+      "start": 2664,
+      "end": 2685,
+      "fieldName": "AverageDailyBalance4"
+    },
+    {
+      "start": 2685,
+      "end": 2706,
+      "fieldName": "AverageDailyBalance5"
+    },
+    {
+      "start": 2706,
+      "end": 2727,
+      "fieldName": "AverageDailyBalance6"
+    },
+    {
+      "start": 2727,
+      "end": 2748,
+      "fieldName": "AverageDailyBalance7"
+    },
+    {
+      "start": 2748,
+      "end": 2769,
+      "fieldName": "AverageDailyBalance8"
+    },
+    {
+      "start": 2769,
+      "end": 2790,
+      "fieldName": "AverageDailyBalance9"
+    },
+    {
+      "start": 2790,
+      "end": 2811,
+      "fieldName": "AverageDailyBalance10"
+    },
+    {
+      "start": 2811,
+      "end": 2832,
+      "fieldName": "AverageDailyBalance11"
+    },
+    {
+      "start": 2832,
+      "end": 2853,
+      "fieldName": "AverageDailyBalance12"
+    },
+    {
+      "start": 2853,
+      "end": 2861,
+      "fieldName": "ConversionBillingRate"
+    },
+    {
+      "start": 2861,
+      "end": 2875,
+      "fieldName": "ConvertedBillingCurrency"
+    },
+    {
+      "start": 2875,
+      "end": 2896,
+      "fieldName": "ConvertedCreditLimit"
+    },
+    {
+      "start": 2896,
+      "end": 2917,
+      "fieldName": "ConvertedAccountBalance"
+    },
+    {
+      "start": 2917,
+      "end": 2938,
+      "fieldName": "ConvertedMinimumPaymentDue"
+    },
+    {
+      "start": 2938,
+      "end": 2959,
+      "fieldName": "ConvertedOpenToBuy"
+    },
+    {
+      "start": 2959,
+      "end": 2960,
+      "fieldName": "EuropayReportIdentification"
+    },
+    {
+      "start": 2960,
+      "end": 2968,
+      "fieldName": "EuropayConversionRate"
+    },
+    {
+      "start": 2968,
+      "end": 2996,
+      "fieldName": "AccountCurrencyDescription"
+    },
+    {
+      "start": 2996,
+      "end": 3024,
+      "fieldName": "AccountMemoCurrentDescription"
+    },
+    {
+      "start": 3024,
+      "end": 3025,
+      "fieldName": "AccountRecordType"
+    },
+    {
+      "start": 3025,
+      "end": 3026,
+      "fieldName": "StatementFlag"
+    },
+    {
+      "start": 3026,
+      "end": 3029,
+      "fieldName": "OrganizationSupportingDualCurrencyProcessing"
+    },
+    {
+      "start": 3029,
+      "end": 3032,
+      "fieldName": "DualCurrencyCode"
+    },
+    {
+      "start": 3032,
+      "end": 3033,
+      "fieldName": "DualAccountIndicator"
+    },
+    {
+      "start": 3033,
+      "end": 3035,
+      "fieldName": "UserCode1"
+    },
+    {
+      "start": 3035,
+      "end": 3037,
+      "fieldName": "UserCode2"
+    },
+    {
+      "start": 3037,
+      "end": 3039,
+      "fieldName": "UserCode3"
+    },
+    {
+      "start": 3039,
+      "end": 3041,
+      "fieldName": "UserCode4"
+    },
+    {
+      "start": 3041,
+      "end": 3043,
+      "fieldName": "UserCode5"
+    },
+    {
+      "start": 3043,
+      "end": 3045,
+      "fieldName": "UserCode6"
+    },
+    {
+      "start": 3045,
+      "end": 3047,
+      "fieldName": "UserCode7"
+    },
+    {
+      "start": 3047,
+      "end": 3049,
+      "fieldName": "UserCode8"
+    },
+    {
+      "start": 3049,
+      "end": 3051,
+      "fieldName": "UserCode9"
+    },
+    {
+      "start": 3051,
+      "end": 3053,
+      "fieldName": "UserCode10"
+    },
+    {
+      "start": 3053,
+      "end": 3055,
+      "fieldName": "UserCode11"
+    },
+    {
+      "start": 3055,
+      "end": 3057,
+      "fieldName": "UserCode12"
+    },
+    {
+      "start": 3057,
+      "end": 3059,
+      "fieldName": "UserCode13"
+    },
+    {
+      "start": 3059,
+      "end": 3061,
+      "fieldName": "UserCode14"
+    },
+    {
+      "start": 3061,
+      "end": 3069,
+      "fieldName": "UserDate1"
+    },
+    {
+      "start": 3069,
+      "end": 3077,
+      "fieldName": "UserDate2"
+    },
+    {
+      "start": 3077,
+      "end": 3085,
+      "fieldName": "UserDate3"
+    },
+    {
+      "start": 3085,
+      "end": 3093,
+      "fieldName": "UserDate4"
+    },
+    {
+      "start": 3093,
+      "end": 3101,
+      "fieldName": "UserDate5"
+    },
+    {
+      "start": 3101,
+      "end": 3109,
+      "fieldName": "UserDate6"
+    },
+    {
+      "start": 3109,
+      "end": 3117,
+      "fieldName": "UserDate7"
+    },
+    {
+      "start": 3117,
+      "end": 3125,
+      "fieldName": "UserDate8"
+    },
+    {
+      "start": 3125,
+      "end": 3133,
+      "fieldName": "UserDate9"
+    },
+    {
+      "start": 3133,
+      "end": 3141,
+      "fieldName": "UserDate10"
+    },
+    {
+      "start": 3141,
+      "end": 3149,
+      "fieldName": "UserDate11"
+    },
+    {
+      "start": 3149,
+      "end": 3157,
+      "fieldName": "UserDate12"
+    },
+    {
+      "start": 3157,
+      "end": 3165,
+      "fieldName": "UserDate13"
+    },
+    {
+      "start": 3165,
+      "end": 3173,
+      "fieldName": "UserDate14"
+    },
+    {
+      "start": 3173,
+      "end": 3194,
+      "fieldName": "UserAmount1"
+    },
+    {
+      "start": 3194,
+      "end": 3215,
+      "fieldName": "UserAmount2"
+    },
+    {
+      "start": 3215,
+      "end": 3236,
+      "fieldName": "UserAmount3"
+    },
+    {
+      "start": 3236,
+      "end": 3257,
+      "fieldName": "UserAmount4"
+    },
+    {
+      "start": 3257,
+      "end": 3278,
+      "fieldName": "UserAmount5"
+    },
+    {
+      "start": 3278,
+      "end": 3299,
+      "fieldName": "UserAmount6"
+    },
+    {
+      "start": 3299,
+      "end": 3320,
+      "fieldName": "UserAmount7"
+    },
+    {
+      "start": 3320,
+      "end": 3341,
+      "fieldName": "UserAmount8"
+    },
+    {
+      "start": 3341,
+      "end": 3362,
+      "fieldName": "UserAmount9"
+    },
+    {
+      "start": 3362,
+      "end": 3383,
+      "fieldName": "UserAmount10"
+    },
+    {
+      "start": 3383,
+      "end": 3404,
+      "fieldName": "UserAmount11"
+    },
+    {
+      "start": 3404,
+      "end": 3425,
+      "fieldName": "UserAmount12"
+    },
+    {
+      "start": 3425,
+      "end": 3446,
+      "fieldName": "UserAmount13"
+    },
+    {
+      "start": 3446,
+      "end": 3467,
+      "fieldName": "UserAmount14"
+    },
+    {
+      "start": 3467,
+      "end": 3497,
+      "fieldName": "UserMiscellaneous1"
+    },
+    {
+      "start": 3497,
+      "end": 3498,
+      "fieldName": "UserMiscellaneous2"
+    },
+    {
+      "start": 3498,
+      "end": 3509,
+      "fieldName": "UserMiscellaneous3"
+    },
+    {
+      "start": 3509,
+      "end": 3520,
+      "fieldName": "UserMiscellaneous4"
+    },
+    {
+      "start": 3520,
+      "end": 3531,
+      "fieldName": "UserMiscellaneous5"
+    },
+    {
+      "start": 3531,
+      "end": 3542,
+      "fieldName": "UserMiscellaneous6"
+    },
+    {
+      "start": 3542,
+      "end": 3553,
+      "fieldName": "UserMiscellaneous7"
+    },
+    {
+      "start": 3553,
+      "end": 3564,
+      "fieldName": "UserMiscellaneous8"
+    },
+    {
+      "start": 3564,
+      "end": 3566,
+      "fieldName": "UserMiscellaneous9"
+    },
+    {
+      "start": 3566,
+      "end": 3568,
+      "fieldName": "UserMiscellaneous10"
+    },
+    {
+      "start": 3568,
+      "end": 3570,
+      "fieldName": "UserMiscellaneous11"
+    },
+    {
+      "start": 3570,
+      "end": 3572,
+      "fieldName": "UserMiscellaneous12"
+    },
+    {
+      "start": 3572,
+      "end": 3593,
+      "fieldName": "ProjectedAutomatedClearingHousePayment"
+    },
+    {
+      "start": 3593,
+      "end": 3614,
+      "fieldName": "TemporaryCreditLimit"
+    },
+    {
+      "start": 3614,
+      "end": 3635,
+      "fieldName": "SumOfInterestDueInEuro"
+    },
+    {
+      "start": 3635,
+      "end": 3656,
+      "fieldName": "YearToDateSumOfInterestInEuro"
+    },
+    {
+      "start": 3656,
+      "end": 3677,
+      "fieldName": "SumOfPastDueAmountInEuro"
+    },
+    {
+      "start": 3677,
+      "end": 3698,
+      "fieldName": "SumOfTotalDueInEuro"
+    },
+    {
+      "start": 3698,
+      "end": 3719,
+      "fieldName": "SumOfDailyBalanceInEuro"
+    },
+    {
+      "start": 3719,
+      "end": 3740,
+      "fieldName": "SumOfendingBalanceInEuro"
+    },
+    {
+      "start": 3740,
+      "end": 3741,
+      "fieldName": "OriginalRecordType"
+    },
+    {
+      "start": 3741,
+      "end": 3991,
+      "fieldName": "StatementVersionNumber"
+    },
+    {
+      "start": 3991,
+      "end": 3994,
+      "fieldName": "OrganizationOfTheCustomer"
+    },
+    {
+      "start": 3994,
+      "end": 3995,
+      "fieldName": "MultipleCycleStatement"
+    },
+    {
+      "start": 3995,
+      "end": 4015,
+      "fieldName": "ShortNameOfCustomer"
+    },
+    {
+      "start": 4015,
+      "end": 4016,
+      "fieldName": "PrePaidFlag"
+    },
+    {
+      "start": 4016,
+      "end": 4017,
+      "fieldName": "PrePaidType"
+    },
+    {
+      "start": 4017,
+      "end": 4038,
+      "fieldName": "PrePaidAmountLastLoaded"
+    },
+    {
+      "start": 4038,
+      "end": 4046,
+      "fieldName": "LastLoadedDate"
+    },
+    {
+      "start": 4046,
+      "end": 4047,
+      "fieldName": "OwnerGender"
+    },
+    {
+      "start": 4047,
+      "end": 4048,
+      "fieldName": "CoOwnerGender"
+    },
+    {
+      "start": 4048,
+      "end": 4068,
+      "fieldName": "User14"
+    },
+    {
+      "start": 4068,
+      "end": 4088,
+      "fieldName": "User15"
+    },
+    {
+      "start": 4088,
+      "end": 4108,
+      "fieldName": "CoUser14"
+    },
+    {
+      "start": 4108,
+      "end": 4128,
+      "fieldName": "CoUser15"
+    },
+    {
+      "start": 4128,
+      "end": 4149,
+      "fieldName": "AlternativeMinimumPaymentAmount"
+    },
+    {
+      "start": 4149,
+      "end": 4168,
+      "fieldName": "Filler"
+    },
+    {
+      "start": 4168,
+      "end": 4187,
+      "fieldName": "PrimaryCardNumber"
+    },
+    {
+      "start": 4187,
+      "end": 4188,
+      "fieldName": "StatementNotificationIndicator"
+    },
+    {
+      "start": 4188,
+      "end": 4208,
+      "fieldName": "HouseNumber"
+    },
+    {
+      "start": 4208,
+      "end": 4248,
+      "fieldName": "HouseName"
+    },
+    {
+      "start": 4248,
+      "end": 4288,
+      "fieldName": "AddressLine3"
+    },
+    {
+      "start": 4288,
+      "end": 4328,
+      "fieldName": "AddressLine4"
+    },
+    {
+      "start": 4328,
+      "end": 4331,
+      "fieldName": "PctId"
+    },
+    {
+      "start": 4331,
+      "end": 4336,
+      "fieldName": "AffiliateEmblem"
+    },
+    {
+      "start": 4336,
+      "end": 4344,
+      "fieldName": "DirectDebitPaymentDate"
+    },
+    {
+      "start": 4344,
+      "end": 4364,
+      "fieldName": "Title"
+    },
+    {
+      "start": 4364,
+      "end": 4384,
+      "fieldName": "Suffix"
+    },
+    {
+      "start": 4384,
+      "end": 4414,
+      "fieldName": "County"
+    },
+    {
+      "start": 4414,
+      "end": 4417,
+      "fieldName": "CountryCode"
+    },
+    {
+      "start": 4417,
+      "end": 4420,
+      "fieldName": "NumberOfMonthsUntilPayoff"
+    },
+    {
+      "start": 4420,
+      "end": 4421,
+      "fieldName": "NumberOfMonthsUntilPayoffSign"
+    },
+    {
+      "start": 4421,
+      "end": 4424,
+      "fieldName": "NumberOfYearsUntilPayoff"
+    },
+    {
+      "start": 4424,
+      "end": 4425,
+      "fieldName": "NumberOfYearsUntilPayoffSign"
+    },
+    {
+      "start": 4425,
+      "end": 4446,
+      "fieldName": "PayoffAmount"
+    },
+    {
+      "start": 4446,
+      "end": 4467,
+      "fieldName": "36MonthMinimumPayment"
+    },
+    {
+      "start": 4467,
+      "end": 4488,
+      "fieldName": "36MonthPayoffAmount"
+    },
+    {
+      "start": 4488,
+      "end": 4509,
+      "fieldName": "SavingsAmount"
+    },
+    {
+      "start": 4509,
+      "end": 4517,
+      "fieldName": "DateLateFeeApplied"
+    },
+    {
+      "start": 4517,
+      "end": 4518,
+      "fieldName": "MinimumPaymentWarnDis"
+    },
+    {
+      "start": 4518,
+      "end": 4519,
+      "fieldName": "DeliveryOption"
+    },
+    {
+      "start": 4519,
+      "end": 4520,
+      "fieldName": "DisabilityIndicator"
+    },
+    {
+      "start": 4520,
+      "end": 4521,
+      "fieldName": "MarketingOptOut"
+    },
+    {
+      "start": 4521,
+      "end": 4523,
+      "fieldName": "ContactIndicator"
+    },
+    {
+      "start": 4523,
+      "end": 4544,
+      "fieldName": "EstimatedInterest"
+    },
+    {
+      "start": 4544,
+      "end": 4565,
+      "fieldName": "NonEppPlanBalance"
+    },
+    {
+      "start": 4565,
+      "end": 4586,
+      "fieldName": "PreviousNonEppPlanBalance"
+    },
+    {
+      "start": 4586,
+      "end": 4607,
+      "fieldName": "TawroqConversionAmount"
+    },
+    {
+      "start": 4607,
+      "end": 4616,
+      "fieldName": "TawroqMarkUpFee"
+    },
+    {
+      "start": 4616,
+      "end": 4617,
+      "fieldName": "TawroqMarkUpFeeSign"
+    },
+    {
+      "start": 4617,
+      "end": 4625,
+      "fieldName": "TawroqConversionDate"
+    },
+    {
+      "start": 4625,
+      "end": 4628,
+      "fieldName": "StaffContactIndicator"
+    },
+    {
+      "start": 4628,
+      "end": 4649,
+      "fieldName": "CustomerNumber"
+    },
+    {
+      "start": 4649,
+      "end": 4689,
+      "fieldName": "NameAndAddressLine6"
+    },
+    {
+      "start": 4689,
+      "end": 4692,
+      "fieldName": "CountryCode"
+    },
+    {
+      "start": 4692,
+      "end": 4700,
+      "fieldName": "PctExpirationDate"
+    },
+    {
+      "start": 4700,
+      "end": 4701,
+      "fieldName": "ChequeRequestFlag"
+    },
+    {
+      "start": 4701,
+      "end": 4702,
+      "fieldName": "StatementDeliveryOption"
+    },
+    {
+      "start": 4702,
+      "end": 4709,
+      "fieldName": "MinimumPaymentPercentage"
+    },
+    {
+      "start": 4709,
+      "end": 4710,
+      "fieldName": "MinimumPaymentPercentageSign"
+    },
+    {
+      "start": 4710,
+      "end": 4727,
+      "fieldName": "MinimumPaymentAmount"
+    },
+    {
+      "start": 4727,
+      "end": 4728,
+      "fieldName": "MinimumPaymentAmountSign"
+    },
+    {
+      "start": 4728,
+      "end": 4736,
+      "fieldName": "DateOfBirth"
+    },
+    {
+      "start": 4736,
+      "end": 4744,
+      "fieldName": "CashRate"
+    },
+    {
+      "start": 4744,
+      "end": 4752,
+      "fieldName": "RetailRate"
+    },
+    {
+      "start": 4752,
+      "end": 4753,
+      "fieldName": "CardStatementFlag"
+    },
+    {
+      "start": 4753,
+      "end": 4762,
+      "fieldName": "CashApr"
+    },
+    {
+      "start": 4762,
+      "end": 4771,
+      "fieldName": "RetailApr"
+    },
+    {
+      "start": 4771,
+      "end": 4780,
+      "fieldName": "BalanceTransferApr"
+    },
+    {
+      "start": 4780,
+      "end": 4799,
+      "fieldName": "PrimaryCardNumber"
+    },
+    {
+      "start": 4799,
+      "end": 4800,
+      "fieldName": "GenerateBgc"
+    },
+    {
+      "start": 4800,
+      "end": 4801,
+      "fieldName": "MultiSchemeFlag"
+    },
+    {
+      "start": 4801,
+      "end": 4804,
+      "fieldName": "QuarterlyAffiliateFlag1"
+    },
+    {
+      "start": 4804,
+      "end": 4807,
+      "fieldName": "QuarterlyAffiliateFlag2"
+    },
+    {
+      "start": 4807,
+      "end": 4810,
+      "fieldName": "QuarterlyAffiliateFlag3"
+    },
+    {
+      "start": 4810,
+      "end": 4813,
+      "fieldName": "QuarterlyAffiliateFlag4"
+    },
+    {
+      "start": 4813,
+      "end": 4816,
+      "fieldName": "QuarterlyAffiliateFlag5"
+    },
+    {
+      "start": 4816,
+      "end": 4819,
+      "fieldName": "QuarterlyAffiliateFlag6"
+    },
+    {
+      "start": 4819,
+      "end": 4822,
+      "fieldName": "QuarterlyAffiliateFlag7"
+    },
+    {
+      "start": 4822,
+      "end": 4825,
+      "fieldName": "QuarterlyAffiliateFlag8"
+    },
+    {
+      "start": 4825,
+      "end": 4828,
+      "fieldName": "QuarterlyAffiliateFlag9"
+    },
+    {
+      "start": 4828,
+      "end": 4831,
+      "fieldName": "QuarterlyAffiliateFlag10"
+    },
+    {
+      "start": 4831,
+      "end": 4834,
+      "fieldName": "QuarterlyAffiliateFlag11"
+    },
+    {
+      "start": 4834,
+      "end": 4837,
+      "fieldName": "QuarterlyAffiliateFlag12"
+    },
+    {
+      "start": 4837,
+      "end": 4840,
+      "fieldName": "QuarterlyAffiliateFlag13"
+    },
+    {
+      "start": 4840,
+      "end": 4843,
+      "fieldName": "QuarterlyAffiliateFlag14"
+    },
+    {
+      "start": 4843,
+      "end": 4846,
+      "fieldName": "QuarterlyAffiliateFlag15"
+    },
+    {
+      "start": 4846,
+      "end": 4849,
+      "fieldName": "QuarterlyAffiliateFlag16"
+    },
+    {
+      "start": 4849,
+      "end": 4852,
+      "fieldName": "QuarterlyAffiliateFlag17"
+    },
+    {
+      "start": 4852,
+      "end": 4855,
+      "fieldName": "QuarterlyAffiliateFlag18"
+    },
+    {
+      "start": 4855,
+      "end": 4858,
+      "fieldName": "QuarterlyAffiliateFlag19"
+    },
+    {
+      "start": 4858,
+      "end": 4861,
+      "fieldName": "QuarterlyAffiliateFlag20"
+    },
+    {
+      "start": 4861,
+      "end": 4862,
+      "fieldName": "CcaIndicator"
+    },
+    {
+      "start": 4862,
+      "end": 4902,
+      "fieldName": "FormatAddressLine1"
+    },
+    {
+      "start": 4902,
+      "end": 4942,
+      "fieldName": "FormatAddressLine2"
+    },
+    {
+      "start": 4942,
+      "end": 4982,
+      "fieldName": "FormatAddressLine3"
+    },
+    {
+      "start": 4982,
+      "end": 5022,
+      "fieldName": "FormatAddressLine4"
+    },
+    {
+      "start": 5022,
+      "end": 5062,
+      "fieldName": "FormatAddressLine5"
+    },
+    {
+      "start": 5062,
+      "end": 5102,
+      "fieldName": "FormatAddressLine6"
+    },
+    {
+      "start": 5102,
+      "end": 5142,
+      "fieldName": "FormatAddressLine7"
+    },
+    {
+      "start": 5142,
+      "end": 5182,
+      "fieldName": "FormatAddressLine8"
+    },
+    {
+      "start": 5182,
+      "end": 5222,
+      "fieldName": "FormatAddressLine9"
+    },
+    {
+      "start": 5222,
+      "end": 5223,
+      "fieldName": "StatementMessageIndicator"
+    },
+    {
+      "start": 5223,
+      "end": 5224,
+      "fieldName": "RateDisplayIndicator"
+    },
+    {
+      "start": 5224,
+      "end": 5225,
+      "fieldName": "StatementSwitch"
+    },
+    {
+      "start": 5225,
+      "end": 5244,
+      "fieldName": "PaymentAchDebitNumber"
+    },
+    {
+      "start": 5244,
+      "end": 5245,
+      "fieldName": "StatementNotifyIndicator"
+    },
+    {
+      "start": 5245,
+      "end": 5305,
+      "fieldName": "Email"
+    },
+    {
+      "start": 5305,
+      "end": 5306,
+      "fieldName": "EmailFlag"
+    },
+    {
+      "start": 5306,
+      "end": 5326,
+      "fieldName": "MobilePhone"
+    },
+    {
+      "start": 5326,
+      "end": 5327,
+      "fieldName": "MobilePhoneFlag"
+    },
+    {
+      "start": 5327,
+      "end": 5328,
+      "fieldName": "SmsFlag"
+    },
+    {
+      "start": 5328,
+      "end": 5331,
+      "fieldName": "CustomerCompanyGroupCode"
+    },
+    {
+      "start": 5331,
+      "end": 5347,
+      "fieldName": "CostCentreReporting"
+    },
+    {
+      "start": 5347,
+      "end": 5366,
+      "fieldName": "UniqueId"
+    },
+    {
+      "start": 5366,
+      "end": 5367,
+      "fieldName": "StatementIndicator"
+    },
+    {
+      "start": 5367,
+      "end": 5375,
+      "fieldName": "BillDeferIntDate"
+    },
+    {
+      "start": 5375,
+      "end": 5376,
+      "fieldName": "NominatedAchAmountPercentageFlag"
+    },
+    {
+      "start": 5376,
+      "end": 5377,
+      "fieldName": "DdPaymentFlag"
+    },
+    {
+      "start": 5377,
+      "end": 5394,
+      "fieldName": "TriadCreditLimitAmount"
+    },
+    {
+      "start": 5394,
+      "end": 5402,
+      "fieldName": "TriadCreditLimitOfferDate"
+    },
+    {
+      "start": 5402,
+      "end": 5410,
+      "fieldName": "TriadCreditLimitExpiryDate"
+    },
+    {
+      "start": 5410,
+      "end": 5413,
+      "fieldName": "TriadRePricedPct"
+    },
+    {
+      "start": 5413,
+      "end": 5421,
+      "fieldName": "TriadRePricedPctstartDate"
+    },
+    {
+      "start": 5421,
+      "end": 5429,
+      "fieldName": "TriadRePricedPctendDate"
+    },
+    {
+      "start": 5429,
+      "end": 5446,
+      "fieldName": "OverlimitAmount"
+    },
+    {
+      "start": 5446,
+      "end": 5458,
+      "fieldName": "EmployeeDiscountStandardCap"
+    },
+    {
+      "start": 5458,
+      "end": 5470,
+      "fieldName": "EmployeeDiscountMaximumCap"
+    },
+    {
+      "start": 5470,
+      "end": 5487,
+      "fieldName": "EmployeeDiscountYearToDate"
+    },
+    {
+      "start": 5487,
+      "end": 5496,
+      "fieldName": "RePricedRetailApr"
+    },
+    {
+      "start": 5496,
+      "end": 5505,
+      "fieldName": "RePricedCashApr"
+    },
+    {
+      "start": 5505,
+      "end": 5514,
+      "fieldName": "RePricedBalanceTransferApr"
+    },
+    {
+      "start": 5514,
+      "end": 5523,
+      "fieldName": "RePricedRetailAir"
+    },
+    {
+      "start": 5523,
+      "end": 5532,
+      "fieldName": "RePricedCashAir"
+    },
+    {
+      "start": 5532,
+      "end": 5541,
+      "fieldName": "RePricedBalanceTransferAir"
+    },
+    {
+      "start": 5541,
+      "end": 5549,
+      "fieldName": "TriadReprOptOutDte"
+    },
+    {
+      "start": 5549,
+      "end": 5559,
+      "fieldName": "AcctSerialNumber"
+    },
+    {
+      "start": 5559,
+      "end": 5561,
+      "fieldName": "ForexFeeWaive"
+    },
+    {
+      "start": 5561,
+      "end": 5562,
+      "fieldName": "AnnualFeeWaive"
+    },
+    {
+      "start": 5562,
+      "end": 5563,
+      "fieldName": "AnnualFeeMethod"
+    },
+    {
+      "start": 5563,
+      "end": 5580,
+      "fieldName": "BeginningBnplBalance"
+    },
+    {
+      "start": 5580,
+      "end": 5597,
+      "fieldName": "endingBnplBalance"
+    },
+    {
+      "start": 5597,
+      "end": 5614,
+      "fieldName": "BeginningNonBnplBalance"
+    },
+    {
+      "start": 5614,
+      "end": 5631,
+      "fieldName": "endingNonBnplBalance"
+    },
+    {
+      "start": 5631,
+      "end": 5634,
+      "fieldName": "CurrCmpCtr"
+    },
+    {
+      "start": 5634,
+      "end": 5635,
+      "fieldName": "LastCmpLetr"
+    },
+    {
+      "start": 5635,
+      "end": 5638,
+      "fieldName": "LastCmpLetrCtr"
+    },
+    {
+      "start": 5638,
+      "end": 5646,
+      "fieldName": "LastCmpLtrDt"
+    },
+    {
+      "start": 5646,
+      "end": 5649,
+      "fieldName": "LastCmpLtrId"
+    },
+    {
+      "start": 5649,
+      "end": 5651,
+      "fieldName": "IbanCc"
+    },
+    {
+      "start": 5651,
+      "end": 5653,
+      "fieldName": "IbanCheckDigit"
+    },
+    {
+      "start": 5653,
+      "end": 5683,
+      "fieldName": "IbanBaseAccount"
+    },
+    {
+      "start": 5683,
+      "end": 5684,
+      "fieldName": "CciIndicator"
+    },
+    {
+      "start": 5684,
+      "end": 5705,
+      "fieldName": "NomAchPmtAmount"
+    },
+    {
+      "start": 5705,
+      "end": 5722,
+      "fieldName": "EqualPaymentsPlanPrincipalBalance"
+    },
+    {
+      "start": 5722,
+      "end": 5723,
+      "fieldName": "EqualPaymentsPlanPrincipalBalanceSign"
+    },
+    {
+      "start": 5723,
+      "end": 5740,
+      "fieldName": "LoanWithinCreditLinePrincipalBalance"
+    },
+    {
+      "start": 5740,
+      "end": 5741,
+      "fieldName": "LoanWithinCreditLinePrincipalBalanceSign"
+    },
+    {
+      "start": 5741,
+      "end": 5758,
+      "fieldName": "LoanOverCreditLinePrincipalBalance"
+    },
+    {
+      "start": 5758,
+      "end": 5759,
+      "fieldName": "LoanOverCreditLinePrincipalBalanceSign"
+    },
+    {
+      "start": 5759,
+      "end": 5776,
+      "fieldName": "EqualPaymentsPlanTotalBalance"
+    },
+    {
+      "start": 5776,
+      "end": 5777,
+      "fieldName": "EqualPaymentsPlanTotalBalanceSign"
+    },
+    {
+      "start": 5777,
+      "end": 5794,
+      "fieldName": "LoanWithinCreditLineTotalBalance"
+    },
+    {
+      "start": 5794,
+      "end": 5795,
+      "fieldName": "LoanWithinCreditLineTotalBalanceSign"
+    },
+    {
+      "start": 5795,
+      "end": 5812,
+      "fieldName": "LoanOverCreditLineTotalBalance"
+    },
+    {
+      "start": 5812,
+      "end": 5813,
+      "fieldName": "LoanOverCreditLineTotalBalanceSign"
+    },
+    {
+      "start": 5813,
+      "end": 5821,
+      "fieldName": "DatestartOverlimit"
+    },
+    {
+      "start": 5821,
+      "end": 5829,
+      "fieldName": "DateLastOverlimit"
+    },
+    {
+      "start": 5829,
+      "end": 5850,
+      "fieldName": "FppAgrdMinPmt"
+    },
+    {
+      "start": 5850,
+      "end": 5858,
+      "fieldName": "ForexFeeExpDte"
+    },
+    {
+      "start": 5858,
+      "end": 5879,
+      "fieldName": "FppBal"
+    },
+    {
+      "start": 5879,
+      "end": 5880,
+      "fieldName": "RateChangeIndicator"
+    },
+    {
+      "start": 5880,
+      "end": 5884,
+      "fieldName": "TestDigits"
+    },
+    {
+      "start": 5884,
+      "end": 5888,
+      "fieldName": "TestDigits2"
+    },
+    {
+      "start": 5888,
+      "end": 5892,
+      "fieldName": "TestDigits3"
+    },
+    {
+      "start": 5892,
+      "end": 5896,
+      "fieldName": "TestDigits4"
+    },
+    {
+      "start": 5896,
+      "end": 5917,
+      "fieldName": "OvlmExclBal"
+    },
+    {
+      "start": 5917,
+      "end": 5925,
+      "fieldName": "DteLastOvlmChg"
+    },
+    {
+      "start": 5925,
+      "end": 5926,
+      "fieldName": "NoFeeOnPtp"
+    },
+    {
+      "start": 5926,
+      "end": 5927,
+      "fieldName": "PmtHolidayFlag"
+    },
+    {
+      "start": 5927,
+      "end": 5928,
+      "fieldName": "PmtHolidayTerm"
+    },
+    {
+      "start": 5928,
+      "end": 5936,
+      "fieldName": "PhstartDate"
+    },
+    {
+      "start": 5936,
+      "end": 5944,
+      "fieldName": "PhendDate"
+    },
+    {
+      "start": 5944,
+      "end": 5946,
+      "fieldName": "PhTotCycCnt"
+    },
+    {
+      "start": 5946,
+      "end": 5955,
+      "fieldName": "AprMoneyTransfer"
+    },
+    {
+      "start": 5955,
+      "end": 5995,
+      "fieldName": "MembershipId"
+    },
+    {
+      "start": 5995,
+      "end": 6000,
+      "fieldName": "AtmEntityNbr"
+    },
+    {
+      "start": 6000,
+      "end": 6010,
+      "fieldName": "InvoiceAcctSerNbr"
+    },
+    {
+      "start": 6010,
+      "end": 6018,
+      "fieldName": "InvoiceStmtDate"
+    },
+    {
+      "start": 6018,
+      "end": 6026,
+      "fieldName": "DateFirstMisdPmt"
+    },
+    {
+      "start": 6026,
+      "end": 6027,
+      "fieldName": "DdMandateFlag"
+    },
+    {
+      "start": 6027,
+      "end": 6061,
+      "fieldName": "DdIban"
+    },
+    {
+      "start": 6061,
+      "end": 6069,
+      "fieldName": "AcctUsuryCap"
+    },
+    {
+      "start": 6069,
+      "end": 6078,
+      "fieldName": "RpdAmt"
+    },
+    {
+      "start": 6078,
+      "end": 6079,
+      "fieldName": "RpdAmtSign"
+    },
+    {
+      "start": 6079,
+      "end": 6082,
+      "fieldName": "DmpPercent"
+    },
+    {
+      "start": 6082,
+      "end": 6091,
+      "fieldName": "DmpDeltaRmp"
+    },
+    {
+      "start": 6091,
+      "end": 6092,
+      "fieldName": "DmpDeltaRmpSign"
+    },
+    {
+      "start": 6092,
+      "end": 6101,
+      "fieldName": "DmpDeltaDmp"
+    },
+    {
+      "start": 6101,
+      "end": 6102,
+      "fieldName": "DmpDeltaDmpSign"
+    },
+    {
+      "start": 6102,
+      "end": 6111,
+      "fieldName": "DmpPmtReqtd"
+    },
+    {
+      "start": 6111,
+      "end": 6112,
+      "fieldName": "DmpPmtReqtdSign"
+    },
+    {
+      "start": 6112,
+      "end": 6120,
+      "fieldName": "RetailRateDelta"
+    },
+    {
+      "start": 6120,
+      "end": 6121,
+      "fieldName": "RtlRateDeltaSign"
+    },
+    {
+      "start": 6121,
+      "end": 6142,
+      "fieldName": "PmtCurrDue"
+    },
+    {
+      "start": 6142,
+      "end": 6143,
+      "fieldName": "CustStmtFlag"
+    },
+    {
+      "start": 6143,
+      "end": 6144,
+      "fieldName": "QualGraceBalSign"
+    },
+    {
+      "start": 6144,
+      "end": 6165,
+      "fieldName": "QualGraceBal"
+    },
+    {
+      "start": 6165,
+      "end": 6166,
+      "fieldName": "18MthPdFlag"
+    },
+    {
+      "start": 6166,
+      "end": 6167,
+      "fieldName": "AcctPrinInd"
+    },
+    {
+      "start": 6167,
+      "end": 6176,
+      "fieldName": "AcctPrinAmtPct"
+    }
+  ]
+}

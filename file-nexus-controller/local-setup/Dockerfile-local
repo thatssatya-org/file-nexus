@@ -1,0 +1,35 @@
+FROM eclipse-temurin:17
+
+EXPOSE 8081:8081
+
+VOLUME /var/log/filenexus
+
+RUN groupadd --system --gid="9999" filenexus && \
+    useradd --system  --uid="9999" --gid="filenexus" filenexus
+
+# Create required path and add jar files
+RUN mkdir -p /srv/www/application/current
+# Create this folder so that config can be injected to docker
+RUN mkdir -p /srv/www/application/current/config
+# Create this folder and put local config
+RUN mkdir -p /srv/www/application/current/local-config
+
+WORKDIR /srv/www/application/current
+
+COPY ./target/file-nexus*.jar ./file-nexus.jar
+
+COPY ../target/classes/application-local.yml ./local-config/application.yml
+
+# Define all default env variables
+ENV JMX_PORT="9000"
+ENV VM_MEM="-Xms512m -Xmx512m"
+ENV VM_MIN_META_MEM="256m"
+ENV VM_MAX_META_MEM="256m"
+ENV TIMEZONE_STR="Asia/Kolkata"
+ENV OTEL_AGENT="-javaagent:/srv/www/application/current/opentelemetry-javaagent.jar"
+
+USER filenexus
+
+
+CMD ["java", "-server","-cp", "./file-nexus.jar", "application.com.samsepiol.file.nexus.FileNexusApplication", "--spring.config.location=./local-config/application.yml"]
+

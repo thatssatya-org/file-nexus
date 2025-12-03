@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.samsepiol</groupId>
+        <artifactId>bom</artifactId>
+        <version>0.0.3-BOM-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>file-nexus</artifactId>
+    <version>1.0.4</version>
+    <packaging>pom</packaging>
+    <name>File Nexus</name>
+
+    <modules>
+        <module>file-nexus-models</module>
+        <module>file-nexus-controller</module>
+        <module>file-nexus-service</module>
+        <module>file-nexus-repository</module>
+        <module>file-nexus-core</module>
+    </modules>
+
+    <properties>
+<!--        <slf4j.version>1.7.36</slf4j.version>-->
+<!--        <org.jacaco.version>0.8.8</org.jacaco.version>-->
+        <samsepiol.library.version>0.0.2-LIBRARY-SNAPSHOT</samsepiol.library.version>
+<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
+<!--            ${project.basedir}/../*/target/site/jacoco/jacoco.xml,-->
+<!--            ${project.basedir}/../*/target/site/jacoco-aggregate/jacoco.xml,-->
+<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
+<!--        <sonar.coverage.exclusions>-->
+<!--            **/model/**/*,-->
+<!--            **/request/*,-->
+<!--            **/response/**/*,-->
+<!--            **/request/apiRequest/*,-->
+<!--            **/dto/*,-->
+<!--            **/config/**,-->
+<!--            **/constants/**,-->
+<!--            **/controller/**,-->
+<!--            **/application/**,-->
+<!--        </sonar.coverage.exclusions>-->
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.samsepiol.library</groupId>
+                <artifactId>library-core</artifactId>
+                <version>${samsepiol.library.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.samsepiol.library</groupId>
+                <artifactId>temporal</artifactId>
+                <version>${samsepiol.library.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.samsepiol.library</groupId>
+                <artifactId>mongo</artifactId>
+                <version>${samsepiol.library.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.samsepiol.library</groupId>
+                <artifactId>http</artifactId>
+                <version>${samsepiol.library.version}</version>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.samsepiol</groupId>-->
+<!--                <artifactId>redis</artifactId>-->
+<!--            </dependency>-->
+<!--            TODO kafka and redis lock-->
+<!--            <dependency>-->
+<!--                <groupId>com.samsepiol</groupId>-->
+<!--                <artifactId>message-queue-kafka</artifactId>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>com.samsepiol</groupId>-->
+<!--                <artifactId>lock</artifactId>-->
+<!--            </dependency>-->
+
+        </dependencies>
+    </dependencyManagement>
+</project>

@@ -1,0 +1,246 @@
+logging:
+  level:
+    root: ERROR
+    com.samsepiol: INFO
+  pattern:
+    console: '[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%mdc{trace_id}/%mdc{span_id}] [%thread] %-5level %C:%M:%L - %msg%n'
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: "*"
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test
+
+mongo-config:
+  address: ${mongo.host}
+  database: ${mongo.database}
+  username: ${mongo.username}
+  password: ${mongo.password}
+  srvMode: ${mongo.srvMode:false}
+  retryWrites: ${mongo.retryWrites:false}
+
+temporal-config:
+  serviceAddress: ${temporal.service.address}
+  namespace: ${temporal.namespace}
+  workflowRetentionDays: ${temporal.workflow.retentionDays}
+
+redis-config:
+  prefix: 'File-Nexus-'
+  enabled: 'true'
+  url: ${redis.host}
+  redisMode: ${redis.mode:'MASTER_SLAVE'}
+  username: ${redis.username:}
+  password: ${redis.password:}
+
+kafka-config:
+  consumerConfig:
+    - brokers: ${kafka.brokers}
+      groupId: ${kafka.consumer.groupId}
+      topic: ${kafka.file.contents.topic}
+      qualifierName: "fileHandler"
+      threads: 2
+      maxRecords: 100
+      enableHeaders: true
+      passwordProtected: ${kafka.password-protected:false}
+      userName: ${kafka.password-protected.username}
+      password: ${kafka.password-protected.password}
+    - brokers: ${kafka.brokers}
+      groupId: ${kafka.file.pulse.status.consumer.groupId}
+      topic: ${kafka.file.pulse.status.topic}
+      qualifierName: "filePulseStatusHandler"
+      threads: 2
+      maxRecords: 100
+      enableHeaders: true
+      passwordProtected: ${kafka.password-protected:false}
+      userName: ${kafka.password-protected.username}
+      password: ${kafka.password-protected.password}
+  producerConfig:
+    - brokers: ${kafka.brokers}
+      topic: "surrogate"
+      passwordProtected: ${kafka.password-protected:false}
+      userName: ${kafka.password-protected.username}
+      password: ${kafka.password-protected.password}
+
+file-config:
+  file-to-schema-configs:
+    - file-type: ${fileType1}
+      schema-config:
+        parser-type: ${fileType1.parserType}
+        column-configs:
+          - column-name: ${fileType1.columnName1}
+            column-config:
+              mandatory: ${fileType1.columnName1.mandatory}
+              index: ${fileType1.columnName1.index}
+          - column-name: ${fileType1.columnName2:}
+            column-config:
+              mandatory: ${fileType1.columnName2.mandatory:false}
+              index: ${fileType1.columnName2.index:}
+          - column-name: ${fileType1.columnName3:}
+            column-config:
+              mandatory: ${fileType1.columnName3.mandatory:false}
+              index: ${fileType1.columnName3.index:}
+        tudf-file-parser-load-config:
+          recordIdentifierIndex: ${tudf.record.identifier.index:0}
+          identifiersToFileName:
+            - identifier: ${fileType1.tudf.identifier1:}
+              filePath: ${fileType1.tudf.identifier1.filePath:}
+            - identifier: ${fileType1.tudf.identifier2:}
+              filePath: ${fileType1.tudf.identifier2.filePath:}
+
+file-contents-consumer-config:
+  topicName: ${kafka.file.contents.topic}
+  groupId: ${kafka.consumer.groupId}
+
+file-handler-config:
+  file-prefix-to-types:
+    - prefix: ${fileType1.prefix}
+      fileType: ${fileType1}
+  metadata-parsing-configs:
+    - file-type: ${fileType1}
+      metadata-parsing-config:
+        date-parsing-source: ${fileType1.metadata.dateParsingSource}
+        date-format: ${fileType1.metadata.dateFormat}
+        file-name-suffixes: ${fileType1.metadata.supportedNameSuffixes}
+
+store-config:
+  storeConfigEntry:
+    - identifier: '${store.identifier.1:ybl-sftp-source}'
+      storageType: '${store.storageType.1:SFTP}'
+      host: '${store.host.1:s-39544819a8f34327b.server.transfer.ap-south-1.amazonaws.com}'
+      port: ${store.port.1:22}
+      username: '${store.username.1:yes-stage-user}'
+      passphrase: '${store.passphrase.1:yespass}'
+      privateKey: ${store.privateKey.1}
+      rootDir: '${rootDir:statement/}'
+    - identifier: '${store.identifier.2:ybl-aws-target}'
+      storageType: '${store.storageType.2:S3}'
+
+file-transfer-config:
+  fileTransferConfigs:
+    - identifier: '${file.transfer.identifier.1:ybl-sftp-source-ybl-aws-target}'
+      sourceStorageType: '${file.transfer.source.storageType.1:SFTP}'
+      targetStorageType: '${file.transfer.target.storageType.1:S3}'
+      srcRootDir: '${rootDir:statement/}'
+      extractAndProcessZipEntries: true
+      defaultUploadConfig:
+        bucketName: '${file.transfer.1.default.target.bucket.name:pe-stage-yes-bank-data}'
+        targetPath: '${file.transfer.1.default.target.path:default/}'
+        archiveDir: '${file.transfer.1.default.archive.dir:output/}'
+      fileUploadConfig:
+        - fileNameRegex: '${file.transfer.1.upload.1.file.regex:.*.zip}'
+          archiveDir: '${file.transfer.1.upload.1.archive.dir:output/}'
+          uploadBucketName:  '${file.transfer.1.upload.1.bucket.name:pe-stage-yes-bank-data}'
+          uploadBucketPath: '${file.transfer.1.upload.1.bucket.path:statement/}'
+          renameFileConfig:
+            originalPattern: '${file.transfer.1.upload.1.original.pattern:YCCP_STMT_ACCT_\d+_(\d{8})\.TXT}'
+            filePattern: '${file.transfer.1.upload.1.rename.pattern:STATEMENT_{DATE}_{INDEX}}'
+        - fileNameRegex: '${file.transfer.1.upload.2.file.regex:.*_SETTLEMENT_.*.csv}'
+          archiveDir: '${file.transfer.1.upload.2.archive.dir:output/}'
+          uploadBucketName: '${file.transfer.1.upload.2.bucket.name:pe-stage-yes-bank-data}'
+          uploadBucketPath: '${file.transfer.1.upload.1.bucket.path:settlement-interim/}'
+        - fileNameRegex: '${file.transfer.1.upload.3.file.regex:.*_MEMO_FILE_D_.*.csv}'
+          archiveDir: '${file.transfer.1.upload.3.archive.dir:output/}'
+          uploadBucketName: '${file.transfer.1.upload.3.bucket.name:pe-stage-yes-bank-data}'
+          uploadBucketPath: '${file.transfer.1.upload.3.bucket.path:emi-interim/}'
+
+nexus-hook-config:
+  sources:
+    - name: embosser-file-source
+      schedule: ${embosser-file-source.source.schedule:}
+      type: ${embosser-file-source.source.type:S3}
+      enabled: ${embosser-file-source.source.enabled:false}
+      bucket: ${embosser-file-source.source.bucket:}
+      prefix: ${embosser-file-source.source.prefix:}
+      fileFiltering:
+        minFileAge: PT1S
+        pageSize: 100
+        timestampFilteringEnabled: true
+        timestampKeyPrefix: "nexus:last-processed:"
+      destinations:
+        - type: SMTP
+          name: ${embosser-file-source.source.smtp.destination.name:embosser-file-smtp-notification}
+          enabled: ${embosser-file-source.source.smtp.destination.enabled:false}
+          to: ${embosser-file-source.source.smtp.destination.to:}
+          cc: ${embosser-file-source.source.smtp.destination.cc:}
+          from: ${embosser-file-source.source.smtp.destination.from:}
+          subject: "Embosser File Notification for {{DATE}}"
+          body: "Embosser file processed successfully for {{DATE}}"
+          host: ${embosser-file-source.source.smtp.destination.SMTP_HOST:}
+          port: ${embosser-file-source.source.smtp.destination.SMTP_PORT:587}
+          username: ${embosser-file-source.source.smtp.destination.SMTP_USERNAME:}
+          password: ${embosser-file-source.source.smtp.destination.SMTP_PASSWORD:}
+          ssl: ${embosser-file-source.source.smtp.destination.SMTP_SSL:false}
+          transformerType: ${embosser-file-source.source.smtp.destination.transformerType:}
+    - name: settlement-file-source
+      schedule: ${settlement-file-source.source.schedule:}
+      type: ${settlement-file-source.source.type:S3}
+      enabled: ${settlement-file-source.source.enabled:false}
+      bucket: ${settlement-file-source.source.bucket:}
+      prefix: ${settlement-file-source.source.prefix:}
+      fileFiltering:
+        minFileAge: PT1M
+        pageSize: 100
+        timestampFilteringEnabled: true
+        timestampKeyPrefix: "nexus:last-processed:"
+      destinations:
+        - type: KAFKA
+          name: ${settlement-file-source.source.kafka.destination.name:source-kafka-notification}
+          enabled: ${settlement-file-source.source.kafka.destination.enabled:false}
+          topic: ${settlement-file-source.source.kafka.destination.topic:file-nexus-settlement-file}
+          processorType: "CSV_TO_JSON"
+          key: ${settlement-file-source.source.kafka.destination.key:}
+    - name: ckyc-reports-file-source
+      schedule: ${ckyc-reports-file-source.source.schedule:}
+      type: ${ckyc-reports-file-source.source.type:GCS}
+      enabled: ${ckyc-reports-file-source.source.enabled:false}
+      bucket: ${ckyc-reports-file-source.source.bucket:}
+      prefix: ${ckyc-reports-file-source.source.prefix:}
+      fileFiltering:
+        minFileAge: PT2M
+        pageSize: 100
+        timestampFilteringEnabled: true
+        timestampKeyPrefix: "nexus:last-processed:"
+      destinations:
+        - type: SMTP
+          name: ${ckyc-reports-file-source.source.smtp.destination.name:ckyc-report-smtp-notification}
+          enabled: ${ckyc-reports-file-source.source.smtp.destination.enabled:false}
+          to: ${ckyc-reports-file-source.source.smtp.destination.to:}
+          cc: ${ckyc-reports-file-source.source.smtp.destination.cc:}
+          from: ${ckyc-reports-file-source.source.smtp.destination.from:}
+          subject: "CKYC Report Notification for {{DATE}}"
+          body: "CKYC Report processed successfully for {{DATE}}"
+          host: ${ckyc-reports-file-source.source.smtp.destination.SMTP_HOST:}
+          port: ${ckyc-reports-file-source.source.smtp.destination.SMTP_PORT:587}
+          username: ${embosser-file-source.source.smtp.destination.SMTP_USERNAME:}
+          password: ${embosser-file-source.source.smtp.destination.SMTP_PASSWORD:}
+          ssl: ${ckyc-reports-file-source.source.smtp.destination.SMTP_SSL:false}
+          transformerType: ${ckyc-reports-file-source.source.smtp.destination.transformerType:}
+
+
+file-storage-config:
+  fileStorageType: ${file.storage.type:AWS_S3}
+  s3Config:
+    region: "ap-south-1"
+  gcpConfig:
+    projectId: ${file.storage.gcp.projectId:gen-lang-client-0224000840}
+
+event-client-config:
+  appName: ${event.client.appName:FileNexus}
+
+cache-config:
+  statement-file:
+    ttl: ${cache.config.statement.file.ttl:0}
+  

@@ -1,0 +1,65 @@
+logging:
+  level:
+    root: ERROR
+    com.samsepiol: INFO
+  pattern:
+    console: '[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%mdc{trace_id}/%mdc{span_id}] [%thread] %-5level %C:%M:%L - %msg%n'
+
+server:
+  port : 8081
+
+mongo-config:
+  address: 'mongodb:27017'
+  database: 'file_nexus'
+  srvMode: 'false'
+  retryWrites: 'false'
+
+temporal-config:
+  serviceAddress: 'temporal:7233'
+  namespace: 'file-nexus-local'
+  workflowRetentionDays: '3'
+
+
+kafka-config:
+  consumerConfig:
+    - brokers: 'kafka-broker-1:9092,kafka-broker-2:9093,kafka-broker-3:9094'
+      groupId: 'file-content-consumer-group'
+      topic: 'file_nexus_ingestion_topic'
+      qualifierName: "file_handler"
+      threads: 3
+      maxRecords: 20
+      enableHeaders: true
+    - brokers: 'kafka-broker-1:9092,kafka-broker-2:9093,kafka-broker-3:9094'
+      groupId: 'file-pulse-status-consumer-group'
+      topic: 'connect-file-pulse-status'
+      qualifierName: "file_pulse_status_handler"
+      threads: 3
+      maxRecords: 20
+      enableHeaders: true
+
+file-config:
+  file-to-schema-configs:
+    - file-type: 'TEST_FILE'
+      schema-config:
+        parser-type: JSON
+        column-configs:
+          - column-name: 'TEST_FILE_COLUMN_1'
+            column-config:
+              mandatory: true
+              index: FIRST
+
+file-contents-consumer-config:
+  topicName: '${kafka.file.contents.topic:file_nexus_ingestion_topic}'
+  groupId: '${kafka.consumer.groupId:file-content-consumer-group}'
+
+file-handler-config:
+  file-prefix-to-types:
+    - prefix: 'LOCALFILE'
+      fileType: 'TEST_FILE'
+  metadata-parsing-configs:
+    - file-type: 'TEST_FILE'
+      metadata-parsing-config:
+        date-parsing-source: NAME
+        date-format: YYYYMMDD
+        file-name-suffixes:
+          - '1'

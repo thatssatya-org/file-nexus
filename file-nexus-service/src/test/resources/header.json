@@ -1,0 +1,100 @@
+{
+  "type": "headerRecord",
+  "fieldMapping": [
+    {
+      "start": 1,
+      "fieldName": "relationship",
+      "end": 20
+    },
+    {
+      "start": 20,
+      "fieldName": "org",
+      "end": 23
+    },
+    {
+      "start": 23,
+      "fieldName": "logo",
+      "end": 26
+    },
+    {
+      "start": 26,
+      "fieldName": "accountNumber",
+      "end": 45
+    },
+    {
+      "start": 45,
+      "fieldName": "zipSortCode",
+      "end": 49
+    },
+    {
+      "start": 49,
+      "fieldName": "duplicateStatementIndicator",
+      "end": 50
+    },
+    {
+      "start": 50,
+      "fieldName": "recordTypeIndicator",
+      "end": 51
+    },
+    {
+      "start": 51,
+      "fieldName": "category",
+      "end": 52
+    },
+    {
+      "start": 52,
+      "fieldName": "categorySign",
+      "end": 53
+    },
+    {
+      "start": 53,
+      "fieldName": "priority",
+      "end": 54
+    },
+    {
+      "start": 54,
+      "fieldName": "prioritySign",
+      "end": 55
+    },
+    {
+      "start": 55,
+      "fieldName": "form",
+      "end": 58
+    },
+    {
+      "start": 58,
+      "fieldName": "formSign",
+      "end": 59
+    },
+    {
+      "start": 59,
+      "fieldName": "recordSequence",
+      "end": 70
+    },
+    {
+      "start": 70,
+      "fieldName": "recordSequenceSign",
+      "end": 71
+    },
+    {
+      "start": 71,
+      "fieldName": "processingDate",
+      "end": 78
+    },
+    {
+      "start": 78,
+      "fieldName": "processingDateSign",
+      "end": 79
+    },
+    {
+      "start": 79,
+      "fieldName": "creationTimeStamp",
+      "end": 90
+    },
+    {
+      "start": 90,
+      "fieldName": "creationTimeStampSign",
+      "end": 91
+    }
+  ]
+}

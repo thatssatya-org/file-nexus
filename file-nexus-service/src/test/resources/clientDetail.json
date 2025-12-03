@@ -1,0 +1,140 @@
+{
+  "type": "clientDetailRecord",
+  "fieldMapping": [
+    {
+      "start": 1,
+      "fieldName": "relationship",
+      "end": 20
+    },
+    {
+      "start": 20,
+      "fieldName": "org",
+      "end": 23
+    },
+    {
+      "start": 23,
+      "fieldName": "logo",
+      "end": 26
+    },
+    {
+      "start": 26,
+      "fieldName": "accountNumber",
+      "end": 45
+    },
+    {
+      "start": 45,
+      "fieldName": "zipSortCode",
+      "end": 49
+    },
+    {
+      "start": 49,
+      "fieldName": "duplicateStatementIndicator",
+      "end": 50
+    },
+    {
+      "start": 50,
+      "fieldName": "recordTypeIndicator",
+      "end": 51
+    },
+    {
+      "start": 51,
+      "fieldName": "category",
+      "end": 52
+    },
+    {
+      "start": 52,
+      "fieldName": "categorySign",
+      "end": 53
+    },
+    {
+      "start": 53,
+      "fieldName": "priority",
+      "end": 54
+    },
+    {
+      "start": 54,
+      "fieldName": "prioritySign",
+      "end": 55
+    },
+    {
+      "start": 55,
+      "fieldName": "form",
+      "end": 58
+    },
+    {
+      "start": 58,
+      "fieldName": "formSign",
+      "end": 59
+    },
+    {
+      "start": 59,
+      "fieldName": "recordSequence",
+      "end": 70
+    },
+    {
+      "start": 70,
+      "fieldName": "recordSequenceSign",
+      "end": 71
+    },
+    {
+      "start": 71,
+      "fieldName": "nameAddressLine1",
+      "end": 111
+    },
+    {
+      "start": 111,
+      "fieldName": "nameAddressLine2",
+      "end": 151
+    },
+    {
+      "start": 151,
+      "fieldName": "nameAddressLine3",
+      "end": 191
+    },
+    {
+      "start": 191,
+      "fieldName": "nameAddressLine4",
+      "end": 231
+    },
+    {
+      "start": 231,
+      "fieldName": "nameAddressLine5",
+      "end": 271
+    },
+    {
+      "start": 271,
+      "fieldName": "zipCode",
+      "end": 281
+    },
+    {
+      "start": 281,
+      "fieldName": "customerServicePhoneNumber",
+      "end": 301
+    },
+    {
+      "start": 301,
+      "fieldName": "collectionPhoneNumber",
+      "end": 321
+    },
+    {
+      "start": 321,
+      "fieldName": "cardType",
+      "end": 322
+    },
+    {
+      "start": 322,
+      "fieldName": "description",
+      "end": 352
+    },
+    {
+      "start": 352,
+      "fieldName": "countryCode",
+      "end": 355
+    },
+    {
+      "start": 355,
+      "fieldName": "filler",
+      "end": 6951
+    }
+  ]
+}

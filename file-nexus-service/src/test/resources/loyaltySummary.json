@@ -1,0 +1,360 @@
+{
+  "type": "loyaltySummaryRecord",
+  "fieldMapping": [
+    {
+      "start": 1,
+      "end": 20,
+      "fieldName": "RelationshipNumber"
+    },
+    {
+      "start": 20,
+      "end": 26,
+      "fieldName": "OrganizationLogoNumber"
+    },
+    {
+      "start": 26,
+      "end": 45,
+      "fieldName": "AccountNumber"
+    },
+    {
+      "start": 45,
+      "end": 49,
+      "fieldName": "ZipSortCode"
+    },
+    {
+      "start": 49,
+      "end": 50,
+      "fieldName": "DuplicateStatementIndicator"
+    },
+    {
+      "start": 50,
+      "end": 51,
+      "fieldName": "RecordTypeIndicator"
+    },
+    {
+      "start": 51,
+      "end": 52,
+      "fieldName": "Category"
+    },
+    {
+      "start": 52,
+      "end": 53,
+      "fieldName": "CategorySign"
+    },
+    {
+      "start": 53,
+      "end": 54,
+      "fieldName": "Priority"
+    },
+    {
+      "start": 54,
+      "end": 55,
+      "fieldName": "PrioritySign"
+    },
+    {
+      "start": 55,
+      "end": 58,
+      "fieldName": "Form"
+    },
+    {
+      "start": 58,
+      "end": 59,
+      "fieldName": "FormSign"
+    },
+    {
+      "start": 59,
+      "end": 70,
+      "fieldName": "RecordSequence"
+    },
+    {
+      "start": 70,
+      "end": 71,
+      "fieldName": "RecordSequenceSign"
+    },
+    {
+      "start": 71,
+      "end": 79,
+      "fieldName": "StatementDate"
+    },
+    {
+      "start": 79,
+      "end": 84,
+      "fieldName": "SchemeId"
+    },
+    {
+      "start": 84,
+      "end": 95,
+      "fieldName": "OpeningBalancePoints"
+    },
+    {
+      "start": 95,
+      "end": 96,
+      "fieldName": "OpeningBalancePointsSign"
+    },
+    {
+      "start": 96,
+      "end": 107,
+      "fieldName": "PointsEarned"
+    },
+    {
+      "start": 107,
+      "end": 108,
+      "fieldName": "PointsEarnedSign"
+    },
+    {
+      "start": 108,
+      "end": 119,
+      "fieldName": "PointsAdjusted"
+    },
+    {
+      "start": 119,
+      "end": 120,
+      "fieldName": "PointsAdjustedSign"
+    },
+    {
+      "start": 120,
+      "end": 131,
+      "fieldName": "PointsRedeemed"
+    },
+    {
+      "start": 131,
+      "end": 132,
+      "fieldName": "PointsRedeemedSign"
+    },
+    {
+      "start": 132,
+      "end": 143,
+      "fieldName": "PointsTransferredOut"
+    },
+    {
+      "start": 143,
+      "end": 144,
+      "fieldName": "PointsTransferredOutSign"
+    },
+    {
+      "start": 144,
+      "end": 155,
+      "fieldName": "PointsTransferredIn"
+    },
+    {
+      "start": 155,
+      "end": 156,
+      "fieldName": "PointsTransferredInSign"
+    },
+    {
+      "start": 156,
+      "end": 167,
+      "fieldName": "PointsExpired"
+    },
+    {
+      "start": 167,
+      "end": 168,
+      "fieldName": "PointsExpiredSign"
+    },
+    {
+      "start": 168,
+      "end": 179,
+      "fieldName": "PointsBalance"
+    },
+    {
+      "start": 179,
+      "end": 180,
+      "fieldName": "PointsBalanceSign"
+    },
+    {
+      "start": 180,
+      "end": 188,
+      "fieldName": "NextExpiryDate"
+    },
+    {
+      "start": 188,
+      "end": 199,
+      "fieldName": "ExpiringPoints"
+    },
+    {
+      "start": 199,
+      "end": 200,
+      "fieldName": "ExpiringPointsSign"
+    },
+    {
+      "start": 200,
+      "end": 208,
+      "fieldName": "ExpiryDateHistory1"
+    },
+    {
+      "start": 208,
+      "end": 219,
+      "fieldName": "ExpiredPoints1"
+    },
+    {
+      "start": 219,
+      "end": 220,
+      "fieldName": "ExpiredPointsSign1"
+    },
+    {
+      "start": 220,
+      "end": 228,
+      "fieldName": "ExpiryDateHistory2"
+    },
+    {
+      "start": 228,
+      "end": 239,
+      "fieldName": "ExpiredPoints2"
+    },
+    {
+      "start": 239,
+      "end": 240,
+      "fieldName": "ExpiredPointsSign2"
+    },
+    {
+      "start": 240,
+      "end": 248,
+      "fieldName": "ExpiryDateHistory3"
+    },
+    {
+      "start": 248,
+      "end": 259,
+      "fieldName": "ExpiredPoints3"
+    },
+    {
+      "start": 259,
+      "end": 260,
+      "fieldName": "ExpiredPointsSign3"
+    },
+    {
+      "start": 260,
+      "end": 271,
+      "fieldName": "BonusPoints"
+    },
+    {
+      "start": 271,
+      "end": 272,
+      "fieldName": "BonusPointsSign"
+    },
+    {
+      "start": 272,
+      "end": 273,
+      "fieldName": "StatementMessageWarningIndicator"
+    },
+    {
+      "start": 273,
+      "end": 286,
+      "fieldName": "PriorMonthCashbackAmount"
+    },
+    {
+      "start": 286,
+      "end": 287,
+      "fieldName": "PriorMonthCashbackSign"
+    },
+    {
+      "start": 287,
+      "end": 300,
+      "fieldName": "CurrentMonthCashbackAmount"
+    },
+    {
+      "start": 300,
+      "end": 301,
+      "fieldName": "CurrentMonthCashbackSign"
+    },
+    {
+      "start": 301,
+      "end": 314,
+      "fieldName": "AccruedCashback"
+    },
+    {
+      "start": 314,
+      "end": 315,
+      "fieldName": "AccruedCashbackSign"
+    },
+    {
+      "start": 315,
+      "end": 319,
+      "fieldName": "AnniversaryDate"
+    },
+    {
+      "start": 319,
+      "end": 320,
+      "fieldName": "RedeemMsgInd"
+    },
+    {
+      "start": 320,
+      "end": 331,
+      "fieldName": "CtdPointsInStore"
+    },
+    {
+      "start": 331,
+      "end": 332,
+      "fieldName": "CtdPointsInStoreSign"
+    },
+    {
+      "start": 332,
+      "end": 343,
+      "fieldName": "CtdPointsOutStore"
+    },
+    {
+      "start": 343,
+      "end": 344,
+      "fieldName": "CtdPointsOutStoreSign"
+    },
+    {
+      "start": 344,
+      "end": 355,
+      "fieldName": "DisbursedPoints"
+    },
+    {
+      "start": 355,
+      "end": 356,
+      "fieldName": "DisbursedPointsSign"
+    },
+    {
+      "start": 356,
+      "end": 369,
+      "fieldName": "DisbursedAmount"
+    },
+    {
+      "start": 369,
+      "end": 370,
+      "fieldName": "DisbursedAmountSign"
+    },
+    {
+      "start": 370,
+      "end": 383,
+      "fieldName": "CtdBonusInternalPoints"
+    },
+    {
+      "start": 383,
+      "end": 384,
+      "fieldName": "BonusInternalSign"
+    },
+    {
+      "start": 384,
+      "end": 397,
+      "fieldName": "CtdBonusExternalPoints"
+    },
+    {
+      "start": 397,
+      "end": 398,
+      "fieldName": "BonusExternalSign"
+    },
+    {
+      "start": 398,
+      "end": 411,
+      "fieldName": "YtdEarnedPoints"
+    },
+    {
+      "start": 411,
+      "end": 412,
+      "fieldName": "YtdEarnedSign"
+    },
+    {
+      "start": 412,
+      "end": 413,
+      "fieldName": "EarnIndicator"
+    },
+    {
+      "start": 413,
+      "end": 414,
+      "fieldName": "RedeemIndicator"
+    }
+  ]
+}

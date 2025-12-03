@@ -1,0 +1,100 @@
+{
+  "type": "trailerRecord",
+  "fieldMapping": [
+    {
+      "start": 1,
+      "end": 20,
+      "fieldName": "relationshipNumber"
+    },
+    {
+      "start": 20,
+      "end": 23,
+      "fieldName": "org"
+    },
+    {
+      "start": 23,
+      "end": 26,
+      "fieldName": "logo"
+    },
+    {
+      "start": 26,
+      "end": 45,
+      "fieldName": "accountNumber"
+    },
+    {
+      "start": 45,
+      "end": 49,
+      "fieldName": "zipSortCode"
+    },
+    {
+      "start": 49,
+      "end": 50,
+      "fieldName": "duplicateStatementIndicator"
+    },
+    {
+      "start": 50,
+      "end": 51,
+      "fieldName": "recordTypeIndicator"
+    },
+    {
+      "start": 51,
+      "end": 52,
+      "fieldName": "category"
+    },
+    {
+      "start": 52,
+      "end": 53,
+      "fieldName": "categorySign"
+    },
+    {
+      "start": 53,
+      "end": 54,
+      "fieldName": "priority"
+    },
+    {
+      "start": 54,
+      "end": 55,
+      "fieldName": "prioritySign"
+    },
+    {
+      "start": 55,
+      "end": 58,
+      "fieldName": "form"
+    },
+    {
+      "start": 58,
+      "end": 59,
+      "fieldName": "formSign"
+    },
+    {
+      "start": 59,
+      "end": 70,
+      "fieldName": "recordSequence"
+    },
+    {
+      "start": 70,
+      "end": 71,
+      "fieldName": "recordSequenceSign"
+    },
+    {
+      "start": 71,
+      "end": 82,
+      "fieldName": "trailerCount"
+    },
+    {
+      "start": 82,
+      "end": 83,
+      "fieldName": "trailerCountSign"
+    },
+    {
+      "start": 83,
+      "end": 92,
+      "fieldName": "customerCount"
+    },
+    {
+      "start": 92,
+      "end": 93,
+      "fieldName": "customerCountSign"
+    }
+  ]
+}

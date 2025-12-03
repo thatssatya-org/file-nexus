@@ -1,0 +1,150 @@
+{
+  "type": "embosserSummaryRecord",
+  "fieldMapping": [
+    {
+      "start": 1,
+      "end": 20,
+      "fieldName": "RelationshipNumber"
+    },
+    {
+      "start": 20,
+      "end": 26,
+      "fieldName": "OrganizationLogoNumber"
+    },
+    {
+      "start": 26,
+      "end": 45,
+      "fieldName": "AccountNumber"
+    },
+    {
+      "start": 45,
+      "end": 49,
+      "fieldName": "ZipSortCode"
+    },
+    {
+      "start": 49,
+      "end": 50,
+      "fieldName": "DuplicateStatementIndicator"
+    },
+    {
+      "start": 50,
+      "end": 51,
+      "fieldName": "RecordTypeIndicator"
+    },
+    {
+      "start": 51,
+      "end": 52,
+      "fieldName": "Category"
+    },
+    {
+      "start": 52,
+      "end": 53,
+      "fieldName": "CategorySign"
+    },
+    {
+      "start": 53,
+      "end": 54,
+      "fieldName": "Priority"
+    },
+    {
+      "start": 54,
+      "end": 55,
+      "fieldName": "PrioritySign"
+    },
+    {
+      "start": 55,
+      "end": 58,
+      "fieldName": "Form"
+    },
+    {
+      "start": 58,
+      "end": 59,
+      "fieldName": "FormSign"
+    },
+    {
+      "start": 59,
+      "end": 70,
+      "fieldName": "RecordSequence"
+    },
+    {
+      "start": 70,
+      "end": 71,
+      "fieldName": "RecordSequenceSign"
+    },
+    {
+      "start": 71,
+      "end": 90,
+      "fieldName": "CardNumber"
+    },
+    {
+      "start": 90,
+      "end": 109,
+      "fieldName": "CustomerNumber"
+    },
+    {
+      "start": 109,
+      "end": 149,
+      "fieldName": "CardholderName1"
+    },
+    {
+      "start": 149,
+      "end": 189,
+      "fieldName": "CardholderName2"
+    },
+    {
+      "start": 189,
+      "end": 229,
+      "fieldName": "AddressLine1"
+    },
+    {
+      "start": 229,
+      "end": 269,
+      "fieldName": "AddressLine2"
+    },
+    {
+      "start": 269,
+      "end": 299,
+      "fieldName": "City"
+    },
+    {
+      "start": 299,
+      "end": 302,
+      "fieldName": "State"
+    },
+    {
+      "start": 302,
+      "end": 312,
+      "fieldName": "PostalCode"
+    },
+    {
+      "start": 312,
+      "end": 329,
+      "fieldName": "SpendingLimit"
+    },
+    {
+      "start": 329,
+      "end": 330,
+      "fieldName": "SpendingLimitSign"
+    },
+    {
+      "start": 330,
+      "end": 339,
+      "fieldName": "SpendingNumbers"
+    },
+    {
+      "start": 339,
+      "end": 340,
+      "fieldName": "SpendingNumbersSign"
+    },
+    {
+      "start": 340,
+      "end": 343,
+      "fieldName": "QuarterlyAffiliateFlag"
+    },
+    {
+      "start": 343,
+      "end": 344,
+      "fieldName": "CardholderType"
+    }
+  ]
+}
