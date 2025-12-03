@@ -10,6 +10,7 @@ import com.samsepiol.file.nexus.transfer.models.request.FileTransferServiceReque
 import com.samsepiol.file.nexus.transfer.storage.client.IStorageClient;
 import com.samsepiol.file.nexus.transfer.workflow.IFileTransferWorkflow;
 import com.samsepiol.file.nexus.transfer.workflow.dto.FileTransferWorkflowRequest;
+import com.samsepiol.library.temporal.constants.Queues;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import lombok.RequiredArgsConstructor;
@@ -38,8 +39,7 @@ public class FileTransferService implements IFileTransferService {
                 IFileTransferWorkflow.class,
                 WorkflowOptions.newBuilder()
                         .setWorkflowId(workflowId)
-                        // TODO
-//                        .setTaskQueue(TemporalConstants.WORKFLOW_QUEUE)
+                        .setTaskQueue(Queues.WORKFLOWS)
                         .build());
 
         FileTransferWorkflowRequest workflowRequest = createWorkflowRequest(request);

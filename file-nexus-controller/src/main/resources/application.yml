@@ -1,9 +1,9 @@
-logging:
-  level:
-    root: ERROR
-    com.samsepiol: INFO
-  pattern:
-    console: '[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%mdc{trace_id}/%mdc{span_id}] [%thread] %-5level %C:%M:%L - %msg%n'
+#logging:
+#  level:
+#    root: ERROR
+#    com.samsepiol: INFO
+#  pattern:
+#    console: '[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%mdc{trace_id}/%mdc{span_id}] [%thread] %-5level %C:%M:%L - %msg%n'
 
 server:
   port: 8080
@@ -24,66 +24,21 @@ spring:
       port: 27017
       database: test
 
-mongo-config:
-  address: ${mongo.host}
-  database: ${mongo.database}
-  username: ${mongo.username}
-  password: ${mongo.password}
-  srvMode: ${mongo.srvMode:false}
-  retryWrites: ${mongo.retryWrites:false}
-
 temporal-config:
-  serviceAddress: ${temporal.service.address}
-  namespace: ${temporal.namespace}
-  workflowRetentionDays: ${temporal.workflow.retentionDays}
-
-redis-config:
-  prefix: 'File-Nexus-'
-  enabled: 'true'
-  url: ${redis.host}
-  redisMode: ${redis.mode:'MASTER_SLAVE'}
-  username: ${redis.username:}
-  password: ${redis.password:}
-
-kafka-config:
-  consumerConfig:
-    - brokers: ${kafka.brokers}
-      groupId: ${kafka.consumer.groupId}
-      topic: ${kafka.file.contents.topic}
-      qualifierName: "fileHandler"
-      threads: 2
-      maxRecords: 100
-      enableHeaders: true
-      passwordProtected: ${kafka.password-protected:false}
-      userName: ${kafka.password-protected.username}
-      password: ${kafka.password-protected.password}
-    - brokers: ${kafka.brokers}
-      groupId: ${kafka.file.pulse.status.consumer.groupId}
-      topic: ${kafka.file.pulse.status.topic}
-      qualifierName: "filePulseStatusHandler"
-      threads: 2
-      maxRecords: 100
-      enableHeaders: true
-      passwordProtected: ${kafka.password-protected:false}
-      userName: ${kafka.password-protected.username}
-      password: ${kafka.password-protected.password}
-  producerConfig:
-    - brokers: ${kafka.brokers}
-      topic: "surrogate"
-      passwordProtected: ${kafka.password-protected:false}
-      userName: ${kafka.password-protected.username}
-      password: ${kafka.password-protected.password}
+  host: localhost
+  port: 7233
+  namespace: file-nexus
 
 file-config:
   file-to-schema-configs:
-    - file-type: ${fileType1}
+    - file-type: ${fileType1:}
       schema-config:
-        parser-type: ${fileType1.parserType}
+        parser-type: ${fileType1.parserType:JSON}
         column-configs:
-          - column-name: ${fileType1.columnName1}
+          - column-name: ${fileType1.columnName1:}
             column-config:
-              mandatory: ${fileType1.columnName1.mandatory}
-              index: ${fileType1.columnName1.index}
+              mandatory: ${fileType1.columnName1.mandatory:false}
+              index: ${fileType1.columnName1.index:}
           - column-name: ${fileType1.columnName2:}
             column-config:
               mandatory: ${fileType1.columnName2.mandatory:false}
@@ -106,14 +61,14 @@ file-contents-consumer-config:
 
 file-handler-config:
   file-prefix-to-types:
-    - prefix: ${fileType1.prefix}
-      fileType: ${fileType1}
+    - prefix: ${fileType1.prefix:}
+      fileType: ${fileType1:}
   metadata-parsing-configs:
-    - file-type: ${fileType1}
+    - file-type: ${fileType1:}
       metadata-parsing-config:
-        date-parsing-source: ${fileType1.metadata.dateParsingSource}
-        date-format: ${fileType1.metadata.dateFormat}
-        file-name-suffixes: ${fileType1.metadata.supportedNameSuffixes}
+        date-parsing-source: ${fileType1.metadata.dateParsingSource:}
+        date-format: ${fileType1.metadata.dateFormat:DDMMYYYY}
+        file-name-suffixes: ${fileType1.metadata.supportedNameSuffixes:}
 
 store-config:
   storeConfigEntry:
@@ -229,16 +184,6 @@ nexus-hook-config:
           ssl: ${ckyc-reports-file-source.source.smtp.destination.SMTP_SSL:false}
           transformerType: ${ckyc-reports-file-source.source.smtp.destination.transformerType:}
 
-
-file-storage-config:
-  fileStorageType: ${file.storage.type:AWS_S3}
-  s3Config:
-    region: "ap-south-1"
-  gcpConfig:
-    projectId: ${file.storage.gcp.projectId:gen-lang-client-0224000840}
-
-event-client-config:
-  appName: ${event.client.appName:FileNexus}
 
 cache-config:
   statement-file:

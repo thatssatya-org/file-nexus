@@ -1,6 +1,7 @@
 package com.samsepiol.file.nexus.temporal.utils;
 
 
+import com.samsepiol.library.temporal.constants.Queues;
 import io.temporal.activity.ActivityOptions;
 import io.temporal.common.RetryOptions;
 import lombok.AccessLevel;
@@ -13,8 +14,7 @@ public class WorkFlowOptionConstants {
 
     public static final ActivityOptions DEFAULT_ONE_ATTEMPT_ACTIVITY_OPTIONS =
             ActivityOptions.newBuilder()
-                    // TODO
-//                    .setTaskQueue(TemporalConstants.ACTIVITY_QUEUE)
+                    .setTaskQueue(Queues.WORKFLOWS)
                     .setRetryOptions(RetryOptions.newBuilder()
                             .setMaximumAttempts(1)
                             .build())
@@ -29,7 +29,7 @@ public class WorkFlowOptionConstants {
 
     public static final ActivityOptions DEFAULT_TWENTY_ATTEMPT_ACTIVITY_OPTIONS =
             ActivityOptions.newBuilder()
-//                    .setTaskQueue(TemporalConstants.ACTIVITY_QUEUE)
+                    .setTaskQueue(Queues.WORKFLOWS)
                     .setRetryOptions(RetryOptions.newBuilder()
                             .setMaximumAttempts(20)
                             .setInitialInterval(Duration.ofSeconds(10))

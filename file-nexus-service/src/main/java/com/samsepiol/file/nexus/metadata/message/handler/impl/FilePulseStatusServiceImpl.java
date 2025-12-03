@@ -17,6 +17,7 @@ import com.samsepiol.file.nexus.metadata.workflow.activity.request.MetadataStatu
 import com.samsepiol.file.nexus.temporal.TemporalService;
 import com.samsepiol.library.core.exception.SerializationException;
 import com.samsepiol.library.core.util.SerializationUtil;
+import com.samsepiol.library.temporal.constants.Queues;
 import io.temporal.api.enums.v1.WorkflowIdReusePolicy;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowExecutionAlreadyStarted;
@@ -120,8 +121,7 @@ public class FilePulseStatusServiceImpl implements FilePulseStatusService {
     private MetadataStatusWorkflow metaDataStatusWorkflowStub(String workflowId) {
         var workflowOptions = WorkflowOptions.newBuilder()
                 .setWorkflowId(workflowId)
-                // TODO
-//                .setTaskQueue(TemporalConstants.WORKFLOW_QUEUE)
+                .setTaskQueue(Queues.WORKFLOWS)
                 .setWorkflowIdReusePolicy(WorkflowIdReusePolicy.WORKFLOW_ID_REUSE_POLICY_REJECT_DUPLICATE)
                 .build();
 

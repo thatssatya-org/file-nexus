@@ -5,7 +5,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
-// TODO Satyajit update error codes
 @Getter
 @RequiredArgsConstructor
 public enum Error {
