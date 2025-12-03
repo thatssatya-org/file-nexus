@@ -36,3 +36,6 @@ build/
 
 ### flatten plugin ###
 .flattened-pom.xml
+
+### Github ###
+.github/
