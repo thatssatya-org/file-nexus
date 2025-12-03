@@ -1,9 +1,9 @@
-logging:
-  level:
-    root: ERROR
-    com.samsepiol: INFO
-  pattern:
-    console: '[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%mdc{trace_id}/%mdc{span_id}] [%thread] %-5level %C:%M:%L - %msg%n'
+#logging:
+#  level:
+#    root: ERROR
+#    com.samsepiol: INFO
+#  pattern:
+#    console: '[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%mdc{trace_id}/%mdc{span_id}] [%thread] %-5level %C:%M:%L - %msg%n'
 
 server:
   port: 8080
