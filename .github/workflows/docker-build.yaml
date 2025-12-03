@@ -1,0 +1,23 @@
+name: Build File Nexus
+
+on:
+ push:
+   branches:
+     - main
+
+jobs:
+  build-image:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Build Service Docker Image
+        run: |
+          DOCKER_BUILDKIT=1 docker build . -t thatssatyadocker/file-nexus:latest
+  push-image:
+    runs-on: self-hosted
+    steps:
+      - name: Push to Docker Hub
+        run: |
+          docker login -u thatssatyadocker -p ${{ secrets.DOCKER_HUB_SECRET }}
+          docker push thatssatyadocker/file-nexus:latest
