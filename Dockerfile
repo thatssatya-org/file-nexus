@@ -1,0 +1,30 @@
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
+WORKDIR /app
+
+COPY pom.xml .
+
+COPY file-nexus-models/pom.xml ./file-nexus-models/
+COPY file-nexus-core/pom.xml ./file-nexus-core/
+COPY file-nexus-repository/pom.xml ./file-nexus-repository/
+COPY file-nexus-service/pom.xml ./file-nexus-service/
+COPY file-nexus-controller/pom.xml ./file-nexus-controller/
+
+# Download dependencies
+RUN --mount=type=cache,target=/root/.m2 \
+    mvn dependency:go-offline -T 1C
+
+COPY file-nexus-models ./file-nexus-models/
+COPY file-nexus-core ./file-nexus-core/
+COPY file-nexus-repository ./file-nexus-repository/
+COPY file-nexus-service ./file-nexus-service/
+COPY file-nexus-controller ./file-nexus-controller/
+
+RUN --mount=type=cache,target=/root/.m2 \
+     mvn clean install -DskipTests -T 1C -Dmaven.javadoc.skip=true
+
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+COPY --from=build /app/file-nexus-controller/target/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "./app.jar"]

@@ -4,7 +4,6 @@ import com.samsepiol.file.nexus.enums.MetadataStatus;
 import com.samsepiol.file.nexus.metadata.impl.MetadataRepositoryImpl;
 import com.samsepiol.file.nexus.metadata.models.FetchMetaDataEntityRequest;
 import com.samsepiol.file.nexus.repo.content.entity.MetadataEntity;
-import com.samsepiol.mongo.helper.IMongoDbHelper;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -35,8 +34,6 @@ public class MetadataRepoDaoImplTest extends BasePersistenceTest {
     @Autowired
     private MetadataRepositoryImpl metadataRepository;
 
-    @Autowired
-    private IMongoDbHelper mongoDbHelper;
 
     @BeforeAll
     static void setUp() {

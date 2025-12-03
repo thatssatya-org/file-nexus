@@ -7,7 +7,8 @@ import com.samsepiol.file.nexus.content.data.parser.impl.FieldMappings;
 import com.samsepiol.file.nexus.content.data.parser.impl.TudfContentParser;
 import com.samsepiol.file.nexus.content.data.parser.models.request.FileContentParsingRequest;
 import com.samsepiol.file.nexus.content.exception.UnsupportedFileException;
-import com.samsepiol.helper.utils.CommonSerializationUtil;
+import com.samsepiol.library.core.exception.SerializationException;
+import com.samsepiol.library.core.util.SerializationUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -32,9 +33,9 @@ class FileContentParserTest {
     private TudfContentParser tudfContentParser;
 
     @Test
-    void testTUDFParsingTest() throws UnsupportedFileException {
+    void testTUDFParsingTest() throws UnsupportedFileException, SerializationException {
         TudfFileParserConfig tudfFileParserConfig = TudfFileParserConfig.builder()
-                .identifiers(Map.of('D', CommonSerializationUtil.readObject(fieldMappingList, FieldMappings.class)))
+                .identifiers(Map.of('D', SerializationUtil.convertToEntity(fieldMappingList, FieldMappings.class)))
                 .recordIdentifierIndex(50)
                 .build();
         doReturn(tudfFileParserConfig)
@@ -48,14 +49,14 @@ class FileContentParserTest {
                         .build())
                 .build();
 
-        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.of(FILE_TYPE, CommonSerializationUtil.writeString(tudfFileContent))));
+        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.of(FILE_TYPE, SerializationUtil.convertToString(tudfFileContent))));
         assertEquals("20241911", parsedMap.get("TransactionEffectiveDate"));
     }
 
     @Test
-    void testTUDFParsingWithMessageAsEmptyLine() throws UnsupportedFileException {
+    void testTUDFParsingWithMessageAsEmptyLine() throws UnsupportedFileException, SerializationException {
         TudfFileParserConfig tudfFileParserConfig = TudfFileParserConfig.builder()
-                .identifiers(Map.of('D', CommonSerializationUtil.readObject(fieldMappingList, FieldMappings.class)))
+                .identifiers(Map.of('D', SerializationUtil.convertToEntity(fieldMappingList, FieldMappings.class)))
                 .recordIdentifierIndex(50)
                 .build();
         doReturn(tudfFileParserConfig)
@@ -69,7 +70,7 @@ class FileContentParserTest {
                         .build())
                 .build();
 
-        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.of(FILE_TYPE, CommonSerializationUtil.writeString(tudfFileContent))));
+        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.of(FILE_TYPE, SerializationUtil.convertToString(tudfFileContent))));
         assertTrue(parsedMap.isEmpty());
     }
 

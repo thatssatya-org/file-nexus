@@ -2,11 +2,8 @@ package com.samsepiol.file.nexus.content;
 
 import com.samsepiol.file.nexus.metadata.FileMetadataRepository;
 import com.samsepiol.file.nexus.metadata.impl.MetadataRepositoryImpl;
-import com.samsepiol.mongo.client.IMongoClient;
-import com.samsepiol.mongo.client.impl.MongoDbClient;
-import com.samsepiol.mongo.config.MongoConfiguration;
-import com.samsepiol.mongo.helper.IMongoDbHelper;
-import com.samsepiol.mongo.helper.impl.MongoDbHelper;
+import com.samsepiol.library.mongo.Repository;
+import com.samsepiol.library.mongo.impl.DefaultRepository;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,14 +11,14 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@SpringBootTest(classes = {MongoConfiguration.class, FileMetadataRepository.class, MetadataRepositoryImpl.class,
-        IMongoDbHelper.class, MongoDbHelper.class, IMongoClient.class, MongoDbClient.class, CompositeMeterRegistry.class})
+@SpringBootTest(classes = {FileMetadataRepository.class, MetadataRepositoryImpl.class,
+        Repository.class, DefaultRepository.class, CompositeMeterRegistry.class})
 @Testcontainers
 @EnableConfigurationProperties
 public abstract class BasePersistenceTest {
 
     @SpyBean
-    protected IMongoDbHelper daoHelper;
+    protected Repository daoHelper;
 
     protected static void setupDynamicPropertyRegistry(DynamicPropertyRegistry registry, String connectionUrl) {
         registry.add("mongo-config.address", () -> connectionUrl.replace("mongodb://", ""));

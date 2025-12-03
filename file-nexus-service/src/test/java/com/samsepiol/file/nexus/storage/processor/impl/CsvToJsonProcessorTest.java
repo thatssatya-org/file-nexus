@@ -2,36 +2,33 @@ package com.samsepiol.file.nexus.storage.processor.impl;
 
 import com.samsepiol.file.nexus.models.dto.FileDetails;
 import com.samsepiol.file.nexus.storage.processor.FileProcessor.ProcessingResult;
-
-
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.InjectMocks;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class CsvToJsonProcessorTest {
 
-    private CsvToJsonProcessor processor;
     private FileDetails testFileDetails;
 
-    @Mock
-    private EventHelper mockEventHelper;
-    @Mock
-    private MetricHelper mockMetricHelper;
+    @InjectMocks
+    CsvToJsonProcessor processor;
 
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
-        processor = new CsvToJsonProcessor(mockEventHelper, mockMetricHelper);
         testFileDetails = FileDetails.builder()
                 .filePath("test/path/test_file.csv")
                 .fileKey("test_file.csv")
@@ -103,7 +100,7 @@ class CsvToJsonProcessorTest {
         // Total bytes: 7 + 24 + 24 + 24 + 23 = 102 bytes
 
         // Use a single processor instance and a single InputStream for the entire test
-        processor = new CsvToJsonProcessor(mockEventHelper, mockMetricHelper);
+        processor = new CsvToJsonProcessor();
         InputStream fullStream = new ByteArrayInputStream(csvContent.getBytes(StandardCharsets.UTF_8));
 
         // --- Chunk 1: Read header + first data line (limit 30 bytes) ---
@@ -197,7 +194,7 @@ class CsvToJsonProcessorTest {
         assertEquals(18, result1.bytesReadFromStream());
 
         // Simulate resuming from checkpoint (skip 1 data line)
-        processor = new CsvToJsonProcessor(mockEventHelper, mockMetricHelper); // New processor instance for new stream
+        processor = new CsvToJsonProcessor(); // New processor instance for new stream
         InputStream is2 = new ByteArrayInputStream(csvContent.getBytes(StandardCharsets.UTF_8));
         // Skip bytes equivalent to header + first data line (19 bytes)
         is2.skip(18);
