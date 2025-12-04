@@ -1,5 +1,6 @@
 package com.samsepiol.file.nexus.storage.service;
 
+import com.samsepiol.library.cache.Cache;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,7 @@ import java.time.Instant;
 @Service
 @RequiredArgsConstructor
 public class TimestampTrackingService {
-
-    // TODO
-//    private final RedisClient redisClient;
+    private final Cache<String, Long> cache;
 
     /**
      * Get the last processed timestamp for a storage hook.
@@ -32,8 +31,7 @@ public class TimestampTrackingService {
     public Instant getLastProcessedTimestamp(String hookName, String keyPrefix) {
         try {
             String key = keyPrefix + hookName;
-//            Long timestampStr = redisClient.get(key, Long.class);
-            Long timestampStr = 0L;
+            Long timestampStr = cache.get(key);
             if (timestampStr == null) {
                 log.debug("No last processed timestamp found for hook: {}", hookName);
                 return null;
@@ -56,8 +54,7 @@ public class TimestampTrackingService {
     public void updateLastProcessedTimestamp(String hookName, String keyPrefix, Instant timestamp) {
         try {
             String key = keyPrefix + hookName;
-            // TODO
-//            redisClient.set(key, timestamp.toEpochMilli());
+            cache.put(key, timestamp.toEpochMilli());
             log.debug("Updated last processed timestamp for hook {}: {}", hookName, timestamp);
         } catch (Exception e) {
             log.error("Failed to update last processed timestamp for hook: {}", hookName, e);

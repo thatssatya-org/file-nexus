@@ -1,15 +1,9 @@
 package com.samsepiol.file.nexus.content.impl;
 
 
-import com.samsepiol.file.nexus.cache.CacheClient;
-import com.samsepiol.file.nexus.cache.CacheConfig;
-import com.samsepiol.file.nexus.cache.CacheUtil;
 import com.samsepiol.file.nexus.content.FileContentService;
 import com.samsepiol.file.nexus.content.config.FileSchemaConfig;
 import com.samsepiol.file.nexus.content.data.FileContentDataService;
-import com.samsepiol.file.nexus.content.data.models.enums.Index;
-import com.samsepiol.file.nexus.content.data.models.request.FileContentFetchRequest;
-import com.samsepiol.file.nexus.content.data.models.request.FileContentSaveRequest;
 import com.samsepiol.file.nexus.content.data.models.response.FileContents;
 import com.samsepiol.file.nexus.content.data.parser.FileContentParser;
 import com.samsepiol.file.nexus.content.data.parser.models.enums.FileParserType;
@@ -29,18 +23,12 @@ import com.samsepiol.file.nexus.exception.unchecked.FileNexusRuntimeException;
 import com.samsepiol.file.nexus.metadata.FileMetadataService;
 import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadatas;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataFetchServiceRequest;
-import com.samsepiol.file.nexus.models.eventpayload.FileProcessingEventPayload;
 import com.samsepiol.file.nexus.utils.DateTimeUtils;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -50,32 +38,13 @@ import static com.samsepiol.file.nexus.content.mapper.FileContentServiceMapper.M
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class DefaultFileContentService implements FileContentService {
     private final FileMetadataService fileMetadataService;
     private final FileContentDataService fileContentDataService;
     private final FileSchemaConfig fileSchemaConfig;
     private final Map<FileParserType, FileContentParser> fileContentParserMap;
     private final List<FileContentRequestValidation> requestValidations;
-    
-    
-    private final CacheClient cacheClient;
-    private final CacheConfig cacheConfig;
-
-    public DefaultFileContentService(FileMetadataService fileMetadataService,
-                                     FileContentDataService fileContentDataService,
-                                     FileSchemaConfig fileSchemaConfig,
-                                     Map<FileParserType, FileContentParser> fileContentParserMap,
-                                     List<FileContentRequestValidation> requestValidations,
-                                     CacheClient cacheClient, CacheConfig cacheConfig) {
-        this.fileMetadataService = fileMetadataService;
-        this.fileContentDataService = fileContentDataService;
-        this.fileSchemaConfig = fileSchemaConfig;
-        this.fileContentParserMap = fileContentParserMap;
-        this.cacheClient = cacheClient;
-        this.cacheConfig = cacheConfig;
-        requestValidations.sort(Comparator.comparing(FileContentRequestValidation::getOrder));
-        this.requestValidations = requestValidations;
-    }
 
     @Override
     public @NonNull FileContents fetch(@NonNull FileContentFetchServiceRequest request) {
@@ -134,7 +103,7 @@ public class DefaultFileContentService implements FileContentService {
         var parsedFileContents = parseFileContents(request);
         if (parsedFileContents.get(0).isEmpty()) return FileContents.empty();
         var fileContentSaveRequest = MAPPER.toFileContentSaveRequest(request, parsedFileContents);
-        sendEvent(request, fileContentSaveRequest);
+//        sendEvent(request, fileContentSaveRequest);
         return fileContentDataService.save(fileContentSaveRequest);
     }
 
@@ -204,67 +173,68 @@ public class DefaultFileContentService implements FileContentService {
         });
     }
 
-    private String mapIndex(FileContentSaveRequest request, Index index) throws UnsupportedFileException {
-        var columnName = fileSchemaConfig.getColumnToIndex(request.getFileType(), index);
-        return Optional.ofNullable(request.getFileContents().get(0).get(columnName))
-                .map(String.class::cast)
-                .orElse(null);
-    }
-
-    private void sendEvent(FileContentSaveServiceRequest request, FileContentSaveRequest fileContentSaveRequest) throws UnsupportedFileException {
-        if (ObjectUtils.isEmpty(fileContentSaveRequest) || fileContentSaveRequest.getFileContents().isEmpty()) {
-            return;
-        }
-        String recordType = null;
-        try {
-            recordType = mapIndex(fileContentSaveRequest, Index.SECOND);
-        } catch (UnsupportedFileException ignored) {
-            // ignoring handling not required....
-        }
-        log.info("sending event for requestId : {} , fileContentSaveRequest : {}", request, fileContentSaveRequest);
-        String accountNumber = mapIndex(fileContentSaveRequest, Index.FIRST);
-        String[] filIdSplit = request.getFileId().split("-");
-        if (filIdSplit.length < 1 && StringUtils.isBlank(accountNumber)) {
-            return;
-        }
-        HashMap<String, String> hashMap = new HashMap<>();
-        LocalDate fileProcessingDate = DateTimeUtils.fromYYYYMMDD(Arrays.stream(filIdSplit).toList().get(1));
-        if (StringUtils.isNotBlank(recordType) && recordType.equals("CustomerDetails") && fileContentSaveRequest.getFileContents().get(0).containsKey("StatementDate")) {
-            hashMap.put("endDate", (String) fileContentSaveRequest.getFileContents().get(0).get("StatementDate"));
-        }
-        String fileProcessingDateStr = fileProcessingDate.toString();
-
-        String fileType = request.getFileType();
-        String fileName = request.getFileName();
-
-        if (Objects.nonNull(cacheClient.get(CacheUtil.getStatementCacheKey(accountNumber, fileName), String.class))) {
-            log.debug("Account {} already processed for file type {} and date {}, skipping event",
-                    accountNumber, fileType, fileProcessingDateStr);
-            return;
-        }
-        Map<String,String> filters;
-        if(StringUtils.isNotBlank(recordType)){
-            filters = Map.of(fileSchemaConfig.getColumnToIndex(request.getFileType(), Index.FIRST), accountNumber,fileSchemaConfig.getColumnToIndex(request.getFileType(), Index.SECOND),recordType);
-        }else{
-            filters = Map.of(fileSchemaConfig.getColumnToIndex(request.getFileType(), Index.FIRST), accountNumber);
-        }
-
-        FileContentFetchRequest fileContentFetchRequest = FileContentFetchRequest.builder()
-                .fileIds(List.of(request.getFileId()))
-                .fileType(fileType)
-                .filters(filters)
-                .build();
-
-        if (fileContentDataService.fetch(fileContentFetchRequest).getContents().isEmpty()) {
-            FileProcessingEventPayload payload = FileProcessingEventPayload.builder()
-                    .accountNumber(accountNumber)
-                    .fileProcessingDate(fileProcessingDateStr)
-                    .fileType(fileType)
-                    .recordType(recordType)
-                    .metadata(hashMap)
-                    .build();
-            // TODOeventHelper.publish("FILE_PROCESSING_LOG_" + fileType, payload);
-        }
-        cacheClient.setWithTtl(CacheUtil.getStatementCacheKey(accountNumber, fileName), fileProcessingDateStr, cacheConfig.getStatementFile().getTtl(), cacheConfig.getStatementFile().getTimeUnit());
-    }
+    // TODO revisit
+//    private String mapIndex(FileContentSaveRequest request, Index index) throws UnsupportedFileException {
+//        var columnName = fileSchemaConfig.getColumnToIndex(request.getFileType(), index);
+//        return Optional.ofNullable(request.getFileContents().get(0).get(columnName))
+//                .map(String.class::cast)
+//                .orElse(null);
+//    }
+//
+//    private void sendEvent(FileContentSaveServiceRequest request, FileContentSaveRequest fileContentSaveRequest) throws UnsupportedFileException {
+//        if (ObjectUtils.isEmpty(fileContentSaveRequest) || fileContentSaveRequest.getFileContents().isEmpty()) {
+//            return;
+//        }
+//        String recordType = null;
+//        try {
+//            recordType = mapIndex(fileContentSaveRequest, Index.SECOND);
+//        } catch (UnsupportedFileException ignored) {
+//            // ignoring handling not required....
+//        }
+//        log.info("sending event for requestId : {} , fileContentSaveRequest : {}", request, fileContentSaveRequest);
+//        String accountNumber = mapIndex(fileContentSaveRequest, Index.FIRST);
+//        String[] filIdSplit = request.getFileId().split("-");
+//        if (filIdSplit.length < 1 && StringUtils.isBlank(accountNumber)) {
+//            return;
+//        }
+//        HashMap<String, String> hashMap = new HashMap<>();
+//        LocalDate fileProcessingDate = DateTimeUtils.fromYYYYMMDD(Arrays.stream(filIdSplit).toList().get(1));
+//        if (StringUtils.isNotBlank(recordType) && recordType.equals("CustomerDetails") && fileContentSaveRequest.getFileContents().get(0).containsKey("StatementDate")) {
+//            hashMap.put("endDate", (String) fileContentSaveRequest.getFileContents().get(0).get("StatementDate"));
+//        }
+//        String fileProcessingDateStr = fileProcessingDate.toString();
+//
+//        String fileType = request.getFileType();
+//        String fileName = request.getFileName();
+//
+//        if (Objects.nonNull(cache.get(CacheUtil.getStatementCacheKey(accountNumber, fileName)))) {
+//            log.debug("Account {} already processed for file type {} and date {}, skipping event",
+//                    accountNumber, fileType, fileProcessingDateStr);
+//            return;
+//        }
+//        Map<String,String> filters;
+//        if(StringUtils.isNotBlank(recordType)){
+//            filters = Map.of(fileSchemaConfig.getColumnToIndex(request.getFileType(), Index.FIRST), accountNumber,fileSchemaConfig.getColumnToIndex(request.getFileType(), Index.SECOND),recordType);
+//        }else{
+//            filters = Map.of(fileSchemaConfig.getColumnToIndex(request.getFileType(), Index.FIRST), accountNumber);
+//        }
+//
+//        FileContentFetchRequest fileContentFetchRequest = FileContentFetchRequest.builder()
+//                .fileIds(List.of(request.getFileId()))
+//                .fileType(fileType)
+//                .filters(filters)
+//                .build();
+//
+//        if (fileContentDataService.fetch(fileContentFetchRequest).getContents().isEmpty()) {
+//            FileProcessingEventPayload payload = FileProcessingEventPayload.builder()
+//                    .accountNumber(accountNumber)
+//                    .fileProcessingDate(fileProcessingDateStr)
+//                    .fileType(fileType)
+//                    .recordType(recordType)
+//                    .metadata(hashMap)
+//                    .build();
+//            // TODOeventHelper.publish("FILE_PROCESSING_LOG_" + fileType, payload);
+//        }
+//        cache.putWithTtl(CacheUtil.getStatementCacheKey(accountNumber, fileName), fileProcessingDateStr, Duration.ofSeconds(cacheConfig.getStatementFile().getTtl()));
+//    }
 }

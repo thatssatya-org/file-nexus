@@ -61,7 +61,7 @@ public abstract class AbstractSourceConfig {
      * @param fileFiltering File filtering configuration
      * @param schedule      The schedule configuration for the source
      */
-    public AbstractSourceConfig(String name, StorageType type, List<Map<String, Object>> destinations,
+    protected AbstractSourceConfig(String name, StorageType type, List<Map<String, Object>> destinations,
                                 FileFilterConfig fileFiltering, String schedule, Boolean enabled) {
         this.name = name;
         this.type = type;
@@ -79,7 +79,7 @@ public abstract class AbstractSourceConfig {
      * @param destinations  The list of destination configurations
      * @param fileFiltering File filtering configuration
      */
-    public AbstractSourceConfig(String name, StorageType type, List<Map<String, Object>> destinations,
+    protected AbstractSourceConfig(String name, StorageType type, List<Map<String, Object>> destinations,
                                 FileFilterConfig fileFiltering) {
         this.name = name;
         this.type = type;

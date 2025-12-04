@@ -4,8 +4,6 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.concurrent.TimeUnit;
-
 @Data
 @Configuration
 @ConfigurationProperties(prefix = "cache-config")
@@ -16,6 +14,5 @@ public class CacheConfig {
     @Data
     public static class StatementFile {
         private int ttl;
-        private final TimeUnit timeUnit = TimeUnit.SECONDS;
     }
 }

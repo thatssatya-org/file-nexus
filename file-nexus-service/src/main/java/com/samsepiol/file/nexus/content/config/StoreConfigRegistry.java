@@ -18,7 +18,7 @@ import java.util.Objects;
 @Slf4j
 public class StoreConfigRegistry {
 
-    private final String HYPHEN = "-";
+    private static final String HYPHEN = "-";
     private final Map<String, IStorageClient> storeClient = new HashMap<>();
     private final Map<String, FileTransferConfigEntry> fileTransferConfigMap = new HashMap<>();
     private final StoreConfig storeConfig;
@@ -58,11 +58,11 @@ public class StoreConfigRegistry {
     public StoreTransferConfig getConfig(String sourceIdentifier, String targetIdentifier) {
         IStorageClient sourceClient = storeClient.get(sourceIdentifier);
         IStorageClient targetClient = storeClient.get(targetIdentifier);
-        FileTransferConfigEntry fileTransferConfig = fileTransferConfigMap.get(fetchFileTransferConfigId(sourceIdentifier, targetIdentifier));
+        FileTransferConfigEntry configEntry = fileTransferConfigMap.get(fetchFileTransferConfigId(sourceIdentifier, targetIdentifier));
         return StoreTransferConfig.builder()
                 .sourceClient(sourceClient)
                 .targetClient(targetClient)
-                .fileTransferConfig(fileTransferConfig)
+                .fileTransferConfig(configEntry)
                 .build();
     }
 }
