@@ -25,6 +25,11 @@
         </dependency>
 
         <dependency>
+            <groupId>com.samsepiol.library</groupId>
+            <artifactId>message-queue-core</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.samsepiol</groupId>
             <artifactId>file-nexus-repository</artifactId>
             <version>${project.version}</version>
