@@ -54,12 +54,16 @@
                 <artifactId>lock</artifactId>
                 <version>${samsepiol.library.version}</version>
             </dependency>
-<!--            TODO kafka -->
-<!--            <dependency>-->
-<!--                <groupId>com.samsepiol</groupId>-->
-<!--                <artifactId>message-queue-kafka</artifactId>-->
-<!--            </dependency>-->
-
+            <dependency>
+                <groupId>com.samsepiol.library</groupId>
+                <artifactId>message-queue-core</artifactId>
+                <version>${samsepiol.library.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.samsepiol.library</groupId>
+                <artifactId>kafka</artifactId>
+                <version>${samsepiol.library.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>

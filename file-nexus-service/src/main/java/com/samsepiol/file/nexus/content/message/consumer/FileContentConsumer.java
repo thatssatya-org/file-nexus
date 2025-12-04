@@ -1,31 +1,39 @@
 package com.samsepiol.file.nexus.content.message.consumer;
 
-import com.samsepiol.file.nexus.constants.BeanNameConstants;
+import com.samsepiol.file.nexus.common.models.enums.FileNexusMessageHandler;
 import com.samsepiol.file.nexus.content.message.handler.FileContentConsumerService;
 import com.samsepiol.file.nexus.content.message.handler.models.request.FileContentHandlerServiceRequest;
+import com.samsepiol.message.queue.core.MessageHandler;
+import com.samsepiol.message.queue.core.models.MessageHandlerType;
+import com.samsepiol.message.queue.core.models.request.MessageHandlerRequest;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-
-import java.util.Map;
+import org.springframework.stereotype.Service;
 
 
 @Slf4j
 @RequiredArgsConstructor
-@Component(BeanNameConstants.MessageConsumers.FILE_CONTENTS_CONSUMER)
-// TODO
-public class FileContentConsumer {
+@Service
+public class FileContentConsumer implements MessageHandler {
     private final FileContentConsumerService fileContentConsumerService;
 
-    public void handleMessage(String message, String metadata, Map<String, String> headers) {
-        log.info("File content message received: {}", message);
-        fileContentConsumerService.handleFileContent(createFileHandlerRequest(headers, message));
+    @Override
+    public void process(MessageHandlerRequest request) {
+        log.info("File content message received: {}", request.getValue());
+        fileContentConsumerService.handleFileContent(createFileHandlerRequest(request));
     }
 
-    private FileContentHandlerServiceRequest createFileHandlerRequest(Map<String, String> headers, String message) {
+    @Override
+    public @NonNull MessageHandlerType getType() {
+        return FileNexusMessageHandler.FILE_CONTENTS;
+    }
+
+    private FileContentHandlerServiceRequest createFileHandlerRequest(MessageHandlerRequest request) {
         return FileContentHandlerServiceRequest.builder()
-                .headers(headers)
-                .message(message)
+                .headers(request.getHeaders())
+                .message(request.getValue())
                 .build();
     }
+
 }

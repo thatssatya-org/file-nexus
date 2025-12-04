@@ -1,32 +1,38 @@
 package com.samsepiol.file.nexus.metadata.message.consumer;
 
-import com.samsepiol.file.nexus.constants.BeanNameConstants;
+import com.samsepiol.file.nexus.common.models.enums.FileNexusMessageHandler;
 import com.samsepiol.file.nexus.metadata.message.handler.FilePulseStatusService;
 import com.samsepiol.file.nexus.metadata.message.handler.models.request.FilePulseServiceRequest;
+import com.samsepiol.message.queue.core.MessageHandler;
+import com.samsepiol.message.queue.core.models.MessageHandlerType;
+import com.samsepiol.message.queue.core.models.request.MessageHandlerRequest;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-
-import java.util.Map;
+import org.springframework.stereotype.Service;
 
 @Slf4j
 @RequiredArgsConstructor
-@Component(BeanNameConstants.MessageConsumers.FILE_PULSE_STATUS_CONSUMER)
-// TODO
-public class FilePulseStatusMessageHandler {
+@Service
+public class FilePulseStatusMessageHandler implements MessageHandler {
     private final FilePulseStatusService filePulseService;
 
-    public void handleMessage(String message, String metadata, Map<String, String> headers) {
-        log.info("File pulse message received: {}", message);
-        filePulseService.updateMetadataStatus(createFilePulseRequest(headers, message));
+    @Override
+    public void process(MessageHandlerRequest request) {
+        log.info("File pulse message received: {}", request.getValue());
+        filePulseService.updateMetadataStatus(createFilePulseRequest(request));
     }
 
-    private FilePulseServiceRequest createFilePulseRequest(Map<String, String> headers, String message) {
+    @Override
+    public @NonNull MessageHandlerType getType() {
+        return FileNexusMessageHandler.FILE_PULSE_STATUS;
+    }
+
+    private FilePulseServiceRequest createFilePulseRequest(MessageHandlerRequest request) {
         return FilePulseServiceRequest.builder()
-                .headers(headers)
-                .message(message)
+                .headers(request.getHeaders())
+                .message(request.getValue())
                 .build();
     }
-
 }
 
