@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FileContentControllerTest extends BaseControllerTest {
 
     @Container
-    private static final MongoDBContainer MONGO_DB_CONTAINER = newMongoDbContainer();
+    private static final MongoDBContainer MONGO_DB_CONTAINER = getMongoDBContainer();
 
     private static final String BASE_MAPPING = "/v1/files/TEST_FILE";
     private static final String GET_FILE_CONTENTS_API = BASE_MAPPING + "/contents";

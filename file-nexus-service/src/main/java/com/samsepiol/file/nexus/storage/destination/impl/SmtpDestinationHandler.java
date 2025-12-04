@@ -37,7 +37,7 @@ import java.util.Properties;
 @RequiredArgsConstructor
 public class SmtpDestinationHandler implements DestinationHandler {
 
-    private static final long MAX_FILE_SIZE = 15 * 1024 * 1024; // 15 MB (typical email limit)
+    private static final long MAX_FILE_SIZE = 15 * 1024 * 1024L; // 15 MB (typical email limit)
     private static final String DEFAULT_SUBJECT = "File Transfer: ";
     private static final String DEFAULT_BODY = "Please find the attached file.";
 

@@ -2,7 +2,7 @@ package com.samsepiol.file.nexus.metadata.impl;
 
 import com.samsepiol.file.nexus.content.exception.FileNotFoundException;
 import com.samsepiol.file.nexus.enums.MetadataStatus;
-import com.samsepiol.file.nexus.lock.ExecuteWithLockService;
+import com.samsepiol.file.nexus.exception.unchecked.FileNexusParallelLockException;
 import com.samsepiol.file.nexus.metadata.FileMetadataRepository;
 import com.samsepiol.file.nexus.metadata.FileMetadataService;
 import com.samsepiol.file.nexus.metadata.mapper.MetadataAdapter;
@@ -14,6 +14,8 @@ import com.samsepiol.file.nexus.metadata.models.request.FileMetadataSaveRequest;
 import com.samsepiol.file.nexus.metadata.parser.models.response.ParsedFileMetaData;
 import com.samsepiol.file.nexus.repo.content.entity.MetadataEntity;
 import com.samsepiol.file.nexus.utils.DateTimeUtils;
+import com.samsepiol.library.lock.IdempotencyService;
+import com.samsepiol.library.lock.exception.ParallelLockException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ import static com.samsepiol.file.nexus.utils.ClassUtils.emptyConsumer;
 @RequiredArgsConstructor
 public class FileMetadataServiceImpl implements FileMetadataService {
     private final FileMetadataRepository metadataRepo;
-    private final ExecuteWithLockService lockService;
+    private final IdempotencyService idempotencyService;
 
     @Override
     public @NonNull FileMetadata fetchMetadata(@NonNull String fileId) {
@@ -72,12 +74,17 @@ public class FileMetadataServiceImpl implements FileMetadataService {
     }
 
     private void saveWithLock(FileMetadataSaveRequest request) {
-        lockService.execute(
-                () -> {
-                    var metadataEntity = createMetadataEntity(request.getParsedFileMetaData(), request.getStatus());
-                    metadataRepo.save(metadataEntity);
-                },
-                request.getParsedFileMetaData().getFileId());
+        try {
+            idempotencyService.execute(
+                    request.getParsedFileMetaData().getFileId(),
+                    () -> {
+                        var metadataEntity = createMetadataEntity(request.getParsedFileMetaData(), request.getStatus());
+                        metadataRepo.save(metadataEntity);
+                        return null;
+                    });
+        } catch (ParallelLockException e) {
+            throw FileNexusParallelLockException.create();
+        }
 
     }
 

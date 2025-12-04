@@ -2,7 +2,6 @@ package com.samsepiol.file.nexus.storage.service;
 
 import com.samsepiol.file.nexus.ingestion.workflow.IFileIngestionWorkflow;
 import com.samsepiol.file.nexus.ingestion.workflow.dto.FileIngestionWorkflowRequest;
-import com.samsepiol.file.nexus.lock.ExecuteWithLockService;
 import com.samsepiol.file.nexus.models.transfer.enums.StorageType;
 import com.samsepiol.file.nexus.storage.config.HookConfigurationProvider;
 import com.samsepiol.file.nexus.storage.config.ProcessedHookConfiguration;
@@ -13,19 +12,20 @@ import com.samsepiol.file.nexus.storage.config.source.S3GcsSourceConfig;
 import com.samsepiol.file.nexus.storage.hook.StorageHook;
 import com.samsepiol.file.nexus.storage.models.FileInfo;
 import com.samsepiol.file.nexus.storage.models.PollResult;
+import com.samsepiol.library.lock.IdempotencyService;
+import com.samsepiol.library.lock.exception.ParallelLockException;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowExecutionAlreadyStarted;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import jakarta.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.samsepiol.file.nexus.ingestion.workflow.utils.WorkflowOptionsRegistry.getIFileIngestionWorkflowOptions;
 
@@ -35,7 +35,7 @@ import static com.samsepiol.file.nexus.ingestion.workflow.utils.WorkflowOptionsR
 public class StorageHookMonitoringService {
 
     private final WorkflowClient workflowClient;
-    private final ExecuteWithLockService lockService;
+    private final IdempotencyService idempotencyService;
     private final HookConfigurationProvider hookConfigurationProvider;
     private final HookFactory hookFactory;
     private final ScheduleManagementService scheduleManagementService;
@@ -117,16 +117,17 @@ public class StorageHookMonitoringService {
         log.debug("Polling storage hooks for new files");
 
         try {
-            lockService.execute(() -> {
-                try {
-                    pollRealtimeHooks();
-                } catch (Exception e) {
-                    log.debug("Error polling storage hooks", e);
-                }
-            }, "storage-hook-monitoring");
-            //TODO
-//        } catch (ParallelLockException e) {
-//            log.debug("Storage hook monitoring is already in progress, skipping this poll", e);
+            idempotencyService.execute("storage-hook-monitoring",
+                    () -> {
+                        try {
+                            pollRealtimeHooks();
+                        } catch (Exception e) {
+                            log.debug("Error polling storage hooks", e);
+                        }
+                        return null;
+                    });
+        } catch (ParallelLockException e) {
+            log.debug("Storage hook monitoring is already in progress, skipping this poll", e);
         } catch (Exception e) {
             log.error("Unexpected error during storage hook polling", e);
         }
@@ -181,7 +182,7 @@ public class StorageHookMonitoringService {
                 .getEnabledDestinations()
                 .stream()
                 .map(AbstractDestinationConfig::getName)
-                .collect(Collectors.toList());
+                .toList();
         String filePath = fileInfo.getFilePath();
         if (enabledDestinations.isEmpty()) {
             log.debug("No enabled destinations found for hook: {}", hookName);

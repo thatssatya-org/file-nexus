@@ -1,13 +1,12 @@
 package com.samsepiol.file.nexus;
 
+import com.redis.testcontainers.RedisContainer;
 import com.samsepiol.file.nexus.config.BaseControllerTestConfig;
-import com.samsepiol.file.nexus.storage.service.ScheduleManagementService;
+import com.samsepiol.library.cache.Cache;
 import com.samsepiol.library.mongo.Repository;
-import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -27,21 +26,28 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @ActiveProfiles(profiles = "test")
 public abstract class BaseControllerTest {
 
+    protected static MongoDBContainer getMongoDBContainer() {
+        return new MongoDBContainer(DockerImageName.parse("mongo:latest"));
+    }
+
+    protected static RedisContainer getRedisContainer() {
+        return new RedisContainer(DockerImageName.parse("redis:latest"));
+    }
+
+
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     protected Repository mongoDb;
 
+    @Autowired
+    protected Cache<String, Object> redisClient;
+
     // TODO
 //    @MockBean
 //    protected TemporalConnection temporalConnection;
 //
-//    @MockBean
-//    protected UniRedisClient redisClient;
-//
-//    @MockBean
-//    protected MetricHelper metricHelper;
 //
 //    @MockBean
 //    protected IConsumerClient consumerClient;
@@ -49,12 +55,6 @@ public abstract class BaseControllerTest {
 //    @MockBean
 //    protected IProducerClient producerClient;
 //
-//    @MockBean
-//    protected IFileStorageClient fileStorageClient;
-
-    @MockBean
-    protected ScheduleManagementService scheduleManagementService;
-
     protected MockMvc getMockMvc() {
         return mockMvc;
     }
@@ -69,12 +69,9 @@ public abstract class BaseControllerTest {
         registry.add("mongo-config.password", () -> "");
     }
 
-    protected static @NonNull MongoDBContainer newMongoDbContainer() {
-        return new MongoDBContainer(DockerImageName.parse("mongo:5.0.0"));
-    }
-
     protected synchronized void loadDB(Map<String, Map<String, Object>> map) {
         if (!dbLoaded) {
+            // TODO
 //            map.forEach((collectionName, bulkSaveData) -> mongoDb.bulkSave(collectionName, bulkSaveData));
             dbLoaded = Boolean.TRUE;
         }

@@ -24,24 +24,7 @@
     </modules>
 
     <properties>
-<!--        <slf4j.version>1.7.36</slf4j.version>-->
-<!--        <org.jacaco.version>0.8.8</org.jacaco.version>-->
         <samsepiol.library.version>0.0.2-LIBRARY-SNAPSHOT</samsepiol.library.version>
-<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
-<!--            ${project.basedir}/../*/target/site/jacoco/jacoco.xml,-->
-<!--            ${project.basedir}/../*/target/site/jacoco-aggregate/jacoco.xml,-->
-<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
-<!--        <sonar.coverage.exclusions>-->
-<!--            **/model/**/*,-->
-<!--            **/request/*,-->
-<!--            **/response/**/*,-->
-<!--            **/request/apiRequest/*,-->
-<!--            **/dto/*,-->
-<!--            **/config/**,-->
-<!--            **/constants/**,-->
-<!--            **/controller/**,-->
-<!--            **/application/**,-->
-<!--        </sonar.coverage.exclusions>-->
     </properties>
 
     <dependencyManagement>
@@ -66,18 +49,15 @@
                 <artifactId>http</artifactId>
                 <version>${samsepiol.library.version}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>com.samsepiol</groupId>-->
-<!--                <artifactId>redis</artifactId>-->
-<!--            </dependency>-->
-<!--            TODO kafka and redis lock-->
+            <dependency>
+                <groupId>com.samsepiol.library</groupId>
+                <artifactId>lock</artifactId>
+                <version>${samsepiol.library.version}</version>
+            </dependency>
+<!--            TODO kafka -->
 <!--            <dependency>-->
 <!--                <groupId>com.samsepiol</groupId>-->
 <!--                <artifactId>message-queue-kafka</artifactId>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.samsepiol</groupId>-->
-<!--                <artifactId>lock</artifactId>-->
 <!--            </dependency>-->
 
         </dependencies>

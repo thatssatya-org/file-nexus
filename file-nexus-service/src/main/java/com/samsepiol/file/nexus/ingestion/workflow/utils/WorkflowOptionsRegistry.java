@@ -3,7 +3,9 @@ package com.samsepiol.file.nexus.ingestion.workflow.utils;
 import com.samsepiol.library.temporal.constants.Queues;
 import io.temporal.api.enums.v1.WorkflowIdReusePolicy;
 import io.temporal.client.WorkflowOptions;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class WorkflowOptionsRegistry {
     public static WorkflowOptions getIFileIngestionWorkflowOptions(String workflowId) {
         return WorkflowOptions.newBuilder()

@@ -1,6 +1,5 @@
 package com.samsepiol.file.nexus.content;
 
-import com.samsepiol.file.nexus.cache.CacheClient;
 import com.samsepiol.file.nexus.cache.CacheConfig;
 import com.samsepiol.file.nexus.content.config.FileSchemaConfig;
 import com.samsepiol.file.nexus.content.data.FileContentDataService;
@@ -25,6 +24,7 @@ import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMet
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataFetchServiceRequest;
 import com.samsepiol.file.nexus.models.enums.Error;
 import com.samsepiol.file.nexus.utils.DateTimeUtils;
+import com.samsepiol.library.cache.Cache;
 import lombok.NonNull;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -70,7 +70,7 @@ class FileContentServiceUnitTest {
     private Map<FileParserType, FileContentParser> fileContentParserMap;
 
     @Mock
-    private CacheClient cacheClient;
+    private Cache<String, String> cache;
 
     @Mock
     private CacheConfig cacheConfig;

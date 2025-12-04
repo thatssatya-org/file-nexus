@@ -1,13 +1,14 @@
 package com.samsepiol.file.nexus.content;
 
 import com.samsepiol.file.nexus.enums.MetadataStatus;
-import com.samsepiol.file.nexus.lock.ExecuteWithLockService;
 import com.samsepiol.file.nexus.metadata.FileMetadataRepository;
 import com.samsepiol.file.nexus.metadata.impl.FileMetadataServiceImpl;
 import com.samsepiol.file.nexus.metadata.models.FetchMetaDataEntityRequest;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataFetchServiceRequest;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataSaveRequest;
 import com.samsepiol.file.nexus.repo.content.entity.MetadataEntity;
+import com.samsepiol.library.lock.IdempotencyService;
+import com.samsepiol.library.lock.exception.ParallelLockException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -17,6 +18,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import static com.samsepiol.file.nexus.content.MetadataTestUtil.createTestMetadataEntity;
 import static com.samsepiol.file.nexus.content.MetadataTestUtil.createTestMetadataEntityList;
@@ -33,7 +35,7 @@ class FileHandlerDataServiceUnitTest {
     private FileMetadataRepository metadataRepo;
 
     @Mock
-    private ExecuteWithLockService executeWithLockService;
+    private IdempotencyService idempotencyService;
 
     @InjectMocks
     private FileMetadataServiceImpl fileHandlerDataService;
@@ -74,7 +76,7 @@ class FileHandlerDataServiceUnitTest {
     }
 
     @Test
-    void saveMetadata_success_test(){
+    void saveMetadata_success_test() throws ParallelLockException {
         String fileId = "STATEMENT_20241007";
         doNothing().when(metadataRepo).save(any(MetadataEntity.class));
         FileMetadataSaveRequest request = FileMetadataSaveRequest.builder()
@@ -82,13 +84,13 @@ class FileHandlerDataServiceUnitTest {
                 .status(MetadataStatus.COMPLETED)
                 .build();
 
-        ArgumentCaptor<Runnable> runnableArgumentCaptor = ArgumentCaptor.forClass(Runnable.class);
+        var runnableArgumentCaptor = ArgumentCaptor.forClass(Supplier.class);
         fileHandlerDataService.save(request);
 
-        verify(executeWithLockService, Mockito.times(1))
-                .execute(runnableArgumentCaptor.capture(), eq(fileId));
+        verify(idempotencyService, Mockito.times(1))
+                .execute(eq(fileId), runnableArgumentCaptor.capture());
 
-        runnableArgumentCaptor.getValue().run();
+        runnableArgumentCaptor.getValue().get();
         verify(metadataRepo, Mockito.times(1)).save(any(MetadataEntity.class));
         verify(metadataRepo, Mockito.times(1)).fetch(fileId);
 

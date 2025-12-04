@@ -8,6 +8,16 @@ logging:
 server:
   port : 8081
 
+spring:
+  data:
+    mongodb:
+      host: mongo
+      port: 27017
+      database: test
+    redis:
+      host: redis
+      port: 6379
+
 mongo-config:
   address: 'mongodb:27017'
   database: 'file_nexus'

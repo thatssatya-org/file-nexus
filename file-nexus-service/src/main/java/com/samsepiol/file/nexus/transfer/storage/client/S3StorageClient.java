@@ -3,6 +3,7 @@ package com.samsepiol.file.nexus.transfer.storage.client;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.samsepiol.file.nexus.content.exception.S3Exception;
 import com.samsepiol.file.nexus.models.enums.Error;
 import com.samsepiol.file.nexus.transfer.storage.CloseableInputStream;
@@ -11,16 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 public class S3StorageClient implements IStorageClient {
 
-    private AmazonS3 amazonS3Client ;
-
-    public S3StorageClient() {
-        this.amazonS3Client = AmazonS3ClientBuilder.standard().withRegion(S3Config.builder().build().getRegion()).build();
-    }
+    private static final AmazonS3 amazonS3Client = AmazonS3ClientBuilder.standard().withRegion(S3Config.builder().build().getRegion()).build() ;
 
     @Override
     public List<String> getAllFiles(String bucketName) {
@@ -28,10 +24,10 @@ public class S3StorageClient implements IStorageClient {
             return amazonS3Client.listObjects(bucketName)
                     .getObjectSummaries()
                     .stream()
-                    .map(x -> x.getKey())
-                    .collect(Collectors.toList());
+                    .map(S3ObjectSummary::getKey)
+                    .toList();
         } catch ( Exception e) {
-            log.warn("Error getting file names from s3 {}", e);
+            log.warn("Error getting file names from s3", e);
             throw S3Exception.create(Error.S3_FILE_LISTING_ERROR);
         }
     }
@@ -42,7 +38,7 @@ public class S3StorageClient implements IStorageClient {
             log.info("Uploading file to S3: bucketName={}, remotePath={}", bucketName, remotePath);
             amazonS3Client.putObject(bucketName, remotePath, inputStream, new ObjectMetadata());
         } catch (Exception e) {
-            log.error("Error uploading file to S3 {}", e);
+            log.error("Error uploading file to S3", e);
             throw S3Exception.create(Error.S3_FILE_UPLOAD_ERROR);
         }
     }
@@ -65,7 +61,7 @@ public class S3StorageClient implements IStorageClient {
             amazonS3Client.deleteObject(bucketName, remotePath);
             log.info("File deleted from S3: bucketName={}, remotePath={}", bucketName, remotePath);
         } catch (Exception e) {
-            log.error("Error deleting file from S3, {}", e);
+            log.error("Error deleting file from S3", e);
             throw S3Exception.create(Error.S3_FILE_DELETE_ERROR);
         }
     }

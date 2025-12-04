@@ -26,7 +26,7 @@ import static com.samsepiol.file.nexus.models.enums.Error.SFTP_CHANNEL_CREATION_
 @Slf4j
 public class SftpStorageClient implements IStorageClient {
     private final SftpSessionManager sessionManager;
-    private SftpConfig config;
+    private final SftpConfig config;
 
     public SftpStorageClient(String host, String privateKey, String passphrase, String aliasName, Integer port, String username, String rootDir) {
         this.config = SftpConfig.builder().host(host).privateKey(privateKey)
@@ -82,7 +82,6 @@ public class SftpStorageClient implements IStorageClient {
 
     @Override
     public void deleteFile(String bucketName, String remotePath) {
-        //TODO: implement later when required, currently action not supported by yes bank
         throw UnImplementedException.create(IMPLEMENTATION_PENDING);
     }
 
@@ -91,7 +90,7 @@ public class SftpStorageClient implements IStorageClient {
         ChannelSftp channel = null;
         log.info("Trying to rename file: {} with path {}", remoteFilePath, newFilePath);
         try {
-            channel = (ChannelSftp) getChannel();
+            channel = getChannel();
             // move the file
             channel.rename(remoteFilePath, newFilePath);
         } catch (SftpConnectionException e) {
@@ -109,7 +108,7 @@ public class SftpStorageClient implements IStorageClient {
     public Boolean fileExists(String bucketName, String remoteFilePath) {
         ChannelSftp channel = null;
         try {
-            channel = (ChannelSftp) getChannel();
+            channel = getChannel();
             channel.lstat(remoteFilePath); // This will throw an exception if the file doesn't exist
             return true;
         } catch(SftpException e){
@@ -146,10 +145,9 @@ public class SftpStorageClient implements IStorageClient {
 
     public void closeChannel(ChannelSftp channel) {
         try {
-            ChannelSftp channelSftp = channel;
-            if (channel != null && channelSftp.isConnected()) {
-                log.info("Closing SFTP channel with id: {}", channelSftp.getId());
-                channelSftp.disconnect();
+            if (channel != null && channel.isConnected()) {
+                log.info("Closing SFTP channel with id: {}", channel.getId());
+                channel.disconnect();
             }
         } catch (Exception e) {
             log.warn("Close SFTP channel failing with error {}", e.getMessage());

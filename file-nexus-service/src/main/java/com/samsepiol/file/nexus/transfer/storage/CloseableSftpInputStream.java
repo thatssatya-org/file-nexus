@@ -19,11 +19,6 @@ public class CloseableSftpInputStream extends CloseableInputStream implements Cl
     }
 
     @Override
-    public int read() throws IOException {
-        return super.read();
-    }
-
-    @Override
     public void close() throws IOException {
         log.info("Closing fileStream");
         super.close();

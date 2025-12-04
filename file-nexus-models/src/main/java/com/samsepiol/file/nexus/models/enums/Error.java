@@ -57,7 +57,7 @@ public enum Error {
     IMPLEMENTATION_PENDING(9027047, "Unimplemented method", "Unimplemented method", HttpStatus.INTERNAL_SERVER_ERROR),
     FILE_SIZE_EXCEEDS_MAX_SIZE(9027048, "File size exceeds the maximum allowed size", "File size exceeds the maximum allowed size", HttpStatus.INTERNAL_SERVER_ERROR),
     UNEXPECTED_FILE_NAME(9027049, "FileName does not follow pattern", "FileName does not follow pattern", HttpStatus.INTERNAL_SERVER_ERROR),
-
+    PARALLEL_LOCK(9027050, "Parallel lock", "Parallel lock", HttpStatus.INTERNAL_SERVER_ERROR),
 
     ;
 
