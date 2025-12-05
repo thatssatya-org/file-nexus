@@ -31,7 +31,7 @@ services:
       - /var/lib/postgresql/data
 
   temporal:
-    container_name: fn-temporal
+    container_name: temporal
     depends_on:
       - postgresql
       - elasticsearch
@@ -206,6 +206,8 @@ services:
 #      MONGO_INITDB_ROOT_PASSWORD: file_nexus_mongo_password
     ports:
       - "27017:27017"
+    volumes:
+      - ~/projects/containers/volumes/mongo:/data/db
     networks:
       - kafka-net
     restart: unless-stopped
@@ -219,9 +221,10 @@ services:
       - kafka-net
 
   file-nexus:
+    container_name: file-nexus-main
     build:
-      context: ..
-      dockerfile: ./local-setup/Dockerfile-local
+      context: ../..
+      dockerfile: ./file-nexus-controller/local-setup/Dockerfile-local
     depends_on:
       - connect
       - mongodb
