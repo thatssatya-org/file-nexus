@@ -1,28 +1,32 @@
 package com.samsepiol.file.nexus.health.service.dependency.impl;
 
 import com.samsepiol.file.nexus.health.service.dependency.DependencyHealthCheck;
+import com.samsepiol.file.nexus.health.service.dependency.models.enums.DependencyType;
 import io.temporal.api.workflowservice.v1.GetSystemInfoRequest;
 import io.temporal.serviceclient.WorkflowServiceStubs;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Supplier;
+
 @Service
-@ConditionalOnBean(WorkflowServiceStubs.class)
+@ConditionalOnProperty("temporal-config.host")
 @RequiredArgsConstructor
-@Slf4j
 public class TemporalServiceHealthCheck implements DependencyHealthCheck {
     private final WorkflowServiceStubs service;
 
     @Override
-    public boolean isHealthy() {
-        try {
+    public @NonNull Supplier<Boolean> healthCheck() {
+        return () -> {
             var systemInfo = service.blockingStub().getSystemInfo(GetSystemInfoRequest.getDefaultInstance());
             return systemInfo.isInitialized();
-        } catch (Exception e) {
-            log.error("[Health Check] Temporal unhealthy");
-            return Boolean.FALSE;
-        }
+        };
+    }
+
+    @Override
+    public @NonNull DependencyType getType() {
+        return DependencyType.TEMPORAL;
     }
 }
