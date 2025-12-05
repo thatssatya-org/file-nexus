@@ -1,0 +1,1 @@
+ docker-compose -f ./file-nexus-controller/local-setup/file-nexus-local-stack.yml up -d --build --force-recreate
