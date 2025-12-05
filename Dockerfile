@@ -7,6 +7,7 @@ COPY file-nexus-models/pom.xml ./file-nexus-models/
 COPY file-nexus-core/pom.xml ./file-nexus-core/
 COPY file-nexus-repository/pom.xml ./file-nexus-repository/
 COPY file-nexus-service/pom.xml ./file-nexus-service/
+COPY file-nexus-service/ingestion/pom.xml ./file-nexus-service/ingestion/
 COPY file-nexus-controller/pom.xml ./file-nexus-controller/
 
 # Download dependencies

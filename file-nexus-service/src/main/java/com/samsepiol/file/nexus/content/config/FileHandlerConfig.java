@@ -10,11 +10,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import jakarta.annotation.PostConstruct;
+import org.springframework.util.CollectionUtils;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -100,7 +101,7 @@ public class FileHandlerConfig {
 
     public boolean isSuffixMandatory(@NonNull String fileType) throws UnsupportedFileException {
         var config = getMetadataParsingConfig(fileType);
-        return CollectionUtils.isNotEmpty(config.getFileNameSuffixes()) && Objects.requireNonNullElse(config.getSuffixMandatory(), Boolean.TRUE);
+        return !CollectionUtils.isEmpty(config.getFileNameSuffixes()) && Objects.requireNonNullElse(config.getSuffixMandatory(), Boolean.TRUE);
     }
 
     private MetadataParsingConfig getMetadataParsingConfig(String fileType) throws UnsupportedFileException {

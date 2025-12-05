@@ -190,8 +190,3 @@ nexus-hook-config:
           ssl: ${ckyc-reports-file-source.source.smtp.destination.SMTP_SSL:false}
           transformerType: ${ckyc-reports-file-source.source.smtp.destination.transformerType:}
 
-
-cache-config:
-  statement-file:
-    ttl: ${cache.config.statement.file.ttl:0}
-  

@@ -4,22 +4,22 @@ import com.samsepiol.file.nexus.metadata.workflow.activity.MatchOffsetsActivity;
 import com.samsepiol.file.nexus.metadata.workflow.activity.exception.KafkaPartitionCommittedOffsetMissingException;
 import com.samsepiol.file.nexus.metadata.workflow.activity.exception.KafkaPartitionsEndOffsetsNotReachedException;
 import com.samsepiol.file.nexus.metadata.workflow.activity.request.MatchOffsetsActivityRequest;
+import com.samsepiol.library.kafka.admin.offsets.OffsetMonitoringService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
-@RequiredArgsConstructor
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class MatchOffsetsActivityImpl implements MatchOffsetsActivity {
-    // TODO
-//    private final IConsumerClient client;
+    private final OffsetMonitoringService client;
 
     @Override
     public void execute(@NonNull MatchOffsetsActivityRequest request) {
@@ -27,11 +27,11 @@ public class MatchOffsetsActivityImpl implements MatchOffsetsActivity {
         log.info("[MatchOffsetsActivity] Matching committed offsets with previous end offsets for topic: {}, groupId: {}",
                 request.getTopicName(), request.getGroupId());
 
-//        Map<Integer, Long> committedOffsets = client.getCommittedOffsets(request.getTopicName(), request.getGroupId());
+        var committedOffsets = client.getOffsets(request.getTopicName(), request.getGroupId())
+                .entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().getCurrentOffset()));
 
-        Map<Integer, Long> committedOffsets = Collections.emptyMap();
-
-        Map<Integer, Long> filteredEndOffsets = getPartitionDataForNonZeroEndOffsets(request);
+        var filteredEndOffsets = getPartitionDataForNonZeroEndOffsets(request);
 
         validatePartitionPresenceInCommittedOffsets(filteredEndOffsets, committedOffsets);
 

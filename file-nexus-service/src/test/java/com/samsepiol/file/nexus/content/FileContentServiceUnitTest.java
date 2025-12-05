@@ -1,6 +1,5 @@
 package com.samsepiol.file.nexus.content;
 
-import com.samsepiol.file.nexus.cache.CacheConfig;
 import com.samsepiol.file.nexus.content.config.FileSchemaConfig;
 import com.samsepiol.file.nexus.content.data.FileContentDataService;
 import com.samsepiol.file.nexus.content.data.models.FileContent;
@@ -72,9 +71,6 @@ class FileContentServiceUnitTest {
     @Mock
     private Cache<String, String> cache;
 
-    @Mock
-    private CacheConfig cacheConfig;
-
     @InjectMocks
     private DefaultFileContentService fileContentService;
 
@@ -125,7 +121,6 @@ class FileContentServiceUnitTest {
                 .fileName(FILE_ID_1)
                 .fileContents(List.of("{\"key1\":\"value1\"}", "{\"key1\":\"value2\"}"))
                 .build();
-        doReturn(new CacheConfig.StatementFile()).when(cacheConfig).getStatementFile();
         doReturn("key1").when(fileSchemaConfig).getColumnToIndex("sampleFileType", Index.FIRST);
         doReturn("key2").when(fileSchemaConfig).getColumnToIndex("sampleFileType", Index.SECOND);
         doReturn(FileContents.builder().contents(List.of(FileContent.builder().build())).build()).when(fileContentDataService).fetch(any());
