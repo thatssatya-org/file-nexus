@@ -2,18 +2,17 @@ package com.samsepiol.file.nexus.health.service.impl;
 
 import com.samsepiol.file.nexus.health.service.HealthCheckService;
 import com.samsepiol.file.nexus.health.service.dependency.DependencyHealthCheck;
+import com.samsepiol.file.nexus.health.service.dependency.models.enums.DependencyType;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Map;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DefaultHealthCheckService implements HealthCheckService {
-    private final List<DependencyHealthCheck> dependencyHealthChecks;
+    private final Map<DependencyType, DependencyHealthCheck> dependencyHealthChecks;
 
     @PostConstruct
     public void init() {
@@ -22,10 +21,6 @@ public class DefaultHealthCheckService implements HealthCheckService {
 
     @Override
     public boolean isHealthy() {
-        return dependencyHealthChecks.stream()
-                .allMatch(dependencyHealthCheck -> {
-                    log.info("[Health Check] - {} - {}", dependencyHealthCheck.getClass().getSimpleName(), dependencyHealthCheck.isHealthy());
-                    return dependencyHealthCheck.isHealthy();
-                });
+        return dependencyHealthChecks.values().stream().allMatch(DependencyHealthCheck::isHealthy);
     }
 }

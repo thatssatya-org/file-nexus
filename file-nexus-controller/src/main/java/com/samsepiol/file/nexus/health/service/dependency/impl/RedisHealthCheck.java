@@ -1,26 +1,31 @@
 package com.samsepiol.file.nexus.health.service.dependency.impl;
 
 import com.samsepiol.file.nexus.health.service.dependency.DependencyHealthCheck;
+import com.samsepiol.file.nexus.health.service.dependency.models.enums.DependencyType;
 import com.samsepiol.library.cache.Cache;
 import com.samsepiol.library.redis.constants.BeanNames;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-@Slf4j
+import java.util.function.Supplier;
+
 @Service
 @RequiredArgsConstructor
+@ConditionalOnProperty("spring.data.redis.host")
 public class RedisHealthCheck implements DependencyHealthCheck {
     @Qualifier(BeanNames.REDIS_CACHE)
     private final Cache<String, String> redisCache;
 
     @Override
-    public boolean isHealthy() {
-        boolean healthy = redisCache.isHealthy();
-        if (!healthy) {
-            log.error("[Health Check] Redis unhealthy");
-        }
-        return true;
+    public @NonNull Supplier<Boolean> healthCheck() {
+        return redisCache::isHealthy;
+    }
+
+    @Override
+    public @NonNull DependencyType getType() {
+        return DependencyType.REDIS;
     }
 }
