@@ -32,7 +32,7 @@ spring:
 temporal-config:
   host: localhost
   port: 7233
-  namespace: file-nexus
+  namespace: default
 
 #TODO move to single string and parse in application
 file-config:
