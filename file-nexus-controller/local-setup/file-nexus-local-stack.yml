@@ -86,8 +86,11 @@ services:
     container_name: broker
     ports:
       - "29092:29092"
+    volumes:
+      - ~/projects/containers/volumes/kafka_data:/var/lib/kafka/data
     networks:
       - kafka-net
+    restart: unless-stopped
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
@@ -110,6 +113,10 @@ services:
     ports:
       - 9090:8080
     environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: broker:9092
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: connect
+      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://connect:8083
       DYNAMIC_CONFIG_ENABLED: 'true'
     #    volumes:
     #      - ./kui/config.yml:/etc/kafkaui/dynamic_config.yaml
@@ -134,8 +141,8 @@ services:
       CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.storage.StringConverter"
       CONNECT_PLUGIN_PATH: "/usr/share/java"
     volumes:
-      - ~/Desktop/kafka-connect/plugins/file-pulse/lib:/usr/share/java/filepulse
-      - ~/Desktop/kafka-connect/connect:/connect
+      - ~/projects/containers/volumes/kafka-connect/plugins/file-pulse/lib:/usr/share/java/filepulse
+      - ~/projects/containers/volumes/kafka-connect/connect:/connect
     networks:
       - kafka-net
     restart: unless-stopped
