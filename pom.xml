@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.samsepiol</groupId>
         <artifactId>bom</artifactId>
-        <version>0.0.3-BOM-SNAPSHOT</version>
+        <version>0.0.4-BOM-SNAPSHOT</version>
         <relativePath/>
     </parent>
 
@@ -21,6 +21,7 @@
         <module>file-nexus-service</module>
         <module>file-nexus-repository</module>
         <module>file-nexus-core</module>
+        <module>file-nexus-service/ingestion</module>
     </modules>
 
     <properties>

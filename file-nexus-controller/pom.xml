@@ -12,9 +12,7 @@
     <artifactId>file-nexus-controller</artifactId>
 
     <properties>
-        <pe.main.class>com.samsepiol.file.nexus.application.FileNexusApplication</pe.main.class>
-        <pe.docker.directory>./file-nexus-controller</pe.docker.directory>
-        <imageName>${project.parent.artifactId}</imageName>
+        <project.mainClass>com.samsepiol.file.nexus.application.FileNexusApplication</project.mainClass>
     </properties>
 
     <dependencies>
@@ -97,5 +95,14 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

@@ -7,10 +7,10 @@
         <groupId>com.samsepiol</groupId>
         <artifactId>file-nexus</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>file-nexus-service</artifactId>
-
+    <artifactId>ingestion</artifactId>
 
     <dependencies>
         <dependency>
@@ -33,27 +33,59 @@
 
         <dependency>
             <groupId>com.samsepiol.library</groupId>
-            <artifactId>temporal</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.samsepiol.library</groupId>
             <artifactId>lock</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.samsepiol.library</groupId>
-            <artifactId>message-queue-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.samsepiol.library</groupId>
-            <artifactId>kafka</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-s3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-sts</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+        </dependency>
+
+        <!-- Jakarta Mail API for SMTP support -->
+        <dependency>
+            <groupId>jakarta.mail</groupId>
+            <artifactId>jakarta.mail-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+        </dependency>
+
+        <!-- Apache POI for Excel file handling -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
         </dependency>
 
         <dependency>

@@ -4,16 +4,14 @@ import com.samsepiol.file.nexus.metadata.FileMetadataService;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataSaveRequest;
 import com.samsepiol.file.nexus.metadata.workflow.activity.UpdateStatusActivity;
 import com.samsepiol.file.nexus.metadata.workflow.activity.request.UpdateMetadataStatusActivityRequest;
-
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-
-@RequiredArgsConstructor
 @Slf4j
-@Component
+@Service
+@RequiredArgsConstructor
 public class UpdateStatusActivityImpl implements UpdateStatusActivity {
     private final FileMetadataService fileHandlerDataService;
 
