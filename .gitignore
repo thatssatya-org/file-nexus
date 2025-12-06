@@ -39,3 +39,6 @@ build/
 
 ### Github ###
 .github/
+
+file-nexus-controller/local-setup/ts_data
+file-nexus-controller/local-setup/.env
