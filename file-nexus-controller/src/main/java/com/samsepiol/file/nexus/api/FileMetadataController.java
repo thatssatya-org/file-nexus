@@ -2,9 +2,9 @@ package com.samsepiol.file.nexus.api;
 
 import com.samsepiol.file.nexus.enums.MetadataStatus;
 import com.samsepiol.file.nexus.metadata.FileMetadataService;
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadata;
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadatas;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataFetchServiceRequest;
+import com.samsepiol.file.nexus.models.metadata.FileMetadata;
+import com.samsepiol.file.nexus.models.metadata.FileMetadatas;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.samsepiol.file.nexus.mapper.FileMetadataControllerMapper.MAPPER;
+
 @RestController
 @RequestMapping("/v1/files/metadata")
 @RequiredArgsConstructor
@@ -24,11 +26,11 @@ public class FileMetadataController {
 
     private final FileMetadataService metadataService;
 
-    // TODO make api models
     @GetMapping("/{fileId}")
     public ResponseEntity<FileMetadata> getMetadata(@NotNull @Valid @PathVariable String fileId) {
 
-        var response = metadataService.fetchMetadata(fileId);
+        var metadata = metadataService.fetchMetadata(fileId);
+        var response = MAPPER.from(metadata);
         return ResponseEntity.ok(response);
     }
 
@@ -36,10 +38,11 @@ public class FileMetadataController {
     public ResponseEntity<FileMetadatas> getMetadatas(@NotBlank @PathVariable String fileType,
                                                       @NotBlank @RequestParam String date) {
 
-        var response = metadataService.fetchMetadata(FileMetadataFetchServiceRequest.builder()
+        var metadatas = metadataService.fetchMetadata(FileMetadataFetchServiceRequest.builder()
                 .fileType(fileType)
                 .date(date)
                 .build());
+        var response = MAPPER.from(metadatas);
         return ResponseEntity.ok(response);
     }
 

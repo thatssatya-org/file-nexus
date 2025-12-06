@@ -1,11 +1,13 @@
-package com.samsepiol.file.nexus.metadata.message.handler.models.response;
+package com.samsepiol.file.nexus.metadata.models.response;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NonNull;
+import lombok.Value;
 
 import java.util.List;
 
+@Value
 @Builder(access = AccessLevel.PRIVATE)
 public class FileMetadatas {
     @NonNull

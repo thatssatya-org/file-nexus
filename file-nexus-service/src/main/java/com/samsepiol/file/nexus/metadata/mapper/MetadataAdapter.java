@@ -1,6 +1,6 @@
 package com.samsepiol.file.nexus.metadata.mapper;
 
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadata;
+import com.samsepiol.file.nexus.metadata.models.response.FileMetadata;
 import com.samsepiol.file.nexus.repo.content.entity.MetadataEntity;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

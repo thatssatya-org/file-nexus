@@ -1,4 +1,4 @@
-package com.samsepiol.file.nexus.metadata.message.handler.models.response;
+package com.samsepiol.file.nexus.metadata.models.response;
 
 import com.samsepiol.file.nexus.enums.MetadataStatus;
 import lombok.Builder;

@@ -1,8 +1,8 @@
 package com.samsepiol.file.nexus.metadata;
 
 import com.samsepiol.file.nexus.enums.MetadataStatus;
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadata;
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadatas;
+import com.samsepiol.file.nexus.metadata.models.response.FileMetadata;
+import com.samsepiol.file.nexus.metadata.models.response.FileMetadatas;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataFetchServiceRequest;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataSaveRequest;
 import lombok.NonNull;

@@ -22,7 +22,7 @@ import com.samsepiol.file.nexus.content.models.request.FileContentSaveServiceReq
 import com.samsepiol.file.nexus.content.validation.FileContentRequestValidation;
 import com.samsepiol.file.nexus.exception.unchecked.FileNexusRuntimeException;
 import com.samsepiol.file.nexus.metadata.FileMetadataService;
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadatas;
+import com.samsepiol.file.nexus.metadata.models.response.FileMetadatas;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataFetchServiceRequest;
 import com.samsepiol.file.nexus.utils.DateTimeUtils;
 import lombok.NonNull;

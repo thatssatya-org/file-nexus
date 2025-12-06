@@ -6,8 +6,8 @@ import com.samsepiol.file.nexus.exception.unchecked.FileNexusParallelLockExcepti
 import com.samsepiol.file.nexus.metadata.FileMetadataRepository;
 import com.samsepiol.file.nexus.metadata.FileMetadataService;
 import com.samsepiol.file.nexus.metadata.mapper.MetadataAdapter;
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadata;
-import com.samsepiol.file.nexus.metadata.message.handler.models.response.FileMetadatas;
+import com.samsepiol.file.nexus.metadata.models.response.FileMetadata;
+import com.samsepiol.file.nexus.metadata.models.response.FileMetadatas;
 import com.samsepiol.file.nexus.metadata.models.FetchMetaDataEntityRequest;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataFetchServiceRequest;
 import com.samsepiol.file.nexus.metadata.models.request.FileMetadataSaveRequest;
