@@ -20,17 +20,20 @@ management:
 spring:
   data:
     mongodb:
-      host: ${mongo.host:mongodb}
+      host: ${mongo.host:}
       port: 27017
-      database: ${mongo.database:file_nexus}
+      database: ${mongo.database:}
+      username: ${mongo.username:}
+      password: ${mongo.password:}
+      authentication-database: ${mongo.auth.db:admin}
     redis:
-      host: ${redis.host:redis}
+      host: ${redis.host:}
       port: 6379
   kafka:
     bootstrap-servers: ${kafka.host:broker:9092}
 
 temporal-config:
-  host: ${temporal.host:temporal}
+  host: ${temporal.host:}
   port: 7233
   namespace: ${temporal.namespace:default}
 
