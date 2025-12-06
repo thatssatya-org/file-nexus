@@ -23,6 +23,16 @@
         </dependency>
 
         <dependency>
+            <groupId>com.samsepiol.library</groupId>
+            <artifactId>redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.samsepiol.library</groupId>
+            <artifactId>lock</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.samsepiol</groupId>
             <artifactId>file-nexus-core</artifactId>
             <version>${project.version}</version>

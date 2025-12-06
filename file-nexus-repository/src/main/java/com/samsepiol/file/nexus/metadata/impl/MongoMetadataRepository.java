@@ -27,9 +27,9 @@ import static com.samsepiol.file.nexus.repo.constants.RepositoryConstants.FileMe
  * Mongo DB based implementation of File Metadata Repository
  */
 @Slf4j
-@org.springframework.stereotype.Repository
+@org.springframework.stereotype.Repository(FileMetadataRepository.PERSISTENT_REPOSITORY)
 @RequiredArgsConstructor
-public class MetadataRepositoryImpl implements FileMetadataRepository {
+public class MongoMetadataRepository implements FileMetadataRepository {
     private static final String COLLECTION_NAME = "file_metadata";
     private final Repository repository;
 

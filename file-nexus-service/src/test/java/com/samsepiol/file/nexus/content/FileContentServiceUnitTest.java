@@ -3,6 +3,7 @@ package com.samsepiol.file.nexus.content;
 import com.samsepiol.file.nexus.content.config.FileSchemaConfig;
 import com.samsepiol.file.nexus.content.data.FileContentDataService;
 import com.samsepiol.file.nexus.content.data.models.FileContent;
+import com.samsepiol.file.nexus.content.data.models.enums.FileContentType;
 import com.samsepiol.file.nexus.content.data.models.enums.Index;
 import com.samsepiol.file.nexus.content.data.models.response.FileContents;
 import com.samsepiol.file.nexus.content.data.parser.FileContentParser;
@@ -110,16 +111,16 @@ class FileContentServiceUnitTest {
         mockDependenciesForFileContentSave();
         doReturn(Map.of("key1", "value1"))
                 .when(jsonStringParser)
-                .parse(FileContentParsingRequest.of(FILE_TYPE, "{\"key1\":\"value1\"}"));
+                .parse(FileContentParsingRequest.plainString(FILE_TYPE, "{\"key1\":\"value1\"}"));
 
         doReturn(Map.of("key1", "value2"))
                 .when(jsonStringParser)
-                .parse(FileContentParsingRequest.of(FILE_TYPE, "{\"key1\":\"value2\"}"));
+                .parse(FileContentParsingRequest.plainString(FILE_TYPE, "{\"key1\":\"value2\"}"));
         var serviceRequest = FileContentSaveServiceRequest.builder()
                 .fileType(FILE_TYPE)
                 .fileId(FILE_ID_1)
                 .fileName(FILE_ID_1)
-                .fileContents(List.of("{\"key1\":\"value1\"}", "{\"key1\":\"value2\"}"))
+                .fileContents(getFileContents())
                 .build();
         doReturn("key1").when(fileSchemaConfig).getColumnToIndex("sampleFileType", Index.FIRST);
         doReturn("key2").when(fileSchemaConfig).getColumnToIndex("sampleFileType", Index.SECOND);
@@ -129,6 +130,11 @@ class FileContentServiceUnitTest {
 
         verify(fileContentDataService, times(1))
                 .save(argThat(request -> request.getFileType().equals(FILE_TYPE) && request.getFileId().equals(FILE_ID_1)));
+    }
+
+    private static List<Map.Entry<FileContentType, Object>> getFileContents() {
+        return List.of(Map.entry(FileContentType.PLAIN_STRING, "{\"key1\":\"value1\"}"),
+                Map.entry(FileContentType.PLAIN_STRING, "{\"key1\":\"value2\"}"));
     }
 
     @Test
@@ -141,7 +147,7 @@ class FileContentServiceUnitTest {
                 .fileType(FILE_TYPE)
                 .fileId(FILE_ID_1)
                 .fileName(FILE_ID_1)
-                .fileContents(List.of("{\"key1\":\"value1\"}", "{\"key1\":\"value2\"}"))
+                .fileContents(getFileContents())
                 .build();
         var fileContents = assertDoesNotThrow(() -> fileContentService.save(serviceRequest));
 
@@ -158,7 +164,7 @@ class FileContentServiceUnitTest {
         var serviceRequest = FileContentSaveServiceRequest.builder()
                 .fileType(FILE_TYPE)
                 .fileId(FILE_ID_1)
-                .fileContents(List.of("{\"key1\":\"value1\"}", "{\"key1\":\"value2\"}"))
+                .fileContents(getFileContents())
                 .fileName(FILE_ID_1)
                 .build();
 
@@ -173,12 +179,12 @@ class FileContentServiceUnitTest {
         mockDependenciesForFileContentSave();
         doReturn(Map.of("key3", "value3"))
                 .when(jsonStringParser)
-                .parse(FileContentParsingRequest.of(FILE_TYPE, "{\"key3\":\"value3\"}"));
+                .parse(FileContentParsingRequest.plainString(FILE_TYPE, "{\"key3\":\"value3\"}"));
 
         var serviceRequest = FileContentSaveServiceRequest.builder()
                 .fileType(FILE_TYPE)
                 .fileId(FILE_ID_1)
-                .fileContents(List.of("{\"key3\":\"value3\"}", "{\"key2\":\"value2\"}", "{\"key4\":\"value4\"}"))
+                .fileContents(getFileContents())
                 .fileName(FILE_ID_1)
                 .build();
 
@@ -212,13 +218,13 @@ class FileContentServiceUnitTest {
                         FileContent.builder()
                                 .id(FILE_ID_1 + "1")
                                 .fileId(FILE_ID_1)
-                                .content("{\"key1\":\"value1\"}")
+                                .content(Map.of("key1", "value1"))
                                 .rowNumber("1")
                                 .build(),
                         FileContent.builder()
                                 .id(FILE_ID_1 + "2")
                                 .fileId(FILE_ID_1)
-                                .content("{\"key2\":\"value2\"}")
+                                .content(Map.of("key2", "value2"))
                                 .rowNumber("2")
                                 .build()))
                 .build();

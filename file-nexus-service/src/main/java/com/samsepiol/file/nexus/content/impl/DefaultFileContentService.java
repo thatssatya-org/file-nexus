@@ -4,6 +4,7 @@ package com.samsepiol.file.nexus.content.impl;
 import com.samsepiol.file.nexus.content.FileContentService;
 import com.samsepiol.file.nexus.content.config.FileSchemaConfig;
 import com.samsepiol.file.nexus.content.data.FileContentDataService;
+import com.samsepiol.file.nexus.content.data.models.enums.FileContentType;
 import com.samsepiol.file.nexus.content.data.models.response.FileContents;
 import com.samsepiol.file.nexus.content.data.parser.FileContentParser;
 import com.samsepiol.file.nexus.content.data.parser.models.enums.FileParserType;
@@ -112,9 +113,9 @@ public class DefaultFileContentService implements FileContentService {
         var mandatoryColumns = fileSchemaConfig.getMandatoryColumns(request.getFileType());
 
         return request.getFileContents().stream()
-                .map(fileContent -> {
+                .map(fileContentEntry -> {
                     try {
-                        return parseFileContent(request, mandatoryColumns, fileContent);
+                        return parseFileContent(request, mandatoryColumns, fileContentEntry);
                     } catch (UnknownFileParserException | MandatoryColumnMissingException |
                              FileContentParsingException | UnsupportedFileException exception) {
                         log.error("[FileContentService]: {}", exception.getMessage());
@@ -127,7 +128,7 @@ public class DefaultFileContentService implements FileContentService {
 
     private Map<String, Object> parseFileContent(FileContentSaveServiceRequest request,
                                                  List<String> mandatoryColumns,
-                                                 String fileContent)
+                                                 Map.Entry<FileContentType, Object> fileContent)
 
             throws UnknownFileParserException, MandatoryColumnMissingException,
             FileContentParsingException, UnsupportedFileException {
@@ -136,7 +137,7 @@ public class DefaultFileContentService implements FileContentService {
 
         var parsedContent = Optional.ofNullable(fileContentParserMap.get(parserType))
                 .orElseThrow(UnknownFileParserException::create)
-                .parse(FileContentParsingRequest.of(request.getFileType(), fileContent));
+                .parse(getFileContentParsingRequest(request, fileContent));
 
         if (parsedContent.isEmpty()) {
             return Map.of();
@@ -146,6 +147,15 @@ public class DefaultFileContentService implements FileContentService {
             throw MandatoryColumnMissingException.create();
         }
         return parsedContent;
+    }
+
+    private static FileContentParsingRequest getFileContentParsingRequest(FileContentSaveServiceRequest request,
+                                                                          Map.Entry<FileContentType, Object> fileContent) {
+        return FileContentParsingRequest.builder()
+                .fileType(request.getFileType())
+                .contentType(fileContent.getKey())
+                .content(fileContent.getValue())
+                .build();
     }
 
     private static boolean mandatoryColumnsPresentInContent(List<String> mandatoryColumns,

@@ -1,7 +1,8 @@
 package com.samsepiol.file.nexus.api;
 
+import com.samsepiol.file.nexus.content.data.models.enums.FileContentType;
 import com.samsepiol.file.nexus.content.message.handler.FileContentConsumerService;
-import com.samsepiol.file.nexus.content.message.handler.models.request.ByteArrayFileContentHandlerServiceRequest;
+import com.samsepiol.file.nexus.content.message.handler.models.request.FileContentHandlerServiceRequest;
 import com.samsepiol.file.nexus.utils.DateTimeUtils;
 import com.samsepiol.file.nexus.utils.FilePulseConnectorUtils;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,9 @@ public class ManualFileIngestionController {
 
     @PostMapping
     public ResponseEntity<Void> ingest(@RequestPart MultipartFile file) throws IOException {
-        var serviceRequest = ByteArrayFileContentHandlerServiceRequest.builder()
+        var serviceRequest = FileContentHandlerServiceRequest.builder()
                 .message(file.getBytes())
+                .fileContentType(FileContentType.BYTE_ARRAY)
                 .metadata(Map.of(FilePulseConnectorUtils.FILE_NAME_HEADER, Objects.requireNonNullElse(file.getOriginalFilename(), file.getName()),
                         FilePulseConnectorUtils.FILE_LAST_MODIFIED_AT_HEADER, DateTimeUtils.currentTimeInEpoch().toString()))
                 .build();

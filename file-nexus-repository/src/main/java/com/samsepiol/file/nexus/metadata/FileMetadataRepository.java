@@ -16,6 +16,8 @@ import java.util.Optional;
  * Exposes CRUD operations
  */
 public interface FileMetadataRepository {
+    String PERSISTENT_REPOSITORY = "fileMetadataPersistentRepository";
+
     List<MetadataEntity> fetch(FetchMetaDataEntityRequest request) throws FileMetadataDatabaseReadException;
 
     Optional<MetadataEntity> fetch(String fileId) throws FileMetadataDatabaseReadException;

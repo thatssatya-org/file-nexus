@@ -47,9 +47,7 @@ public class DefaultFileContentRepository implements FileContentRepository {
     @Override
     public List<FileContent> save(@NonNull FileContentSaveRepositoryRequest request) throws FileContentDatabaseWriteException {
         try {
-            // TODO use bulk insert
-            request.getEntities()
-                    .forEach(fileContent -> repository.insert(COLLECTION_NAME, fileContent, FileContent.class));
+            repository.insert(COLLECTION_NAME, request.getEntities(), FileContent.class);
             return request.getEntities();
         } catch (MongoException exception) {
             log.error("File contents DB write failure: ", exception);

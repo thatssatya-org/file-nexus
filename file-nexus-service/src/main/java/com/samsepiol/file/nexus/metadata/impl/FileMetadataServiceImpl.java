@@ -53,6 +53,7 @@ public class FileMetadataServiceImpl implements FileMetadataService {
         return FileMetadatas.from(fileMetadataListFromEntityList(entities));
     }
 
+    // TODO avoid fetching ensure update and insert idempotency in DB
     @Override
     public void updateStatus(@NonNull String fileId, @NonNull MetadataStatus status) {
         MetadataEntity metadataEntity = fetchMetadataEntity(fileId).orElseThrow(FileNotFoundException::create);

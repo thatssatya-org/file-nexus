@@ -24,4 +24,9 @@ public final class FileUtils {
         }
         return fileName.substring(0, dotSeparatorIndex);
     }
+
+    public static <T> T cast(Object object, Class<T> tClass) {
+        return tClass.cast(object);
+    }
+
 }

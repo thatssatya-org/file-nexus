@@ -1,10 +1,9 @@
 package com.samsepiol.file.nexus.content.message.handler.impl;
 
 import com.samsepiol.file.nexus.content.FileContentService;
+import com.samsepiol.file.nexus.content.data.models.enums.FileContentType;
 import com.samsepiol.file.nexus.content.exception.UnsupportedFileException;
 import com.samsepiol.file.nexus.content.message.handler.FileContentConsumerService;
-import com.samsepiol.file.nexus.content.message.handler.models.request.BaseFileContentHandlerServiceRequest;
-import com.samsepiol.file.nexus.content.message.handler.models.request.ByteArrayFileContentHandlerServiceRequest;
 import com.samsepiol.file.nexus.content.message.handler.models.request.FileContentHandlerServiceRequest;
 import com.samsepiol.file.nexus.content.models.request.FileContentSaveServiceRequest;
 import com.samsepiol.file.nexus.exception.checked.FileNexusException;
@@ -20,9 +19,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.samsepiol.file.nexus.enums.MetadataStatus.DISCARDED;
@@ -38,7 +36,7 @@ public class DefaultFileContentConsumerService implements FileContentConsumerSer
     private final FileMetaDataParsingService fileMetaDataParsingService;
 
     @Override
-    public void handle(BaseFileContentHandlerServiceRequest request) {
+    public void handle(FileContentHandlerServiceRequest request) {
         var optionalParsedFileMetaData = parseAndSaveFileMetaData(request);
 
         optionalParsedFileMetaData.ifPresent(parsedFileMetaData -> {
@@ -61,12 +59,8 @@ public class DefaultFileContentConsumerService implements FileContentConsumerSer
 
     }
 
-    private static List<String> prepareFileContents(BaseFileContentHandlerServiceRequest request) {
-        return switch (request) {
-            case FileContentHandlerServiceRequest request1 -> Collections.singletonList(request1.getMessage());
-            case ByteArrayFileContentHandlerServiceRequest request1 -> Collections.singletonList(Base64.getEncoder().encodeToString(request1.getMessage()));
-            default -> Collections.emptyList();
-        };
+    private static List<Map.Entry<FileContentType, Object>> prepareFileContents(FileContentHandlerServiceRequest request) {
+        return List.of(Map.entry(FileContentType.PLAIN_STRING, request.getMessage()));
     }
 
     private void handleFileNexusRuntimeException(ParsedFileMetaData parsedFileMetaData,
@@ -84,7 +78,7 @@ public class DefaultFileContentConsumerService implements FileContentConsumerSer
         throw runtimeException;
     }
 
-    private Optional<ParsedFileMetaData> parseAndSaveFileMetaData(BaseFileContentHandlerServiceRequest request) {
+    private Optional<ParsedFileMetaData> parseAndSaveFileMetaData(FileContentHandlerServiceRequest request) {
         try {
             var parsedFileMetaData = fileMetaDataParsingService.parse(prepareMetaDataParsingRequest(request));
             var saveRequest = FileMetadataSaveRequest.forPending(parsedFileMetaData);
@@ -105,7 +99,7 @@ public class DefaultFileContentConsumerService implements FileContentConsumerSer
         // metricHelper.recordErrorMetric(exception.getErrorCode(), exception.getMessage());
     }
 
-    private static FileMetaDataParsingFromHeadersRequest prepareMetaDataParsingRequest(BaseFileContentHandlerServiceRequest request) {
+    private static FileMetaDataParsingFromHeadersRequest prepareMetaDataParsingRequest(FileContentHandlerServiceRequest request) {
         return FileMetaDataParsingFromHeadersRequest.builder()
                 .headers(request.getMetadata())
                 .build();

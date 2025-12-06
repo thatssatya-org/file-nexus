@@ -1,19 +1,24 @@
 package com.samsepiol.file.nexus.content.data.parser.models.request;
 
-import lombok.AccessLevel;
+import com.samsepiol.file.nexus.content.data.models.enums.FileContentType;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.Value;
 
 @Value
-@Builder(access = AccessLevel.PRIVATE)
+@Builder
 public class FileContentParsingRequest {
     @NonNull
     String fileType;
     @NonNull
-    String content;
+    Object content;
 
-    public static FileContentParsingRequest of(@NonNull String fileType, @NonNull String content) {
+    @NonNull
+    @Builder.Default
+    FileContentType contentType = FileContentType.PLAIN_STRING;
+
+    public static FileContentParsingRequest plainString(@NonNull String fileType, @NonNull String content) {
         return FileContentParsingRequest.builder().fileType(fileType).content(content).build();
     }
+
 }

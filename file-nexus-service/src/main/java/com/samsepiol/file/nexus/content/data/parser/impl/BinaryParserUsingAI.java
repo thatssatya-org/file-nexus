@@ -4,6 +4,7 @@ import com.samsepiol.file.nexus.content.data.parser.FileContentParser;
 import com.samsepiol.file.nexus.content.data.parser.models.enums.FileParserType;
 import com.samsepiol.file.nexus.content.data.parser.models.request.FileContentParsingRequest;
 import com.samsepiol.file.nexus.content.exception.JsonFileContentParsingException;
+import com.samsepiol.file.nexus.utils.FileUtils;
 import com.samsepiol.library.ai.models.enums.Model;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,10 +14,11 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.prompt.ChatOptions;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
@@ -33,6 +35,70 @@ public class BinaryParserUsingAI implements FileContentParser {
 
     // TODO fetch this from config -> fileType to ai prompt
     private static final Model MODEL = Model.GEMINI;
+    private static final ChatOptions CHAT_OPTIONS = ChatOptions.builder().temperature(0D).build();
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newVirtualThreadPerTaskExecutor();
+    private static final String TARGET_ID = "{{TARGET_ID}}";
+    private static final String UNIQUE_ID_FIELD = "customer_email";
+
+    @Override
+    public @NonNull Map<String, Object> parse(@NonNull FileContentParsingRequest request) throws JsonFileContentParsingException {
+        var task = parsingSupplier(request);
+        return CompletableFuture.supplyAsync(task, EXECUTOR_SERVICE).join();
+    }
+
+    @Override
+    public @NonNull FileParserType getType() {
+        return FileParserType.BINARY_USING_AI;
+    }
+
+    private Supplier<Map<String, Object>> parsingSupplier(@NotNull FileContentParsingRequest request) {
+        return () -> {
+            try {
+                log.info("[BinaryParserUsingAI] Sending Request to AI Provider...");
+
+                var response = chatClients.get(MODEL).prompt()
+                        .user(userSpec -> getPromptUserSpec(userSpec, request))
+                        .options(CHAT_OPTIONS)
+                        .call()
+                        .entity(new ParameterizedTypeReference<Map<String, Object>>() {
+                        });
+
+                log.info("[BinaryParserUsingAI] Response received:\n {} \n", response);
+
+                return Objects.requireNonNullElse(response, Collections.emptyMap());
+            } catch (Exception e) {
+                log.error("[BinaryParserUsingAI] Exception occurred", e);
+                throw JsonFileContentParsingException.create();
+            }
+        };
+    }
+
+    private static ChatClient.PromptUserSpec getPromptUserSpec(ChatClient.PromptUserSpec userSpec,
+                                                               FileContentParsingRequest request) {
+        var mediaType = switch (request.getContentType()) {
+            case BYTE_ARRAY -> MediaType.APPLICATION_PDF;
+            case PLAIN_STRING -> MediaType.TEXT_PLAIN;
+        };
+
+        return userSpec
+                .text(PROMPT.replace(TARGET_ID, UNIQUE_ID_FIELD))
+                .media(mediaType, prepareResource(request));
+    }
+
+    private static Resource prepareResource(FileContentParsingRequest request) {
+
+        return switch (request.getContentType()) {
+            case BYTE_ARRAY -> {
+                var content = ((byte[]) request.getContent());
+                var bytes = new byte[content.length];
+
+                System.arraycopy(content, 0, bytes, 0, content.length);
+                yield new ByteArrayResource(bytes);
+            }
+            case PLAIN_STRING -> new ByteArrayResource(FileUtils.cast(request.getContent(), String.class).getBytes(StandardCharsets.UTF_8));
+        };
+    }
+
     private static final String PROMPT = """
             Analyze the attached PDF statement. Extract data into the specified JSON format strictly.
             
@@ -124,41 +190,4 @@ public class BinaryParserUsingAI implements FileContentParser {
                 "closing_balance": 553.18
               }
             }""";
-    private static final MediaType BINARY_STREAM_TYPE = MediaType.APPLICATION_PDF;
-    private static final ChatOptions CHAT_OPTIONS = ChatOptions.builder().temperature(0D).build();
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newVirtualThreadPerTaskExecutor();
-    private static final String TARGET_ID = "{{TARGET_ID}}";
-    private static final String UNIQUE_ID_FIELD = "customer_email";
-
-    @Override
-    public @NonNull Map<String, Object> parse(@NonNull FileContentParsingRequest request) throws JsonFileContentParsingException {
-        var task = parsingSupplier(request);
-        return CompletableFuture.supplyAsync(task, EXECUTOR_SERVICE).join();
-    }
-
-    @Override
-    public @NonNull FileParserType getType() {
-        return FileParserType.BINARY_USING_AI;
-    }
-
-    private Supplier<Map<String, Object>> parsingSupplier(@NotNull FileContentParsingRequest request) {
-        return () -> {
-            try {
-                // TODO pass encoding in request
-                var decodedString = Base64.getDecoder().decode(request.getContent());
-                log.info("[BinaryParserUsingAI] Sending Request to AI Provider...");
-                var response = chatClients.get(MODEL).prompt()
-                        .user(userSpec -> userSpec
-                                .text(PROMPT.replace(TARGET_ID, UNIQUE_ID_FIELD))
-                                .media(BINARY_STREAM_TYPE, new ByteArrayResource(decodedString)))
-                        .options(CHAT_OPTIONS)
-                        .call()
-                        .entity(new ParameterizedTypeReference<Map<String, Object>>() {});
-                log.info("BinaryParserUsingAI] Response received:\n {} \n", response);
-                return Objects.requireNonNullElse(response, Collections.emptyMap());
-            } catch (Exception e) {
-                throw JsonFileContentParsingException.create();
-            }
-        };
-    }
 }

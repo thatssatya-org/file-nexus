@@ -1,7 +1,7 @@
 package com.samsepiol.file.nexus.content;
 
 import com.samsepiol.file.nexus.enums.MetadataStatus;
-import com.samsepiol.file.nexus.metadata.impl.MetadataRepositoryImpl;
+import com.samsepiol.file.nexus.metadata.impl.MongoMetadataRepository;
 import com.samsepiol.file.nexus.metadata.models.FetchMetaDataEntityRequest;
 import com.samsepiol.file.nexus.repo.content.entity.MetadataEntity;
 import org.junit.jupiter.api.AfterAll;
@@ -32,7 +32,7 @@ public class MetadataRepoDaoImplTest extends BasePersistenceTest {
     }
 
     @Autowired
-    private MetadataRepositoryImpl metadataRepository;
+    private MongoMetadataRepository metadataRepository;
 
 
     @BeforeAll

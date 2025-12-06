@@ -49,7 +49,7 @@ class FileContentParserTest {
                         .build())
                 .build();
 
-        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.of(FILE_TYPE, SerializationUtil.convertToString(tudfFileContent))));
+        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.plainString(FILE_TYPE, SerializationUtil.convertToString(tudfFileContent))));
         assertEquals("20241911", parsedMap.get("TransactionEffectiveDate"));
     }
 
@@ -70,7 +70,7 @@ class FileContentParserTest {
                         .build())
                 .build();
 
-        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.of(FILE_TYPE, SerializationUtil.convertToString(tudfFileContent))));
+        var parsedMap = assertDoesNotThrow(() -> tudfContentParser.parse(FileContentParsingRequest.plainString(FILE_TYPE, SerializationUtil.convertToString(tudfFileContent))));
         assertTrue(parsedMap.isEmpty());
     }
 

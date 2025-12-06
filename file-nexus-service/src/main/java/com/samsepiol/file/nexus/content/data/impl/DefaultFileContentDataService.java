@@ -81,7 +81,7 @@ public class DefaultFileContentDataService implements FileContentDataService {
                         .createdAt(createdAt)
                         .updatedAt(createdAt)
                         .build();
-            } catch (UnsupportedFileException | MissingRowNumberForFileContentException exception) {
+            } catch (UnsupportedFileException exception) {
                 log.error("[File Content Data Service]: ", exception);
                 throw FileNexusRuntimeException.wrap(exception, Map.of("FileType", request.getFileType()));
             }
@@ -94,7 +94,7 @@ public class DefaultFileContentDataService implements FileContentDataService {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    private String getRowNumberFromContent(FileContentSaveRequest request, Map<String, Object> fileContent) throws MissingRowNumberForFileContentException {
+    private String getRowNumberFromContent(FileContentSaveRequest request, Map<String, Object> fileContent) {
         return Optional.ofNullable(fileContent.get(ROW_NUMBER_KEY_IN_FILE_CONTENT))
                 .map(Object::toString)
                 .orElseGet(() -> {
@@ -122,7 +122,6 @@ public class DefaultFileContentDataService implements FileContentDataService {
     }
 
     private Map<String, String> prepareQueryWithIndexedFields(FileContentFetchRequest request) {
-        log.info("Creating Query before insert request, {}", request);
         return request.getFilters().entrySet()
                 .stream()
                 .collect(Collectors.toMap(
@@ -137,7 +136,7 @@ public class DefaultFileContentDataService implements FileContentDataService {
     }
 
     private String generateId(String fileId, String rowNumber) {
-        if (rowNumber.isBlank()) {
+        if (StringUtils.isBlank(rowNumber)) {
             return String.format("FILE-%s", fileId);
         }
         return String.format("FILE-%s-ROW-%s", fileId, rowNumber);
