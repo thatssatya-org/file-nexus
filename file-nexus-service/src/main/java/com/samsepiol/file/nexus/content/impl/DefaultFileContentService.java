@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import static com.samsepiol.file.nexus.content.mapper.FileContentServiceMapper.MAPPER;
 
@@ -101,9 +102,7 @@ public class DefaultFileContentService implements FileContentService {
         }
 
         var parsedFileContents = parseFileContents(request);
-        if (parsedFileContents.get(0).isEmpty()) return FileContents.empty();
         var fileContentSaveRequest = MAPPER.toFileContentSaveRequest(request, parsedFileContents);
-//        sendEvent(request, fileContentSaveRequest);
         return fileContentDataService.save(fileContentSaveRequest);
     }
 
@@ -122,6 +121,7 @@ public class DefaultFileContentService implements FileContentService {
                         throw FileNexusRuntimeException.wrap(exception);
                     }
                 })
+                .filter(Predicate.not(Map::isEmpty))
                 .toList();
     }
 

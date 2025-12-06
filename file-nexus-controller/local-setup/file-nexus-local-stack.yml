@@ -17,7 +17,7 @@ services:
     expose:
       - 9200
     volumes:
-      - /var/lib/elasticsearch/data
+      - elasticsearch_data:/var/lib/elasticsearch/data
 
   postgresql:
     container_name: fn-postgresql
@@ -31,7 +31,7 @@ services:
     expose:
       - 5432
     volumes:
-      - /var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
 
   temporal:
     container_name: temporal
@@ -203,3 +203,7 @@ services:
 networks:
   kafka-net:
     driver: bridge
+
+volumes:
+  elasticsearch_data:
+  postgres_data:
