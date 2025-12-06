@@ -26,20 +26,27 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class CacheMetadataRepository implements FileMetadataRepository {
-    private final Cache<String, MetadataEntity> cache;
+    private final Cache<String, MetadataEntity> fileIdToMetadataCache;
+    private final Cache<String, List<MetadataEntity>> fileTypeToMetadataCache;
+
     @Qualifier(FileMetadataRepository.PERSISTENT_REPOSITORY)
     private final FileMetadataRepository repository;
     private final IdempotencyService idempotencyService;
 
     @Override
     public List<MetadataEntity> fetch(FetchMetaDataEntityRequest request) throws FileMetadataDatabaseReadException {
-        // TODO aggregate bulk fetch from cache and fetch missing from repo and cache them
-        return repository.fetch(request);
+        var key = prepareCacheKey(request.getFileType(), request.getDate());
+        var entities = fileTypeToMetadataCache.get(key);
+        if (Objects.isNull(entities)) {
+            entities = repository.fetch(request);
+            tryCaching(key, entities);
+        }
+        return entities;
     }
 
     @Override
     public Optional<MetadataEntity> fetch(String fileId) throws FileMetadataDatabaseReadException {
-        var entity = cache.get(fileId);
+        var entity = fileIdToMetadataCache.get(fileId);
         if (Objects.isNull(entity)) {
             entity = repository.fetch(fileId).orElse(null);
             tryCaching(entity);
@@ -63,7 +70,7 @@ public class CacheMetadataRepository implements FileMetadataRepository {
     public void update(MetadataEntity metadata) throws FileMetadataDatabaseUpdateException {
         try {
             idempotencyService.execute(metadata.getId(), () -> {
-                cache.delete(metadata.getId());
+                invalidateCache(metadata);
                 repository.update(metadata);
                 return null;
             });
@@ -76,7 +83,7 @@ public class CacheMetadataRepository implements FileMetadataRepository {
     public boolean updateStatus(@NonNull String id, @NonNull MetadataStatus status) throws FileMetadataDatabaseUpdateException {
         try {
             return idempotencyService.execute(id, () -> {
-                cache.delete(id);
+                invalidateCache(repository.fetch(id).orElse(null));
                 return repository.updateStatus(id, status);
             });
         } catch (ParallelLockException e) {
@@ -84,13 +91,34 @@ public class CacheMetadataRepository implements FileMetadataRepository {
         }
     }
 
-    private void tryCaching(MetadataEntity entity) {
+    private void tryCaching(String key, List<MetadataEntity> entities) {
         try {
-            if (Objects.nonNull(entity)) {
-                idempotencyService.execute(entity.getId(), () -> cache.put(entity.getId(), entity));
+            if (Objects.nonNull(entities) && !entities.isEmpty()) {
+                idempotencyService.execute(key, () -> fileTypeToMetadataCache.put(key, entities));
             }
         } catch (Exception exception) {
             log.warn("[CacheMetadataRepository] Cache put failed", exception);
         }
+    }
+
+    private void tryCaching(MetadataEntity entity) {
+        try {
+            if (Objects.nonNull(entity)) {
+                idempotencyService.execute(entity.getId(), () -> fileIdToMetadataCache.put(entity.getId(), entity));
+            }
+        } catch (Exception exception) {
+            log.warn("[CacheMetadataRepository] Cache put failed", exception);
+        }
+    }
+
+    private void invalidateCache(MetadataEntity metadata) {
+        if (Objects.nonNull(metadata)) {
+            fileIdToMetadataCache.delete(metadata.getId());
+            fileTypeToMetadataCache.delete(prepareCacheKey(metadata.getFileType(), metadata.getDate()));
+        }
+    }
+
+    private static String prepareCacheKey(String fileType, String date) {
+        return String.format("MD-%s-%s", fileType, date);
     }
 }
