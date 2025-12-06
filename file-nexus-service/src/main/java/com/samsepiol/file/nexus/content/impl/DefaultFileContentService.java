@@ -137,7 +137,11 @@ public class DefaultFileContentService implements FileContentService {
         var parsedContent = Optional.ofNullable(fileContentParserMap.get(parserType))
                 .orElseThrow(UnknownFileParserException::create)
                 .parse(FileContentParsingRequest.of(request.getFileType(), fileContent));
-        if (parsedContent.isEmpty()) return Map.of();
+
+        if (parsedContent.isEmpty()) {
+            return Map.of();
+        }
+
         if (!mandatoryColumnsPresentInContent(mandatoryColumns, parsedContent)) {
             throw MandatoryColumnMissingException.create();
         }

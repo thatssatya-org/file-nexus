@@ -12,8 +12,8 @@ import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class FilePulseConnectorUtils {
-    private static final String FILE_NAME_HEADER = "connect.file.name";
-    private static final String FILE_LAST_MODIFIED_AT_HEADER = "connect.file.lastModified";
+    public static final String FILE_NAME_HEADER = "connect.file.name";
+    public static final String FILE_LAST_MODIFIED_AT_HEADER = "connect.file.lastModified";
 
     public static @NonNull Optional<String> getFileNameFromHeaders(Map<String, String> headers) {
         return Optional.ofNullable(headers.get(FILE_NAME_HEADER));

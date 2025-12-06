@@ -1,10 +1,11 @@
 package com.samsepiol.file.nexus.content.exception;
 
+import com.samsepiol.file.nexus.exception.unchecked.FileNexusRuntimeException;
 import com.samsepiol.file.nexus.models.enums.Error;
 import lombok.AccessLevel;
 import lombok.Builder;
 
-public class JsonFileContentParsingException extends FileContentParsingException {
+public class JsonFileContentParsingException extends FileNexusRuntimeException {
 
     @Builder(access = AccessLevel.PRIVATE)
     private JsonFileContentParsingException() {

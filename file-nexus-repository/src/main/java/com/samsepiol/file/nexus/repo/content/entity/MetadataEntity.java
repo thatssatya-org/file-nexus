@@ -5,14 +5,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.samsepiol.file.nexus.enums.MetadataStatus;
 import com.samsepiol.library.mongo.models.Entity;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Value;
 import lombok.experimental.SuperBuilder;
 import lombok.extern.jackson.Jacksonized;
 
-@Value
+@Data
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -24,16 +24,16 @@ public class MetadataEntity extends Entity {
     private static final String ID_PREFIX = "MD";
 
     @NonNull
-    String fileType;
+    private String fileType;
 
     @NonNull
-    String date;
+    private String date;
 
     @NonNull
-    MetadataStatus status;
+    private MetadataStatus status;
 
     @NonNull
-    String fileName;
+    private String fileName;
 
     @Override
     protected @NonNull String getIdPrefix() {

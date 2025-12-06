@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -68,7 +69,8 @@ public class FileSchemaConfig {
     @AllArgsConstructor
     public static class SchemaConfig {
         private FileParserType parserType;
-        TudfFileParserLoadConfig tudfFileParserLoadConfig;
+        private TudfFileParserLoadConfig tudfFileParserLoadConfig;
+        private Boolean rowNumberMandatory;
         private List<ColumnNameToColumnConfig> columnConfigs;
 
         // Post construct fields
@@ -197,7 +199,11 @@ public class FileSchemaConfig {
         };
     }
 
-    private SchemaConfig getOptionalSchemaConfig(String fileType) throws UnsupportedFileException {
+    public SchemaConfig getOptionalSchemaConfig(@NonNull String fileType) throws UnsupportedFileException {
         return Optional.ofNullable(fileConfigMap.get(fileType)).orElseThrow(UnsupportedFileException::create);
+    }
+
+    public boolean isRowNumberMandatory(@NonNull String fileType) throws UnsupportedFileException {
+        return BooleanUtils.toBoolean(getOptionalSchemaConfig(fileType).getRowNumberMandatory());
     }
 }

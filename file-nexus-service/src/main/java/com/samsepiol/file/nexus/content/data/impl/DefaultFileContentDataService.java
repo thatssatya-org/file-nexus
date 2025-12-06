@@ -14,8 +14,6 @@ import com.samsepiol.file.nexus.repo.content.entity.FileContent;
 import com.samsepiol.file.nexus.repo.content.models.request.FileContentFetchRepositoryRequest;
 import com.samsepiol.file.nexus.repo.content.models.request.FileContentSaveRepositoryRequest;
 import com.samsepiol.file.nexus.utils.DateTimeUtils;
-import com.samsepiol.library.core.exception.SerializationException;
-import com.samsepiol.library.core.util.SerializationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -71,12 +69,12 @@ public class DefaultFileContentDataService implements FileContentDataService {
         return fileContent -> {
             try {
                 Long createdAt = DateTimeUtils.currentTimeInEpoch();
-                String rowNumber = getRowNumberFromContent(fileContent);
+                String rowNumber = getRowNumberFromContent(request, fileContent);
                 return FileContent.builder()
                         .id(generateId(request.getFileId(), rowNumber))
                         .fileId(request.getFileId())
                         .rowNumber(rowNumber)
-                        .content(serializedFileContents(fileContent))
+                        .content(filteredContents(fileContent))
                         .index1(mapIndex(request, fileContent, Index.FIRST))
                         .index2(mapIndex(request, fileContent, Index.SECOND))
                         .index3(mapIndex(request, fileContent, Index.THIRD))
@@ -90,23 +88,25 @@ public class DefaultFileContentDataService implements FileContentDataService {
         };
     }
 
-    private static String serializedFileContents(Map<String, Object> fileContent) {
-        Map<String, Object> filteredFileContentsMap = fileContent.entrySet().stream()
+    private static Map<String, Object> filteredContents(Map<String, Object> fileContent) {
+        return fileContent.entrySet().stream()
                 .filter(entry -> Objects.nonNull(entry.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        try {
-            return SerializationUtil.convertToString(filteredFileContentsMap);
-        } catch (SerializationException e) {
-            // TODO
-            throw new RuntimeException(e);
-        }
     }
 
-    private String getRowNumberFromContent(Map<String, Object> fileContent) throws MissingRowNumberForFileContentException {
+    private String getRowNumberFromContent(FileContentSaveRequest request, Map<String, Object> fileContent) throws MissingRowNumberForFileContentException {
         return Optional.ofNullable(fileContent.get(ROW_NUMBER_KEY_IN_FILE_CONTENT))
                 .map(Object::toString)
-                .orElseThrow(MissingRowNumberForFileContentException::create);
+                .orElseGet(() -> {
+                    try {
+                        if (fileSchemaConfig.isRowNumberMandatory(request.getFileType())) {
+                            throw MissingRowNumberForFileContentException.create();
+                        }
+                    } catch (MissingRowNumberForFileContentException | UnsupportedFileException e) {
+                        throw FileNexusRuntimeException.wrap(e);
+                    }
+                    return null;
+                });
     }
 
     private String mapIndex(FileContentSaveRequest request,
@@ -137,6 +137,9 @@ public class DefaultFileContentDataService implements FileContentDataService {
     }
 
     private String generateId(String fileId, String rowNumber) {
+        if (rowNumber.isBlank()) {
+            return String.format("FILE-%s", fileId);
+        }
         return String.format("FILE-%s-ROW-%s", fileId, rowNumber);
     }
 

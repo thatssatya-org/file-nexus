@@ -1,14 +1,12 @@
 package com.samsepiol.file.nexus.content.message.handler.models.request;
 
-import lombok.NonNull;
 import lombok.Value;
 import lombok.experimental.SuperBuilder;
 
 @Value
 @SuperBuilder
-public class FileContentHandlerServiceRequest extends BaseFileContentHandlerServiceRequest {
+public class ByteArrayFileContentHandlerServiceRequest extends BaseFileContentHandlerServiceRequest {
 
-    @NonNull
-    String message;
+    byte[] message;
 
 }

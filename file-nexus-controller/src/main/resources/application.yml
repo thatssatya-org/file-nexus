@@ -31,6 +31,16 @@ spring:
       port: 6379
   kafka:
     bootstrap-servers: ${kafka.host:broker:9092}
+  ai:
+    google:
+      genai:
+        api-key: ${gemini.api.key:}
+        chat:
+          options:
+            model: ${gemini.model:gemini-2.5-pro}
+    chat:
+      client:
+        enabled: ${ai.chat.enabled:false}
 
 temporal-config:
   host: ${temporal.host:}
@@ -40,22 +50,15 @@ temporal-config:
 #TODO move to single string and parse in application
 file-config:
   file-to-schema-configs:
-    - file-type: ${fileType1:SAMPLE_FILE}
+    - file-type: ${fileType1:}
       schema-config:
-        parser-type: ${fileType1.parserType:JSON}
+        parser-type: ${fileType1.parserType:BINARY_USING_AI}
+        row-number-mandatory: ${fileType1.rowNumberMandatory:false}
         column-configs:
-          - column-name: ${fileType1.columnName1:SAMPLE_COLUMN}
+          - column-name: ${fileType1.columnName1:id}
             column-config:
-              mandatory: ${fileType1.columnName1.mandatory:false}
+              mandatory: ${fileType1.columnName1.mandatory:true}
               index: ${fileType1.columnName1.index:FIRST}
-          - column-name: ${fileType1.columnName2:}
-            column-config:
-              mandatory: ${fileType1.columnName2.mandatory:false}
-              index: ${fileType1.columnName2.index:}
-          - column-name: ${fileType1.columnName3:}
-            column-config:
-              mandatory: ${fileType1.columnName3.mandatory:false}
-              index: ${fileType1.columnName3.index:}
         tudf-file-parser-load-config:
           recordIdentifierIndex: ${tudf.record.identifier.index:0}
           identifiersToFileName:
@@ -75,9 +78,9 @@ file-handler-config:
   metadata-parsing-configs:
     - file-type: ${fileType1:}
       metadata-parsing-config:
-        date-parsing-source: ${fileType1.metadata.dateParsingSource:}
-        date-format: ${fileType1.metadata.dateFormat:DDMMYYYY}
-        file-name-suffixes: ${fileType1.metadata.supportedNameSuffixes:}
+        date-parsing-source: ${fileType1.metadata.dateParsingSource:NAME}
+        date-format: ${fileType1.metadata.dateFormat:YYYYMMDD}
+        file-name-suffixes: ${fileType1.metadata.supportedNameSuffixes:1,2,3,4,5,6,7,8,9,10}
 
 store-config:
   storeConfigEntry:

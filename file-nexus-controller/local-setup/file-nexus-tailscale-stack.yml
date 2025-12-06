@@ -91,7 +91,7 @@ services:
     container_name: file-nexus-main
     mem_limit: 512m
     env_file:
-      - .env
+      - vars.env
     build:
       context: ../..
       dockerfile: ./file-nexus-controller/local-setup/Dockerfile-local

@@ -3,6 +3,8 @@ package com.samsepiol.file.nexus.content.message.handler.impl;
 import com.samsepiol.file.nexus.content.FileContentService;
 import com.samsepiol.file.nexus.content.exception.UnsupportedFileException;
 import com.samsepiol.file.nexus.content.message.handler.FileContentConsumerService;
+import com.samsepiol.file.nexus.content.message.handler.models.request.BaseFileContentHandlerServiceRequest;
+import com.samsepiol.file.nexus.content.message.handler.models.request.ByteArrayFileContentHandlerServiceRequest;
 import com.samsepiol.file.nexus.content.message.handler.models.request.FileContentHandlerServiceRequest;
 import com.samsepiol.file.nexus.content.models.request.FileContentSaveServiceRequest;
 import com.samsepiol.file.nexus.exception.checked.FileNexusException;
@@ -14,11 +16,11 @@ import com.samsepiol.file.nexus.metadata.parser.exception.FileMetaDataParsingExc
 import com.samsepiol.file.nexus.metadata.parser.models.request.FileMetaDataParsingFromHeadersRequest;
 import com.samsepiol.file.nexus.metadata.parser.models.response.ParsedFileMetaData;
 import com.samsepiol.file.nexus.models.enums.Error;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -28,19 +30,15 @@ import static com.samsepiol.file.nexus.enums.MetadataStatus.DISCARDED;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class FileContentConsumerServiceImpl implements FileContentConsumerService {
-    private static final List<Integer> VALIDATION_ERRORS = List.of(
-            Error.MANDATORY_COLUMN_MISSING.getCode()
-    );
+public class DefaultFileContentConsumerService implements FileContentConsumerService {
+    private static final List<Integer> VALIDATION_ERRORS = List.of(Error.MANDATORY_COLUMN_MISSING.getCode());
 
     private final FileMetadataService fileMetadataService;
     private final FileContentService fileContentService;
     private final FileMetaDataParsingService fileMetaDataParsingService;
-    
-
 
     @Override
-    public void handleFileContent(FileContentHandlerServiceRequest request) {
+    public void handle(BaseFileContentHandlerServiceRequest request) {
         var optionalParsedFileMetaData = parseAndSaveFileMetaData(request);
 
         optionalParsedFileMetaData.ifPresent(parsedFileMetaData -> {
@@ -49,7 +47,7 @@ public class FileContentConsumerServiceImpl implements FileContentConsumerServic
                         .fileId(parsedFileMetaData.getFileId())
                         .fileType(parsedFileMetaData.getFileType())
                         .fileName(parsedFileMetaData.getName())
-                        .fileContents(Collections.singletonList(request.getMessage()))
+                        .fileContents(prepareFileContents(request))
                         .build();
 
                 fileContentService.save(contentSaveRequest);
@@ -61,6 +59,14 @@ public class FileContentConsumerServiceImpl implements FileContentConsumerServic
             }
         });
 
+    }
+
+    private static List<String> prepareFileContents(BaseFileContentHandlerServiceRequest request) {
+        return switch (request) {
+            case FileContentHandlerServiceRequest request1 -> Collections.singletonList(request1.getMessage());
+            case ByteArrayFileContentHandlerServiceRequest request1 -> Collections.singletonList(Base64.getEncoder().encodeToString(request1.getMessage()));
+            default -> Collections.emptyList();
+        };
     }
 
     private void handleFileNexusRuntimeException(ParsedFileMetaData parsedFileMetaData,
@@ -78,7 +84,7 @@ public class FileContentConsumerServiceImpl implements FileContentConsumerServic
         throw runtimeException;
     }
 
-    private Optional<ParsedFileMetaData> parseAndSaveFileMetaData(FileContentHandlerServiceRequest request) {
+    private Optional<ParsedFileMetaData> parseAndSaveFileMetaData(BaseFileContentHandlerServiceRequest request) {
         try {
             var parsedFileMetaData = fileMetaDataParsingService.parse(prepareMetaDataParsingRequest(request));
             var saveRequest = FileMetadataSaveRequest.forPending(parsedFileMetaData);
@@ -99,9 +105,9 @@ public class FileContentConsumerServiceImpl implements FileContentConsumerServic
         // metricHelper.recordErrorMetric(exception.getErrorCode(), exception.getMessage());
     }
 
-    private static FileMetaDataParsingFromHeadersRequest prepareMetaDataParsingRequest(FileContentHandlerServiceRequest request) {
+    private static FileMetaDataParsingFromHeadersRequest prepareMetaDataParsingRequest(BaseFileContentHandlerServiceRequest request) {
         return FileMetaDataParsingFromHeadersRequest.builder()
-                .headers(request.getHeaders())
+                .headers(request.getMetadata())
                 .build();
     }
 

@@ -21,7 +21,7 @@ public class FileContentConsumer implements MessageHandler {
     @Override
     public void process(MessageHandlerRequest request) {
         log.info("File content message received: {}", request.getValue());
-        fileContentConsumerService.handleFileContent(createFileHandlerRequest(request));
+        fileContentConsumerService.handle(createFileHandlerRequest(request));
     }
 
     @Override
@@ -31,7 +31,7 @@ public class FileContentConsumer implements MessageHandler {
 
     private FileContentHandlerServiceRequest createFileHandlerRequest(MessageHandlerRequest request) {
         return FileContentHandlerServiceRequest.builder()
-                .headers(request.getHeaders())
+                .metadata(request.getHeaders())
                 .message(request.getValue())
                 .build();
     }
